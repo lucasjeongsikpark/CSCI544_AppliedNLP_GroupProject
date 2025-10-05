@@ -41,24 +41,6 @@ CSCI544_AppliedNLP_Group/
 # Clone the repository
 git clone https://github.com/lucasjeongsikpark/CSCI544_AppliedNLP_GroupProject.git
 cd CSCI544_AppliedNLP_GroupProject
-
-# (Optional) Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate   # macOS/Linux
-venv\Scripts\activate      # Windows
-
-# Install dependencies (inside the project folder)
-cd {folder}
-uv pip install -r requirements.txt
 ```
 
 ---
-
-## Reproducibility
-
-To reproduce {folder} experiments:
-
-```bash
-cd {folder}
-python run_evaluation.py --config config.yaml
-```
