@@ -41,6 +41,7 @@ CSCI544_AppliedNLP_Group/
 # Clone the repository
 git clone https://github.com/lucasjeongsikpark/CSCI544_AppliedNLP_GroupProject.git
 cd CSCI544_AppliedNLP_GroupProject
+git submodule update --init --recursive
 
 # (Optional) Create and activate a virtual environment
 python -m venv venv
