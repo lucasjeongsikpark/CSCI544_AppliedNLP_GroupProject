@@ -5,9 +5,7 @@ import os
 from typing import Dict, List, Optional, Union
 
 from pydantic import BaseModel, Field
-
 from agentverse.llms.base import LLMResult
-
 from . import llm_registry
 from .base import BaseChatModel, BaseCompletionModel, BaseModelArgs
 from agentverse.message import Message
@@ -17,26 +15,35 @@ logger = logging.getLogger(__name__)
 try:
     import openai
     from openai import OpenAI, AsyncOpenAI
-    
-    client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"),)
-    aclient = AsyncOpenAI(api_key=os.environ.get("OPENAI_API_KEY"),)
-    from openai import OpenAIError
+
+    # ✅ OpenAI 클라이언트 초기화 (1.x 방식)
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("❌ OPENAI_API_KEY not found in environment")
+
+    client = OpenAI(api_key=api_key)
+    aclient = AsyncOpenAI(api_key=api_key)
+
+    print("✅ openai.py OPENAI_API_KEY loaded:", api_key[:10] + "...")
+    # from openai import APIError, RateLimitError
+    from openai import APIError, RateLimitError
+
+
+    # ✅ 더 이상 openai.api_key 확인하지 않음
+    is_openai_available = True
+
 except ImportError:
     is_openai_available = False
     logging.warning("openai package is not installed")
-else:
 
-    if openai.api_key is None:
-        logging.warning(
-            "OpenAI API key is not set. Please set the environment variable OPENAI_API_KEY"
-        )
-        is_openai_available = False
-    else:
-        is_openai_available = True
+except ValueError as e:
+    logging.warning(str(e))
+    is_openai_available = False
+
 
 
 class OpenAIChatArgs(BaseModelArgs):
-    model: str = Field(default="gpt-3.5-turbo")
+    model: str = Field(default="gpt-5-nano")
     max_tokens: int = Field(default=2048)
     temperature: float = Field(default=1.0)
     top_p: int = Field(default=1)
@@ -151,7 +158,7 @@ def get_embedding(text: str, attempts=3) -> np.array:
     while attempt < attempts:
         try:
             text = text.replace("\n", " ")
-            embedding = client.embeddings.create(input=[text], model="text-embedding-ada-002")["data"][0]["embedding"]
+            embedding = client.embeddings.create(input=[text], model="text-embedding-3-small")["data"][0]["embedding"]
             return tuple(embedding)
         except Exception as e:
             attempt += 1

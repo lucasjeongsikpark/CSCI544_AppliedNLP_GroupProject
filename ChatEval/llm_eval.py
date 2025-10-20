@@ -1,6 +1,6 @@
 import os
-os.environ["OPENAI_API_KEY"] = "***"
-os.environ["OPENAI_BASE_URL"] = "***"
+# os.environ["OPENAI_API_KEY"] = "***"
+# os.environ["OPENAI_BASE_URL"] = "***"
 
 # always remember to put these lines at the top of your code if you are using clash
 # os.environ["http_proxy"] = "http://127.0.0.1:7890"
