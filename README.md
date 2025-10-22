@@ -11,6 +11,16 @@ This repository contains all group deliverables, experiment results, and referen
 - **Paper:** [ChatEval: Towards Better Evaluation for Multi-turn Dialogue Models](https://arxiv.org/abs/2308.07201)
 - **Codebase:** [thunlp/ChatEval (GitHub)](https://github.com/thunlp/ChatEval)
 
+### **Ketan Joshi**
+
+#### Project: Debateable-Intelligence
+
+- **Paper:** [Debatable Intelligence: Benchmarking LLM Judges via Debate Speech Evaluation
+](https://arxiv.org/abs/2506.05062)
+- **Codebase:** [Debatable-Intelligence](https://github.com/noy-sternlicht/Debatable-Intelligence)
+
+
+
 ## Repository Structure
 
 ```
@@ -21,7 +31,7 @@ CSCI544_AppliedNLP_Group/
 │   ├── BioASQ
 │   ├── MMATH-Data
 ├── ChatEval/
-├── {add yours1}/
+├── {Debatable-Intelligence}/
 ├── {add yours2}/
 ├── {add yours3}/
 ├── {add yours4}/
