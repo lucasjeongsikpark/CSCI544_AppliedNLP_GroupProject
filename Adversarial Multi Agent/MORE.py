@@ -4,35 +4,6 @@ import ollama
 from datasets import load_dataset
 import json
 
-def mock_llm_call(prompt: str, role: str) -> str:
-    print(f"\n----- MOCK LLM CALL ({role.upper()}) -----")
-    print(f"Prompt received:\n---\n{prompt[:300]}...\n---\n")
-    time.sleep(1) 
-
-    if role == "advocate_initial":
-        return "Initially, our stance is that vegetarianism significantly reduces carbon footprint because plant-based agriculture is less resource-intensive than livestock farming."
-    
-    if role == "advocate_final":
-        return "Building on my teammate's point, vegetarianism is a more sustainable and ethical choice. Ethically, it avoids animal suffering in factory farming. Environmentally, it not only reduces carbon emissions but also drastically cuts water usage and land degradation associated with raising livestock. For instance, producing one pound of beef requires thousands of gallons of water."
-
-    if role == "judge":
-        return """
-Detailed Scores:
-- Relevance: [19, 18]
-- Accuracy: [17, 16]
-- Depth: [18, 17]
-- Clarity: [19, 19]
-- Reasoning: [18, 17]
-- Addressing Counterarguments: [16, 15]
-
-Comprehensive Feedback (50 words each):
-- Feedback for Advocate Team 1: A very strong, well-supported argument focusing on key environmental and ethical points. The use of specific examples like water usage for beef production was particularly effective in strengthening the case.
-- Feedback for Advocate Team 2: A solid argument that rightly points out the possibility of sustainable meat consumption. However, it was less forceful in directly countering the large-scale environmental arguments presented by the opposing view.
-
-Final Score Tally (sum of the above):
-(107, 102)
-"""
-    return "Error: Role not recognized."
 
 def llm_call(prompt: str, role: str) -> str:
     print(f"\n----- LLM CALL ({role.upper()}) to llama3:8b -----")
@@ -217,7 +188,7 @@ if __name__ == "__main__":
     sample_judgment = judgments_dataset['human'][1]
     
     q_id = sample_judgment['question_id']
-    debate_question = questions_dict.get(q_id, "Question not found.") # 从字典中查找问题
+    debate_question = questions_dict.get(q_id, "Question not found.")
     
     ans1 = get_assistant_answer(sample_judgment['conversation_a'])
     ans2 = get_assistant_answer(sample_judgment['conversation_b'])
@@ -234,6 +205,7 @@ if __name__ == "__main__":
                  (system_winner == 'tie' and 'tie' in human_winner)
                  
     if is_correct:
-        print("\n✅ Correct! Our system's judgment matches the human preference.")
+        print("\n Correct! Our system's judgment matches the human preference.")
     else:
-        print("\n❌ Incorrect. Our system's judgment differs from the human preference.")
+        print("\n Incorrect. Our system's judgment differs from the human preference.")
+
