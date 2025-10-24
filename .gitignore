@@ -179,3 +179,6 @@ ChatEval/!agentverse/tasks/llm_eval/data/faireval/preprocessed_data/test.json
 
 ChatEval/*.jsonl
 ChatEval/llm_eval_azure.py
+
+
+.hf_home/
