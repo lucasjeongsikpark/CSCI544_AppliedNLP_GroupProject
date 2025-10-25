@@ -1,0 +1,2 @@
+{"id": "bq-001", "question": "Which 2 medications are included in the Qsymia pill?", "evaluatee_answer": "Qsymia combines phentermine and topiramate.", "gold_exact": [["phentermine"], ["topiramate"]]}
+{"id": "bq-002", "question": "What is the primary mechanism of action of metformin?", "evaluatee_answer": "It reduces hepatic gluconeogenesis and improves insulin sensitivity.", "gold_ideal": "Decreases hepatic glucose production and increases insulin sensitivity."}

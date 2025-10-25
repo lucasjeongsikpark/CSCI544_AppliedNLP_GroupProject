@@ -1,0 +1,3 @@
+{"id": "mm-001", "question": "OP bisects angle AOB; OE=4; dist(P,OB)=2. Area △POE?", "image_path": "data/mmath_images/52950518.png", "evaluatee_final": "4", "gold_final": "4", "rationale": "Area = 1/2 * OE * distance_to_OA = 1/2*4*2."}
+{"id": "mm-002", "question": "In △ABC, AD median; CE median of △ACD; S(ABC)=12; find S(CDE).", "image_path": "data/mmath_images/52950675.png", "evaluatee_final": "3", "gold_final": "3", "rationale": "Median halves area twice: 12→6→3."}
+{"id": "mm-003", "question": "Equilateral △ABC, a=6. Find area.", "image_path": "data/mmath_images/equilateral_demo.png", "evaluatee_final": "9sqrt3", "gold_final": "9√3", "rationale": "Area = a^2√3 / 4 = 36√3/4 = 9√3."}

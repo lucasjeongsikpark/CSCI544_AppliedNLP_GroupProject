@@ -1,0 +1,28 @@
+{
+  "diqad": {
+    "llama-3.1-8b-instruct": {
+      "accuracy": 0.3333333333333333,
+      "macro_f1": 0.25
+    },
+    "qwen2-7b-instruct": {
+      "accuracy": 0.3333333333333333,
+      "macro_f1": 0.25
+    }
+  },
+  "bioasq": {
+    "llama-3.1-8b-instruct": {
+      "exact_match": 0.0
+    },
+    "qwen2-7b-instruct": {
+      "exact_match": 0.0
+    }
+  },
+  "mmath": {
+    "llama-3.1-8b-instruct": {
+      "exact_match": 1.0
+    },
+    "qwen2-7b-instruct": {
+      "exact_match": 1.0
+    }
+  }
+}

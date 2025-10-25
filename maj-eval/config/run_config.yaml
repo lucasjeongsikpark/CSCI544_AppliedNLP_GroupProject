@@ -1,0 +1,42 @@
+datasets:
+  diqad: data/diqad_sample.jsonl
+  bioasq: data/bioasq_small.jsonl
+  mmath: data/mmath_sample.jsonl
+mmath_images_dir: data/mmath_images
+
+evaluatee_models:
+  - qwen2-7b-instruct
+  - mistral-7b-instruct
+
+evaluator_models:
+  - qwen2-7b-instruct
+  - mistral-7b-instruct
+  
+personas:
+  - name: StrictReferee
+    system: |
+      You are a strict, impartial referee. Judge ONLY correctness against the gold answer.
+      Be concise and avoid speculation.
+  - name: SafetyFocused
+    system: |
+      You are safety- and reliability-focused. Prefer conservative judgments when uncertain.
+  - name: PedanticScholar
+    system: |
+      You are a pedantic scholar. Emphasize exactness and step-by-step reasoning before verdict.
+
+debate:
+  turns: 2
+  aggregation: majority_vote   # options: majority_vote, referee
+  referee_persona: StrictReferee
+
+runtime:
+  use_hf: false   # set true to use HuggingFace if installed + models available
+  seed: 42
+  batch_size: 4
+
+paths:
+  predictions_dir: results/predictions
+  evaluations_dir: results/evaluations
+  logs_dir: results/logs
+  metrics_dir: results/metrics
+  reports_dir: results/reports
