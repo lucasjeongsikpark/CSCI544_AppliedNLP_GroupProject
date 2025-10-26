@@ -6,6 +6,7 @@
 JOB_NAME=${1:-llama3_api}
 USER_EMAIL=${2:-jeongsik@usc.edu}
 MODEL_ID=${3:-meta-llama/Meta-Llama-3.1-8B-Instruct}
+PORT=${4:-8080}
 
 # ==============================
 # SLURM Directives
@@ -17,7 +18,7 @@ MODEL_ID=${3:-meta-llama/Meta-Llama-3.1-8B-Instruct}
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
-#SBATCH --time=24:00:00
+#SBATCH --time=48:00:00
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=${USER_EMAIL}
 
@@ -106,5 +107,5 @@ def chat(req: ChatRequest):
     })
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=${PORT})
 EOF
