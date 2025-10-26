@@ -182,3 +182,9 @@ ChatEval/llm_eval_azure.py
 
 
 .hf_home/
+
+# Ignore Debatable-Intelligence virtual environment and system artifacts
+Debatable-Intelligence/di-venv/
+
+# Remove accidental Windows Zone.Identifier alternate data streams
+*:Zone.Identifier
