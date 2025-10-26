@@ -5,9 +5,9 @@
 ```bash
 export HF_TOKEN={your_huggingface_token}
 vi run_model.sh   # copy and paste run_model.sh content
-sbatch run_model.sh {JOB_NAME} {USER_EMAIL} {MODEL_ID} {PORT_NUMBER}
+sbatch run_model.sh {JOB_NAME} {MODEL_ID} {PORT_NUMBER}
 # Example
-sbatch run_model.sh llama jeongsik@usc.edu meta-llama/Meta-Llama-3.1-8B-Instruct 8080
+sbatch run_model.sh llama meta-llama/Meta-Llama-3.1-8B-Instruct 8080
 ```
 
 > 💡 You may have to sign in to Hugging Face to load the model for the first time.
@@ -17,7 +17,6 @@ sbatch run_model.sh llama jeongsik@usc.edu meta-llama/Meta-Llama-3.1-8B-Instruct
 | Argument        | Description                    | Example                                 |
 | --------------- | ------------------------------ | --------------------------------------- |
 | **JOB_NAME**    | Any name you want for your job | `llama3_api`                            |
-| **USER_EMAIL**  | Your USC email address         | `jeongsik@usc.edu`                      |
 | **MODEL_ID**    | Model name from Hugging Face   | `meta-llama/Meta-Llama-3.1-8B-Instruct` |
 | **PORT_NUMBER** | Port number to serve the API   | `8080`                                  |
 
