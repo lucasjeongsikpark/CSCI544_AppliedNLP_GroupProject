@@ -1,9 +1,9 @@
 from openai import OpenAI
 
-client = OpenAI(base_url="http://localhost:8081/v1", api_key="EMPTY")
+llm = OpenAI(base_url="http://localhost:8081/v1", api_key="EMPTY") #modify the port if needed
 
-resp = client.chat.completions.create(
-    model="meta-llama/Meta-Llama-3-8B-Instruct",
+resp = llm.chat.completions.create(
+    model="meta-llama/Meta-Llama-3-8B-Instruct", #modify the model name if needed
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Summarize LangGraph in one sentence."}

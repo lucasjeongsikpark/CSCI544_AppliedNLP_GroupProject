@@ -3,5 +3,5 @@
 in another session (terminal)
 python client_call_llm.py
 
-[CARC]
+[Server]
 sbatch llama3_api.sh (wait for 30 min if it's your first time loading the model)
