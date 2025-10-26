@@ -98,15 +98,15 @@ medredqa_system_prompt = """Answer the question based on the following context."
 
 # Example: Run for GSM8K
 df_gsm8k = pd.read_csv("../data/math.csv")
-df_gsm8k = df_gsm8k[0:2]
+# df_gsm8k = df_gsm8k[0:2]
 gsm8k_results = run_inference(df_gsm8k, "gsm8k", model_key="llama", system_prompt=gsm8k_system_prompt, save_path="math.csv")
 
 # Example: Run for MedRedQA
 df_medredqa = pd.read_csv("../data/med.csv")
-df_medredqa = df_medredqa[0:2]
+# df_medredqa = df_medredqa[0:2]
 medredqa_results = run_inference(df_medredqa, "medredqa", model_key="llama", system_prompt=medredqa_system_prompt, save_path="med.csv")
 
 # Example: Run for OpenOrca
 df_openorca = pd.read_csv("../data/openQA.csv")
-df_openorca = df_openorca[0:2]
+# df_openorca = df_openorca[0:2]
 openorca_results = run_inference(df_openorca, "openorca", model_key="llama", save_path="openQA.csv")

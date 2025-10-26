@@ -1,26 +1,26 @@
 #!/bin/bash
-
-# ==============================
-# Parse Input Arguments
-# ==============================
-JOB_NAME=${1:-llama3_api}
-USER_EMAIL=${2:-jeongsik@usc.edu}
-MODEL_ID=${3:-meta-llama/Meta-Llama-3.1-8B-Instruct}
-PORT=${4:-8080}
-
-# ==============================
-# SLURM Directives
-# ==============================
-#SBATCH --job-name=${JOB_NAME}
-#SBATCH --output=logs/${JOB_NAME}_%j.out
-#SBATCH --error=logs/${JOB_NAME}_%j.err
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=48:00:00
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=${USER_EMAIL}
+#SBATCH --output=logs/%x_%j.out
+#SBATCH --error=logs/%x_%j.err
+
+mkdir -p ./logs
+
+# ==============================
+# Parse Input Arguments
+# ==============================
+JOB_NAME=${1:-llama3_api}
+MODEL_ID=${2:-meta-llama/Meta-Llama-3.1-8B-Instruct}
+PORT=${3:-8082}
+
+echo "🔹 Job Name: $JOB_NAME"
+echo "🔹 User Email: $USER_EMAIL"
+echo "🔹 Model ID: $MODEL_ID"
+echo "🔹 Port: $PORT"
 
 module purge
 module load python/3.10
@@ -48,7 +48,6 @@ from pydantic import BaseModel
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import uvicorn
 
-# --- Load Model ---
 model_id = "${MODEL_ID}"
 print(f"🔹 Loading {model_id} ...")
 
@@ -59,7 +58,6 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map="auto",
 )
 
-# --- FastAPI Server ---
 app = FastAPI()
 
 class Message(BaseModel):
