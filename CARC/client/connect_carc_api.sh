@@ -11,7 +11,7 @@
 
 if [ "$#" -lt 2 ]; then
     echo "Usage: $0 <node_name> <port> [username]"
-    echo "Example: $0 a04-20 8080 jeongsik"
+    echo "Example: $0 a04-20 8080 jeongsik" 
     exit 1
 fi
 
