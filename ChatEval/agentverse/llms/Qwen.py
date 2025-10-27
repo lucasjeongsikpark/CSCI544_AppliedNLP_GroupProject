@@ -7,20 +7,16 @@ from agentverse.llms.base import LLMResult, BaseChatModel, BaseModelArgs
 from agentverse.message import Message
 from agentverse.llms import llm_registry
 
-class LocalAPIArgs(BaseModelArgs):
-    base_url: str = Field(default=os.environ.get("LOCAL_API_BASE_URL", "http://localhost:8080/v1"))
-    model: str = Field(default=os.environ.get("LOCAL_API_MODEL", "meta-llama/Meta-Llama-3.1-8B-Instruct"))
-    # base_url: str = Field(default=os.environ.get("LOCAL_API_BASE_URL", ""))
-    # model: str = Field(default=os.environ.get("LOCAL_API_MODEL", ""))
-    # base_url: str = Field(default=os.environ.get("LOCAL_API_BASE_URL", "http://localhost:8083/v1"))
-    # model: str = Field(default=os.environ.get("LOCAL_API_MODEL", "mistralai/Mistral-7B-Instruct-v0.1"))
+class QwenAPIArgs(BaseModelArgs):
+    base_url: str = Field(default=os.environ.get("LOCAL_API_BASE_URL", "http://localhost:8082/v1"))
+    model: str = Field(default=os.environ.get("LOCAL_API_MODEL", "Qwen/Qwen3-8B"))
     max_tokens: int = Field(default=2048)
     temperature: float = Field(default=0.7)
     top_p: float = Field(default=0.9)
 
-@llm_registry.register("local_api")
-class LocalAPIChat(BaseChatModel):
-    args: LocalAPIArgs = Field(default_factory=LocalAPIArgs)
+@llm_registry.register("Qwen")
+class QwenAPIChat(BaseChatModel):
+    args: QwenAPIArgs = Field(default_factory=QwenAPIArgs)
 
     def _construct_messages(self, prompt: str, chat_memory: List[Message], final_prompt: str):
         messages = [{"role": "user", "content": prompt}]

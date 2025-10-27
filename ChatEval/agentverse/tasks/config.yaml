@@ -68,9 +68,9 @@ agents:
     #   temperature: 0.7
     #   max_tokens: 512
     llm:
-      llm_type: local_api
-      base_url: "http://localhost:8083/v1" # 모델2의 포트
-      model: "mistralai/Mistral-7B-Instruct-v0.1"
+      llm_type: Qwen
+      base_url: "http://localhost:8082/v1" # 모델2의 포트
+      model: "Qwen/Qwen3-8B"
       temperature: 0.7
       max_tokens: 512
   - agent_type: llm_eval_multi
@@ -97,7 +97,7 @@ agents:
     #   temperature: 0
     #   max_tokens: 512
     llm:
-      llm_type: local_api
+      llm_type: Mistral
       base_url: "http://localhost:8083/v1" # 모델2의 포트
       model: "mistralai/Mistral-7B-Instruct-v0.1"
       temperature: 0.7
