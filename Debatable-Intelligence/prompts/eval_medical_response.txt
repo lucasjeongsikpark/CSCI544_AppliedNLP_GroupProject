@@ -1,0 +1,40 @@
+You are evaluating the quality of a medical advice response from a healthcare professional.
+
+Here is the medical document/context:
+<document>
+{DOCUMENT}
+</document>
+
+Here is the patient's question or concern:
+<patient_question>
+{INPUT}
+</patient_question>
+
+Here is the medical professional's reference response:
+<reference_response>
+{OUTPUT}
+</reference_response>
+
+Here is the response to be evaluated:
+<response>
+{RESPONSE}
+</response>
+
+Your task is to evaluate the quality of this medical response based on:
+1. Medical Accuracy: Is the information medically sound?
+2. Appropriateness: Is the advice appropriate for the described situation?
+3. Safety: Does it prioritize patient safety?
+4. Clarity: Is the explanation clear and understandable?
+5. Professionalism: Does it maintain appropriate professional tone?
+
+Please rate the response quality on the following scale:
+1 = Very Poor (inaccurate, unsafe, or inappropriate)
+2 = Poor (significant medical concerns or unclear)
+3 = Fair (generally appropriate but with notable gaps)
+4 = Good (medically sound with minor issues)
+5 = Excellent (accurate, safe, clear, and professional)
+
+Provide your score in the following format:
+<score>
+[Insert a single number between 1 and 5]
+</score>

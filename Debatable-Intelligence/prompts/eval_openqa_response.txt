@@ -1,0 +1,40 @@
+You are evaluating the quality of an AI assistant's response to a question-answering task.
+
+Here is the system prompt that was given to the assistant:
+<system_prompt>
+{SYSTEM_PROMPT}
+</system_prompt>
+
+Here is the question or task:
+<question>
+{INPUT}
+</question>
+
+Here is the expected/reference answer:
+<expected_answer>
+{OUTPUT}
+</expected_answer>
+
+Here is the response to be evaluated:
+<response>
+{RESPONSE}
+</response>
+
+Your task is to evaluate the quality of this response based on:
+1. Relevance: Does it address the question appropriately?
+2. Completeness: Is the response comprehensive and detailed?
+3. Accuracy: Is the information correct compared to the reference?
+4. Clarity: Is the response well-structured and clear?
+5. Helpfulness: Would this response be useful to the user?
+
+Please rate the response quality on the following scale:
+1 = Very Poor (irrelevant, incorrect, or unhelpful)
+2 = Poor (partially relevant but with major issues)
+3 = Fair (somewhat relevant but missing key information)
+4 = Good (relevant and mostly correct with minor issues)
+5 = Excellent (highly relevant, accurate, and comprehensive)
+
+Provide your score in the following format:
+<score>
+[Insert a single number between 1 and 5]
+</score>

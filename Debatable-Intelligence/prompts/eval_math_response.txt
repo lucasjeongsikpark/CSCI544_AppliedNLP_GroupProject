@@ -1,0 +1,34 @@
+You are evaluating the quality and correctness of a mathematical reasoning response.
+
+Here is the math problem:
+<problem>
+{INPUT}
+</problem>
+
+Here is the expected correct answer:
+<expected_answer>
+{OUTPUT}
+</expected_answer>
+
+Here is the response to be evaluated:
+<response>
+{RESPONSE}
+</response>
+
+Your task is to evaluate the quality of this mathematical response based on:
+1. Correctness: Does it arrive at the correct answer?
+2. Reasoning: Is the step-by-step reasoning clear and logical?
+3. Completeness: Are all necessary steps shown?
+4. Accuracy: Are calculations correct?
+
+Please rate the response quality on the following scale:
+1 = Very Poor (incorrect answer, flawed reasoning)
+2 = Poor (incorrect answer or significant errors in reasoning)
+3 = Fair (partially correct or unclear reasoning)
+4 = Good (correct answer with minor issues in explanation)
+5 = Excellent (correct answer with clear, complete reasoning)
+
+Provide your score in the following format:
+<score>
+[Insert a single number between 1 and 5]
+</score>
