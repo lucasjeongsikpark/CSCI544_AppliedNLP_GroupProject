@@ -98,7 +98,6 @@ curl http://localhost:8083/v1/chat/completions   -H "Content-Type: application/j
   }'
 ```
 
-If you see a JSON response with `"role": "assistant"`,  
-your endpoint is working perfectly 🎯
+If you see a JSON response with `"role": "assistant"`, your endpoint is working perfectly 🎯
 
 ---

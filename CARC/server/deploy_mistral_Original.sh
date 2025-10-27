@@ -70,20 +70,25 @@ class ChatRequest(BaseModel):
     top_p: float | None = 0.9
 @app.post("/v1/chat/completions")
 def chat(req: ChatRequest):
-    prompt_text = "\n".join([f"{m.role}: {m.content}" for m in req.messages])
-    inputs = tokenizer(prompt_text, return_tensors="pt").to(model.device)
-
+    input_ids = tokenizer.apply_chat_template(
+        [{"role": m.role, "content": m.content} for m in req.messages],
+        add_generation_prompt=True,
+        return_tensors="pt"
+    ).to(model.device)
+    terminators = [
+        tokenizer.eos_token_id,
+        tokenizer.convert_tokens_to_ids("<|eot_id|>")
+    ]
     outputs = model.generate(
-        **inputs,
+        input_ids,
         max_new_tokens=req.max_tokens,
+        eos_token_id=terminators,
         do_sample=True,
         temperature=req.temperature,
         top_p=req.top_p,
     )
-
-    response_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
+    response_tokens = outputs[0][input_ids.shape[-1]:]
     assistant_reply = tokenizer.decode(response_tokens, skip_special_tokens=True).strip()
-
     return JSONResponse({
         "object": "chat.completion",
         "choices": [{
