@@ -1,9 +1,6 @@
-task:
-  llmeval
-data_path:
-  ./agentverse/tasks/llm_eval/data/faireval/preprocessed_data/test.json
-output_dir:
-  ./outputs/llm_eval/multi_role/only_static_assign/faireval/two_turns_sequential/two_different_role/calc_score_comparison_reverse/gpt_35_0301
+task: llmeval
+data_path: ./agentverse/tasks/llm_eval/data/faireval/preprocessed_data/test.json
+output_dir: ./outputs/llm_eval/multi_role/only_static_assign/faireval/two_turns_sequential/two_different_role/calc_score_comparison_reverse/gpt_35_0301
 prompts:
   prompt: &prompt |-
     [Question]
@@ -26,7 +23,6 @@ prompts:
 
     ${final_prompt}
 
-
 environment:
   env_type: llm_eval
   max_turns: 4
@@ -43,8 +39,7 @@ environment:
       type: basic
 
 agents:
-  -
-    agent_type: llm_eval_multi
+  - agent_type: llm_eval_multi
     name: General Public
     final_prompt_to_use: |-
       Please first provide a comprehensive explanation of your evaluation, avoiding any potential bias and ensuring that the order in which the responses were presented does not affect your judgment.
@@ -63,12 +58,12 @@ agents:
       memory_manipulator_type: basic
     prompt_template: *prompt
     llm:
-      model: "gpt-4"
-      llm_type: gpt-4
-      temperature: 0
+      llm_type: local_api # 새로 등록한 클래스 사용
+      base_url: "http://localhost:8080/v1" # 모델1의 포트
+      model: "meta-llama/Meta-Llama-3.1-8B-Instruct"
+      temperature: 0.7
       max_tokens: 512
-  -
-    agent_type: llm_eval_multi
+  - agent_type: llm_eval_multi
     name: Critic
     final_prompt_to_use: |-
       Please first provide a comprehensive explanation of your evaluation, avoiding any potential bias and ensuring that the order in which the responses were presented does not affect your judgment.
@@ -87,9 +82,10 @@ agents:
       memory_manipulator_type: basic
     prompt_template: *prompt
     llm:
-      model: "gpt-4"
-      llm_type: gpt-4
-      temperature: 0
+      llm_type: local_api
+      base_url: "http://localhost:8081/v1" # 모델2의 포트
+      model: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+      temperature: 0.7
       max_tokens: 512
 
 tools: ~
