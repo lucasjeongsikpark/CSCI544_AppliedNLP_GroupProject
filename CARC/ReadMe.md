@@ -79,6 +79,16 @@ Both scripts send OpenAI-style API requests to:
 To verify that your server is running correctly:
 
 ```bash
+curl http://localhost:8082/v1/chat/completions   -H "Content-Type: application/json"   -d '{
+    "model": "Qwen/Qwen3-8B",
+    "messages": [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Summarize LangGraph in one sentence."}
+    ]
+  }'
+```
+
+```bash
 curl http://localhost:8083/v1/chat/completions   -H "Content-Type: application/json"   -d '{
     "model": "mistralai/Mistral-7B-Instruct-v0.1",
     "messages": [
