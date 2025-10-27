@@ -1,44 +1,94 @@
-# CARC LLMs API Deployment Guide
+# 🚀 CARC LLMs API Deployment Guide
 
-## [Server: CARC]
-
-```bash
-export HF_TOKEN={your_huggingface_token}
-vi run_model.sh   # copy and paste run_model.sh content
-sbatch run_model.sh {JOB_NAME} {MODEL_ID} {PORT_NUMBER}
-# Example
-sbatch run_model.sh llama meta-llama/Meta-Llama-3.1-8B-Instruct 8080
-```
-
-> 💡 You may have to sign in to Hugging Face to load the model for the first time.
-
-### Argument Details
-
-| Argument        | Description                    | Example                                 |
-| --------------- | ------------------------------ | --------------------------------------- |
-| **JOB_NAME**    | Any name you want for your job | `llama3_api`                            |
-| **MODEL_ID**    | Model name from Hugging Face   | `meta-llama/Meta-Llama-3.1-8B-Instruct` |
-| **PORT_NUMBER** | Port number to serve the API   | `8080`                                  |
-
-⏳ **Note:**  
-If it's your first time loading the model, please wait about **30 minutes**.  
-You can check the health and progress logs in the `logs/` directory.
+This guide explains how to **deploy and access LLM APIs on the CARC GPU cluster** (e.g., Mistral & Qwen)  
+using SLURM + FastAPI + OpenAI-compatible endpoints.
 
 ---
 
-## [Client]
+## 🖥️ [Server Setup on CARC]
 
-In your **local terminal**, run the following command so that you can **create an SSH tunnel to the CARC server**.  
-You can check **NODE_NAME (Node List)** here: [CARC Active Jobs Dashboard](https://ondemand.carc.usc.edu/pun/sys/dashboard/activejobs)
+### 1️⃣ Configure Hugging Face Access
+
+```bash
+export HF_TOKEN={your_huggingface_token}
+```
+
+### 2️⃣ Prepare Deployment Scripts
+
+Copy & paste the content into each file:
+
+```bash
+vi deploy_qwen.sh
+vi deploy_mistral.sh
+```
+
+### 3️⃣ Launch Models via SLURM
+
+```bash
+sbatch deploy_qwen.sh
+sbatch deploy_mistral.sh
+```
+
+> ⏳ **Note:**  
+> The first time you load each model, it may take **up to 30 minutes**.  
+> You can monitor the startup and inference logs in the `logs/` directory.
+
+---
+
+## 💻 [Client Access]
+
+### 1️⃣ Connect via SSH Tunnel
+
+Run the following command on your **local machine** to create a secure tunnel  
+to your CARC node running the API server.
+
+You can check your **NODE_NAME (Node List)** here:  
+👉 [CARC Active Jobs Dashboard](https://ondemand.carc.usc.edu/pun/sys/dashboard/activejobs)
 
 ```bash
 ./connect_carc_api.sh {NODE_NAME} {PORT_NUMBER} {USC_EMAIL_PREFIX}
-# Example
-./connect_carc_api.sh a04-20 8080 jeongsik
 ```
 
-Then, open **another terminal session** to **call the model and perform inference**:
+#### 🔹 Example
 
 ```bash
-python client_call_llm.py
+./connect_carc_api.sh a04-20 8082 jeongsik   # for Qwen
+./connect_carc_api.sh a04-19 8083 jeongsik   # for Mistral
 ```
+
+---
+
+### 2️⃣ Run Inference from Local Terminal
+
+Once the SSH tunnel is active, open another terminal and run:
+
+```bash
+python call_mistral.py
+python call_qwen.py
+```
+
+Both scripts send OpenAI-style API requests to:
+
+- `http://localhost:8082/v1/chat/completions` → Qwen3-8B
+- `http://localhost:8083/v1/chat/completions` → Mistral-7B-Instruct
+
+---
+
+## ✅ Quick Health Check (Optional)
+
+To verify that your server is running correctly:
+
+```bash
+curl http://localhost:8083/v1/chat/completions   -H "Content-Type: application/json"   -d '{
+    "model": "mistralai/Mistral-7B-Instruct-v0.1",
+    "messages": [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Summarize LangGraph in one sentence."}
+    ]
+  }'
+```
+
+If you see a JSON response with `"role": "assistant"`,  
+your endpoint is working perfectly 🎯
+
+---

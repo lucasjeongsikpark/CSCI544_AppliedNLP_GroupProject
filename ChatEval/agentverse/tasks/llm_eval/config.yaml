@@ -58,9 +58,9 @@ agents:
       memory_manipulator_type: basic
     prompt_template: *prompt
     llm:
-      llm_type: local_api # 새로 등록한 클래스 사용
-      base_url: "http://localhost:8080/v1" # 모델1의 포트
-      model: "meta-llama/Meta-Llama-3.1-8B-Instruct"
+      llm_type: local_api
+      base_url: "http://localhost:8083/v1" # 모델2의 포트
+      model: "mistralai/Mistral-7B-Instruct-v0.1"
       temperature: 0.7
       max_tokens: 512
   - agent_type: llm_eval_multi
@@ -83,9 +83,8 @@ agents:
     prompt_template: *prompt
     llm:
       llm_type: local_api
-      base_url: "http://localhost:8081/v1" # 모델2의 포트
-      model: "deepseek-ai/DeepSeek-R1-Distill-Llama-8B"
+      base_url: "http://localhost:8083/v1" # 모델2의 포트
+      model: "mistralai/Mistral-7B-Instruct-v0.1"
       temperature: 0.7
       max_tokens: 512
-
 tools: ~
