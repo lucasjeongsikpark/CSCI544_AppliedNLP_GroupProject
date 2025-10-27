@@ -11,7 +11,7 @@ def load_csv_safe(path):
     raise RuntimeError(f"❌ Failed to read {path} with common encodings")
 
 
-def merge_model_outputs(base_path, llama_path, distill_path, output_path, domain_name):
+def merge_model_outputs(base_path, llama_path, distill_path, output_path, domain_name, export_json=True):
     """
     Merge base dataset with llama and distill_llama outputs.
     
@@ -21,6 +21,7 @@ def merge_model_outputs(base_path, llama_path, distill_path, output_path, domain
         distill_path: Path to distill_llama inference output
         output_path: Where to save merged CSV
         domain_name: 'math', 'med', or 'openQA' for logging
+        export_json: If True, also export as JSON file
     """
     print(f"\n🔄 Merging {domain_name} datasets...")
     
@@ -65,7 +66,14 @@ def merge_model_outputs(base_path, llama_path, distill_path, output_path, domain
     # Save merged dataset
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     base_df.to_csv(output_path, index=False, encoding='utf-8-sig')
-    print(f"  💾 Saved merged dataset: {output_path}")
+    print(f"  💾 Saved merged CSV: {output_path}")
+    
+    # Export JSON if requested
+    if export_json:
+        json_path = output_path.replace('.csv', '.json')
+        base_df.to_json(json_path, orient='records', indent=2, force_ascii=False)
+        print(f"  💾 Saved merged JSON: {json_path}")
+    
     print(f"  Final shape: {base_df.shape}")
     print(f"  Columns: {list(base_df.columns)}")
     
@@ -86,7 +94,7 @@ if __name__ == "__main__":
         base_path=f'{data_dir}/math.csv',
         llama_path=f'{data_dir}/llama_math.csv',
         distill_path=f'{data_dir}/distill_llama_math.csv',
-        output_path=f'{data_dir}/math_merged.csv',
+        output_path=f'{data_dir}/math_cleaned.csv',
         domain_name='Math'
     )
     
@@ -95,7 +103,7 @@ if __name__ == "__main__":
         base_path=f'{data_dir}/med.csv',
         llama_path=f'{data_dir}/llama_med.csv',
         distill_path=f'{data_dir}/distill_llama_med.csv',
-        output_path=f'{data_dir}/med_merged.csv',
+        output_path=f'{data_dir}/med_cleaned.csv',
         domain_name='Medical'
     )
     
@@ -104,7 +112,7 @@ if __name__ == "__main__":
         base_path=f'{data_dir}/openQA.csv',
         llama_path=f'{data_dir}/llama_openQA.csv',
         distill_path=f'{data_dir}/distill_llama_openQA.csv',
-        output_path=f'{data_dir}/openQA_merged.csv',
+        output_path=f'{data_dir}/openQA_cleaned.csv',
         domain_name='OpenQA'
     )
     
@@ -112,7 +120,7 @@ if __name__ == "__main__":
     print("✅ Dataset merging complete!")
     print("=" * 60)
     print("\nMerged datasets created:")
-    print(f"  • {data_dir}/math_merged.csv")
-    print(f"  • {data_dir}/med_merged.csv")
-    print(f"  • {data_dir}/openQA_merged.csv")
+    print(f"  • {data_dir}/math_cleaned.csv + math_cleaned.json")
+    print(f"  • {data_dir}/med_cleaned.csv + med_cleaned.json")
+    print(f"  • {data_dir}/openQA_cleaned.csv + openQA_cleaned.json")
 
