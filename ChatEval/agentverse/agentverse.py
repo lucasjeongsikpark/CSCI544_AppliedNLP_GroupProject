@@ -41,9 +41,6 @@ class AgentVerse:
         # Build the environment
         env_config = task_config["environment"]
         env_config["agents"] = agents
-        print("*"*30)
-        print(env_config["agents"])
-        print("*"*30)
         environment = load_environment(env_config)
 
         # Set input_path and output_path
