@@ -1,0 +1,26 @@
+{
+  "data_path": "../datasets/data/math.csv",
+  "output_path": "output/math_results/",
+  "openai_key_path": "secret_keys/openai_key",
+  "anthropic_key_path": "secret_keys/anthropic_key",
+  "huggingface_key_path": "secret_keys/huggingface_key",
+  "max_tokens": 2048,
+  "temperature": 0.01,
+  "dataset_type": "math",
+  "experiments": [
+    {
+      "name": "math-eval",
+      "prompt_path": "./prompts/eval_math_response.txt",
+      "run": true
+    }
+  ],
+  "models": {
+    "huggingface": [
+      "meta-llama/Llama-2-7b-chat-hf",
+      "mistralai/Mistral-7B-Instruct-v0.2"
+    ]
+  },
+  "participating_models": [
+    "huggingface"
+  ]
+}
