@@ -9,8 +9,8 @@ class Role(enum.Enum):
     CRITIC = 1
 
 _MODELS = {
-    Role.SCORER: "gemma2:2b",
-    Role.CRITIC: "gemma2:2b",
+    Role.SCORER: "deepseek-r1:1.5b",
+    Role.CRITIC: "deepseek-r1:1.5b",
 }
 
 
