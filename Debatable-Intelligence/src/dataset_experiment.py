@@ -145,12 +145,19 @@ def dataset_experiment():
         with open(experiment['prompt_path'], 'r') as f:
             prompt_template = f.read()
 
+        # Respect max_examples if set in experiment config
+        exp_data = data
+        max_examples = experiment.get('max_examples', None)
+        if max_examples is not None:
+            exp_data = exp_data.iloc[:int(max_examples)]
+            logger.info(f'Limiting to first {max_examples} examples for this experiment.')
+
         experiment_results = {}
         for model_name, model in models.items():
             logger.info(f'Running experiment for model: {model_name}')
 
             # Generate prompts for both llama_output and distill_llama_output
-            prompts_dict = generate_prompts_for_dataset(data, prompt_template, dataset_type)
+            prompts_dict = generate_prompts_for_dataset(exp_data, prompt_template, dataset_type)
             prompts = {k: v['prompt'] for k, v in prompts_dict.items()}
 
             batch_idx = model.request_batch_completions(prompts, max_tokens, temperature, 0, config['output_path'])
@@ -174,7 +181,7 @@ def dataset_experiment():
                 score = parse_response(response)
                 reasoning = get_reasoning(response)
                 # Find the original row for context
-                orig_row = data[data['id'] == row_id].iloc[0]
+                orig_row = exp_data[exp_data['id'] == row_id].iloc[0]
                 results.append({
                     'id': row_id,
                     'answer_type': answer_type,
