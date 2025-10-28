@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 import pandas as pd
 from openai import OpenAI, ChatCompletion
-import anthropic
+# import anthropic
 
 from transformers import pipeline, BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer
 import torch
