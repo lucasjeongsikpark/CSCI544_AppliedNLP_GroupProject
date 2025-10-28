@@ -12,6 +12,7 @@ import anthropic
 
 from transformers import pipeline, BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer
 import torch
+import requests
 
 
 class LanguageModel(ABC):
@@ -211,3 +212,55 @@ class AnthropicModel(LanguageModel):
         result = {'completion': response}
 
         return result
+
+
+class OllamaModel(LanguageModel):
+    """Local model wrapper using the Ollama HTTP API.
+
+    Notes:
+    - Requires `ollama serve` to be running locally (default: http://localhost:11434)
+    - Assumes the target model is already pulled (e.g., `ollama pull llama3.1`)
+    - Uses the /api/generate endpoint (completion-style) without streaming
+    """
+
+    def __init__(self, model_name: str, base_url: str = "http://localhost:11434"):
+        self.model_name = model_name
+        self.base_url = base_url.rstrip("/")
+
+    def _simple_generate(self, prompt: str, max_tokens: int, temperature: float) -> str:
+        url = f"{self.base_url}/api/generate"
+        payload = {
+            "model": self.model_name,
+            "prompt": prompt,
+            "stream": False,
+            "options": {
+                # num_predict is the maximum number of tokens to predict (roughly analogous to max_new_tokens)
+                "num_predict": max(1, int(max_tokens)),
+                "temperature": float(temperature),
+            },
+        }
+
+        try:
+            resp = requests.post(url, json=payload, timeout=600)
+            resp.raise_for_status()
+            data = resp.json()
+            # Ollama returns the generated text under the 'response' key
+            return data.get("response", "")
+        except Exception as e:
+            print(f"Error querying Ollama model '{self.model_name}': {e}")
+            raise
+
+    def generate(self, prompt: str, max_tokens: int, temperature: float) -> Dict[str, str]:
+        # Minimal retry for robustness when the local server is busy starting the model
+        retries = 2
+        backoff = 5
+        last_err = None
+        for _ in range(retries + 1):
+            try:
+                response_text = self._simple_generate(prompt, max_tokens, temperature)
+                return {"completion": response_text}
+            except Exception as e:
+                last_err = e
+                time.sleep(backoff)
+        # Re-raise the last error if all retries failed
+        raise last_err

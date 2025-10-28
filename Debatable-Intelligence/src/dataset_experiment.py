@@ -2,7 +2,7 @@ import argparse
 import os
 import time
 from typing import Dict
-from model import LanguageModel, OpenAIModel, HuggingFaceModel, AnthropicModel, OpenAIReasoningModel
+from model import LanguageModel, OpenAIModel, HuggingFaceModel, AnthropicModel, OpenAIReasoningModel, OllamaModel
 from util import setup_default_logger, create_out_dir
 import json
 import pandas as pd
@@ -114,6 +114,12 @@ def setup_models() -> Dict[str, LanguageModel]:
         for model_name in available_models['anthropic']:
             logger.info(f'Setting up Anthropic model with model name: {model_name}')
             models[f'anthropic_{model_name}'] = AnthropicModel(api_key, model_name)
+
+    if 'ollama' in participating_models:
+        base_url = config.get('ollama_base_url', 'http://localhost:11434')
+        for model_name in available_models.get('ollama', []):
+            logger.info(f'Setting up Ollama model with name: {model_name} (base_url={base_url})')
+            models[f'ollama_{model_name}'] = OllamaModel(model_name, base_url)
 
     return models
 

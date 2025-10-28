@@ -51,6 +51,20 @@ A quick start guide to get you up and running with the code.
    pip install -r requirements.txt
    ```
 
+### Use local models with Ollama
+
+If you prefer to run everything locally without cloud APIs, you can use [Ollama](https://ollama.com/):
+
+1. Install and start the Ollama server:
+  - Linux/macOS: install from the Ollama website, then run `ollama serve` in a terminal.
+  - Pull a model, e.g., `ollama pull llama3.1` (or any chat/instruct model you like).
+2. In the config files under `src/` (e.g., `config_openqa.json`, `config_math.json`, `config_med.json`):
+  - Set `"participating_models": ["ollama"]`.
+  - Under `"models"`, add an `"ollama"` array with your model(s), e.g. `"llama3.1:8b-instruct"`.
+  - Optionally tweak `"ollama_base_url"` if your server isn't on the default `http://localhost:11434`.
+
+No API key is required for Ollama. The code will call the local server via its HTTP API.
+
 ### Setting up API keys
 
 Some of the code requires access to external APIs. You will need to set an OpenAI API key, an Anthropic key and a
@@ -116,6 +130,9 @@ receives a config file defining which models to run, what prompt to use, and so 
        }
      ],
      "models": { # Which models to run (divided by required key). For example, listing "openai" under "participating_models" will run the specified openai models.
+       "ollama": [
+         "llama3.1:8b-instruct"
+       ],
        "openai": [
          "o3"
        ],
@@ -127,7 +144,14 @@ receives a config file defining which models to run, what prompt to use, and so 
        ]
      },
      "participating_models": [
-       "anthropic"
+       "ollama"
+     ],
+     "ollama_base_url": "http://localhost:11434"
+    }
+   ```
+
+For local-only runs, you can ignore the API key fields and just set `participating_models` to `["ollama"]`.
+For cloud providers, leave Ollama out and configure keys as usual.
      ]}
    ```
 

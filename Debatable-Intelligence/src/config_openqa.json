@@ -15,12 +15,16 @@
     }
   ],
   "models": {
+    "ollama": [
+      "llama3.1:8b-instruct"
+    ],
     "huggingface": [
       "meta-llama/Llama-2-7b-chat-hf",
       "mistralai/Mistral-7B-Instruct-v0.2"
     ]
   },
   "participating_models": [
-    "huggingface"
-  ]
+    "ollama"
+  ],
+  "ollama_base_url": "http://localhost:11434"
 }
