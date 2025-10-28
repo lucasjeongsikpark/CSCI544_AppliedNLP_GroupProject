@@ -1,5 +1,5 @@
 {
-  "data_path": "../datasets/data/math.csv",
+  "data_path": "../datasets/data/math_cleaned.csv",
   "output_path": "output/math_results/",
   "openai_key_path": "secret_keys/openai_key",
   "anthropic_key_path": "secret_keys/anthropic_key",
@@ -11,16 +11,13 @@
     {
       "name": "math-eval",
       "prompt_path": "./prompts/eval_math_response.txt",
-      "run": true
+      "run": true,
+      "max_examples": 2
     }
   ],
   "models": {
     "ollama": [
-      "llama3.1:8b-instruct"
-    ],
-    "huggingface": [
-      "meta-llama/Llama-2-7b-chat-hf",
-      "mistralai/Mistral-7B-Instruct-v0.2"
+      "gemma2:2b"
     ]
   },
   "participating_models": [
