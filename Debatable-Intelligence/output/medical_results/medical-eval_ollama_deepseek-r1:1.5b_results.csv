@@ -1,0 +1,67 @@
+id,answer_type,input,output,model,experiment,score,response,reasoning
+0,llama_output,"-	29
+-	Male
+-	USA
+
+I’m very confused why different labs have different ranges. For example, for WBC, these are the “normal” ranges by lab -
+
+-	LabCorp - 3.4-10.8 ([This example report]( is the range listed on my labs, even though [their website]( also says 4.5-11). 
+-	Quest - 3.8-10.8 ([This]( is listed on their website).
+-	[Most]( [websites]( say between 4-11.
+
+I had a 3.7 at LabCorp (normal for them [in the ranges]( listed on my test) but that’s considered low at Quest and other websites...even LabCorps own [website]( says between a 4.5-11 is normal. 
+
+I’m a 4 at Quest (which is normal for their ranges). But that’s still considered low on other websites. 
+
+Does anyone know why this is? And if I need to be concerned or not about my “normal” results that seem to be low?","Nothing to be worried about. Depending upon the exact method and equipment and reagents used, every lab has to calibrate its tests, and decide upon what's ""normal"" for their lab (e.g. the values seen in 95% of their population). Every time they switch reagents, or change suppliers for a kit, or update something else, the normal range may change. (It's like buying the same shirt size from different stores - they are all different sizes even though they are supposed to be the same; or like buying the same color of paint from different paint manufacturers - the exact tint is different).",ollama_deepseek-r1:1.5b,medical-eval,4,"<score>
+4
+</score>",
+0,distill_llama_output,"-	29
+-	Male
+-	USA
+
+I’m very confused why different labs have different ranges. For example, for WBC, these are the “normal” ranges by lab -
+
+-	LabCorp - 3.4-10.8 ([This example report]( is the range listed on my labs, even though [their website]( also says 4.5-11). 
+-	Quest - 3.8-10.8 ([This]( is listed on their website).
+-	[Most]( [websites]( say between 4-11.
+
+I had a 3.7 at LabCorp (normal for them [in the ranges]( listed on my test) but that’s considered low at Quest and other websites...even LabCorps own [website]( says between a 4.5-11 is normal. 
+
+I’m a 4 at Quest (which is normal for their ranges). But that’s still considered low on other websites. 
+
+Does anyone know why this is? And if I need to be concerned or not about my “normal” results that seem to be low?","Nothing to be worried about. Depending upon the exact method and equipment and reagents used, every lab has to calibrate its tests, and decide upon what's ""normal"" for their lab (e.g. the values seen in 95% of their population). Every time they switch reagents, or change suppliers for a kit, or update something else, the normal range may change. (It's like buying the same shirt size from different stores - they are all different sizes even though they are supposed to be the same; or like buying the same color of paint from different paint manufacturers - the exact tint is different).",ollama_deepseek-r1:1.5b,medical-eval,-1,,
+1,llama_output,"If you’re reading this, thank you. It’s been a long, 15 year  journey with my skin issues and I’m feeling hopeless this evening because through it all, I feel like I have made no real progress. 
+
+I have acne, and I’m a 33 year old Caucasian female with fair, freckled combination skin. My acne started to get really bad about 10 years ago. I’ve tried numerous skincare routines/topical treatments. They didn’t work (although I’m not giving up on that front). Was on Minocycline for 2 years which initially worked somewhat, but it started declining in effectiveness after a year and eventually just stopped working entirely. Next, was Doxycycline which gave me the worst, month long yeast infection I’ve ever had and didn’t do much for my skin. 
+
+From there - I stopped all acne medications for about 6 months in an effort to let my body recover from the 2 years of daily antibiotics, and let my skin go through whatever it needed to go through off meds in hopes it would clear up (naive aspirations...). I was hanging in there after 5 months of being med-free, until I picked up some kind of skin bacteria or fungus when I went camping. I had dry looking red patches on my face and In my scalp that itched. 
+
+My doctor wasn’t exactly sure what it was, but she prescribed me Bactrim. The minute I heard she was prescribing me another stronger antibiotic, I knew right away that it was going to clear my skin and got this guilty, excited feeling like the acne med junkie that I am. Well- I was right....it cleared up the mystery dry itchy spots on my face and hair(although one of the bigger mystery patches left a pretty sizable scar which was jolting), but it also just so happened to clear my entire face better than ANYTHING ever tried before. 
+
+For the first time in 10 years, I had next to 100% clear, glowing skin. It was such a good feeling. I could go makeup free for the first time in my life. The taste of freedom was too good, though... because I basically became addicted to Bactrim. I managed to get a couple more prescriptions for it and have been abusing the medication for 10 months, dragging out these last pills I have by taking half of a 75mg Bactrim (1/4 of the prescribed daily amount) per day. I know what I’m doing is not healthy or smart and I don’t want to cause a mutant bacteria growth/resistance within my system so I am stopping, this week. 
+
+My questions are - why are antibiotics the only thing that clears my skin? What does that say about my system and overall health? That I need to work on my gut flora/General gut health? Even the Bactrim at this point is starting to decline in effectiveness, the same issue with antibiotics in general.
+
+Some more info about my acne: I get all types of blemishes - closed commodones, blackheads, cystic acne and whiteheads, all over my face. The closed comodones are mainly on my forehead and jawline, cystic on my cheeks and cheekbones and also my chin, whiteheads pop up everywhere randomly, and in the last 2 years there’s been a surge of blackheads that come up literally all over my whole face. I’ve never had this many issues before. (The last time I saw my skin at its worst was 10 months ago before I started Bactrim) It got really bad before I started taking Bactrim and I’m dreading what I might be going through again. 
+
+Im also worried about scarring - I’m 33 and my skin is not recovering from scarring as well as it used to. Lastly, diet info: I’ve ruled dairy out as a trigger by eliminating it from my diet for 2 months and seeing no improvement. And I am about to do the same with sugar. I’m hoping someone who’s been through something similar will read this and be able to give some guidance or support. If you’ve gotten this far, thank you for reading and good luck to you all on your skin care journeys.","Acne is a chronic disease, and nothing that you do will cure it. You will grow out of the condition eventually -- there are exceptionally few 80 year olds with acne. Drugs like your oral antibiotic are thought to primarily work through inflammation reduction, but the antimicrobial effect may be related. Either way, for some it works ( You may consider a course of isotretinoin. This is the only agent that can induce a remission.",ollama_deepseek-r1:1.5b,medical-eval,3,"<score>
+3
+</score>",
+1,distill_llama_output,"If you’re reading this, thank you. It’s been a long, 15 year  journey with my skin issues and I’m feeling hopeless this evening because through it all, I feel like I have made no real progress. 
+
+I have acne, and I’m a 33 year old Caucasian female with fair, freckled combination skin. My acne started to get really bad about 10 years ago. I’ve tried numerous skincare routines/topical treatments. They didn’t work (although I’m not giving up on that front). Was on Minocycline for 2 years which initially worked somewhat, but it started declining in effectiveness after a year and eventually just stopped working entirely. Next, was Doxycycline which gave me the worst, month long yeast infection I’ve ever had and didn’t do much for my skin. 
+
+From there - I stopped all acne medications for about 6 months in an effort to let my body recover from the 2 years of daily antibiotics, and let my skin go through whatever it needed to go through off meds in hopes it would clear up (naive aspirations...). I was hanging in there after 5 months of being med-free, until I picked up some kind of skin bacteria or fungus when I went camping. I had dry looking red patches on my face and In my scalp that itched. 
+
+My doctor wasn’t exactly sure what it was, but she prescribed me Bactrim. The minute I heard she was prescribing me another stronger antibiotic, I knew right away that it was going to clear my skin and got this guilty, excited feeling like the acne med junkie that I am. Well- I was right....it cleared up the mystery dry itchy spots on my face and hair(although one of the bigger mystery patches left a pretty sizable scar which was jolting), but it also just so happened to clear my entire face better than ANYTHING ever tried before. 
+
+For the first time in 10 years, I had next to 100% clear, glowing skin. It was such a good feeling. I could go makeup free for the first time in my life. The taste of freedom was too good, though... because I basically became addicted to Bactrim. I managed to get a couple more prescriptions for it and have been abusing the medication for 10 months, dragging out these last pills I have by taking half of a 75mg Bactrim (1/4 of the prescribed daily amount) per day. I know what I’m doing is not healthy or smart and I don’t want to cause a mutant bacteria growth/resistance within my system so I am stopping, this week. 
+
+My questions are - why are antibiotics the only thing that clears my skin? What does that say about my system and overall health? That I need to work on my gut flora/General gut health? Even the Bactrim at this point is starting to decline in effectiveness, the same issue with antibiotics in general.
+
+Some more info about my acne: I get all types of blemishes - closed commodones, blackheads, cystic acne and whiteheads, all over my face. The closed comodones are mainly on my forehead and jawline, cystic on my cheeks and cheekbones and also my chin, whiteheads pop up everywhere randomly, and in the last 2 years there’s been a surge of blackheads that come up literally all over my whole face. I’ve never had this many issues before. (The last time I saw my skin at its worst was 10 months ago before I started Bactrim) It got really bad before I started taking Bactrim and I’m dreading what I might be going through again. 
+
+Im also worried about scarring - I’m 33 and my skin is not recovering from scarring as well as it used to. Lastly, diet info: I’ve ruled dairy out as a trigger by eliminating it from my diet for 2 months and seeing no improvement. And I am about to do the same with sugar. I’m hoping someone who’s been through something similar will read this and be able to give some guidance or support. If you’ve gotten this far, thank you for reading and good luck to you all on your skin care journeys.","Acne is a chronic disease, and nothing that you do will cure it. You will grow out of the condition eventually -- there are exceptionally few 80 year olds with acne. Drugs like your oral antibiotic are thought to primarily work through inflammation reduction, but the antimicrobial effect may be related. Either way, for some it works ( You may consider a course of isotretinoin. This is the only agent that can induce a remission.",ollama_deepseek-r1:1.5b,medical-eval,3,"<score>
+3
+</score>",
