@@ -1,4 +1,5 @@
 import enum
+import json
 from typing import Dict, List, Optional
 import re
 import ollama
@@ -8,15 +9,12 @@ class Role(enum.Enum):
     SCORER = 0
     CRITIC = 1
 
-_MODELS = {
-    Role.SCORER: "deepseek-r1:1.5b",
-    Role.CRITIC: "deepseek-r1:1.5b",
-}
+_MODEL = "gemma2:2b"
 
 
 class LLMCall:
     def __init__(self, role: Role):
-        self._model = _MODELS.get(role)
+        self._model = _MODEL
         self.role = role
         
     def generate(self, prompt: str):
@@ -141,6 +139,10 @@ Explanation: [your reasoning]"""
                     continue
         
         return None
+    
+    def save_results(self, results: List[Dict], output_file: str):
+        with open(output_file, 'w') as f:
+            json.dump(results, f, indent=2)
     
     def evaluate(
         self,
