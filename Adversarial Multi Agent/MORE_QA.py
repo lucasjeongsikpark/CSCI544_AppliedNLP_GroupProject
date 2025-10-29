@@ -12,11 +12,11 @@ def llm_call(prompt: str, role: str) -> str:
     # Print a snippet of the prompt for logging
     # print(f"prompt sent:\n---\n{prompt[:350]}...\n---\n")
     try:
-        response = ollama.chat(
+        response = ollama.generate(
             model=MODEL,
-            messages=[{'role': 'user', 'content': prompt}]
+            prompt=prompt
         )
-        content = response['message']['content']
+        content = response['response']
         # print("LLM Response Received.")
         return content
     except Exception as e:
