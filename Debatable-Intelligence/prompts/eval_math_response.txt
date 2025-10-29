@@ -15,20 +15,26 @@ Here is the response to be evaluated:
 {RESPONSE}
 </response>
 
-Your task is to evaluate the quality of this mathematical response based on:
-1. Correctness: Does it arrive at the correct answer?
-2. Reasoning: Is the step-by-step reasoning clear and logical?
-3. Completeness: Are all necessary steps shown?
-4. Accuracy: Are calculations correct?
+Evaluate each metric independently with a 1–5 score (integers only):
+1 = Very Poor, 2 = Poor, 3 = Fair, 4 = Good, 5 = Excellent.
 
-Please rate the response quality on the following scale:
-1 = Very Poor (incorrect answer, flawed reasoning)
-2 = Poor (incorrect answer or significant errors in reasoning)
-3 = Fair (partially correct or unclear reasoning)
-4 = Good (correct answer with minor issues in explanation)
-5 = Excellent (correct answer with clear, complete reasoning)
+Metrics:
+ - correctness: Correct final answer
+ - reasoning: Logical, coherent step-by-step derivation
+ - completeness: All necessary steps shown (no large gaps)
+ - accuracy: Calculations/arithmetic are correct
 
-Provide your score in the following format:
-<score>
-[Insert a single number between 1 and 5]
-</score>
+Output format STRICTLY:
+<metrics>
+correctness: [1-5]
+reasoning: [1-5]
+completeness: [1-5]
+accuracy: [1-5]
+</metrics>
+<overall_score>
+An overall 1-5 integer (you may average & round or conservative lower bound)
+</overall_score>
+Optional scratchpad reasoning (if needed) enclosed:
+<scratchpad>
+(concise justification per metric; keep under 120 words)
+</scratchpad>

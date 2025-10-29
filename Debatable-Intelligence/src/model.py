@@ -22,6 +22,9 @@ class LanguageModel(ABC):
 
     def request_batch_completions(self, prompts: Dict[str, str], max_tokens: int, temperature: float, batch_idx: int,
                                   output_path: str) -> str:
+        # Ensure output_path exists
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
         print(f'Processing {len(prompts)} prompts for batch {batch_idx}...')
         completions = {}
         pbar = tqdm(total=len(prompts), desc=f'Batch {batch_idx}...')
@@ -49,6 +52,9 @@ class OpenAIModel(LanguageModel):
 
     def request_batch_completions(self, prompts: Dict[str, str], max_tokens: int, temperature: float, batch_idx: int,
                                   output_path: str) -> str:
+        # Ensure output_path exists
+        if not os.path.exists(output_path):
+            os.makedirs(output_path)
         batch_requests = []
         for prompt_id, prompt in prompts.items():
             batch_entry = {"custom_id": prompt_id, "method": "POST",

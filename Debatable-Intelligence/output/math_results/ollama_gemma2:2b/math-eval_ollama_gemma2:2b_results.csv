@@ -1,0 +1,65 @@
+id,answer_type,input,output,model,experiment,overall_score,response,reasoning,metric_correctness,metric_reasoning,metric_completeness,metric_accuracy
+0,llama_output,Janet’s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?,"Janet sells 16 - 3 - 4 = <<16-3-4=9>>9 duck eggs a day.
+She makes 9 * 2 = $<<9*2=18>>18 every day at the farmer’s market.
+#### 18",ollama_gemma2:2b,math-eval,4,"<metrics>
+correctness: 5
+reasoning: 4
+completeness: 5
+accuracy: 5
+</metrics>
+<overall_score>
+4
+</overall_score>
+
+<scratchpad>
+The response correctly identifies the steps needed to solve the problem, including calculating the number of eggs left after consumption. The reasoning is clear and logical, with each step clearly explained.  There are no large gaps in the process. The calculations are accurate, leading to a correct final answer. 
+</scratchpad> 
+","The response correctly identifies the steps needed to solve the problem, including calculating the number of eggs left after consumption. The reasoning is clear and logical, with each step clearly explained.  There are no large gaps in the process. The calculations are accurate, leading to a correct final answer.",5,4,5,5
+0,distill_llama_output,Janet’s ducks lay 16 eggs per day. She eats three for breakfast every morning and bakes muffins for her friends every day with four. She sells the remainder at the farmers' market daily for $2 per fresh duck egg. How much in dollars does she make every day at the farmers' market?,"Janet sells 16 - 3 - 4 = <<16-3-4=9>>9 duck eggs a day.
+She makes 9 * 2 = $<<9*2=18>>18 every day at the farmer’s market.
+#### 18",ollama_gemma2:2b,math-eval,4,"<metrics>
+correctness: 5
+reasoning: 4
+completeness: 5
+accuracy: 5
+</metrics>
+<overall_score>
+4
+</overall_score>
+
+<scratchpad>
+The response correctly identifies the steps to solve the problem, including calculating the number of eggs used for muffins and the remaining eggs. The calculations are accurate, and the reasoning is clear and logical.  There's a slight improvement in presentation by using numbered steps and a final answer box. 
+</scratchpad> 
+","The response correctly identifies the steps to solve the problem, including calculating the number of eggs used for muffins and the remaining eggs. The calculations are accurate, and the reasoning is clear and logical.  There's a slight improvement in presentation by using numbered steps and a final answer box.",5,4,5,5
+1,llama_output,A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bolts in total does it take?,"It takes 2/2=<<2/2=1>>1 bolt of white fiber
+So the total amount of fabric is 2+1=<<2+1=3>>3 bolts of fabric
+#### 3",ollama_gemma2:2b,math-eval,1,"<metrics>
+correctness: 5
+reasoning: 4
+completeness: 5
+accuracy: 5
+</metrics>
+<overall_score>
+1
+</overall_score>
+
+<scratchpad>
+The response correctly identifies the number of bolts needed for white fiber (1) and calculates the total number of bolts (3). The reasoning is clear, with each step logically connected. There are no large gaps in the steps.  The calculations are accurate. 
+</scratchpad> 
+","The response correctly identifies the number of bolts needed for white fiber (1) and calculates the total number of bolts (3). The reasoning is clear, with each step logically connected. There are no large gaps in the steps.  The calculations are accurate.",5,4,5,5
+1,distill_llama_output,A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bolts in total does it take?,"It takes 2/2=<<2/2=1>>1 bolt of white fiber
+So the total amount of fabric is 2+1=<<2+1=3>>3 bolts of fabric
+#### 3",ollama_gemma2:2b,math-eval,4,"<metrics>
+correctness: 5
+reasoning: 4
+completeness: 5
+accuracy: 5
+</metrics>
+<overall_score>
+4
+</overall_score>
+
+<scratchpad>
+The response correctly identifies the number of bolts needed for each color and then adds them together. The reasoning is clear, logical, and well-structured. There are no large gaps in the steps or any missing information.  All calculations are accurate. 
+</scratchpad> 
+","The response correctly identifies the number of bolts needed for each color and then adds them together. The reasoning is clear, logical, and well-structured. There are no large gaps in the steps or any missing information.  All calculations are accurate.",5,4,5,5

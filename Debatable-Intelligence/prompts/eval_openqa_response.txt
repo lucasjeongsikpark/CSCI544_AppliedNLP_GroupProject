@@ -20,21 +20,28 @@ Here is the response to be evaluated:
 {RESPONSE}
 </response>
 
-Your task is to evaluate the quality of this response based on:
-1. Relevance: Does it address the question appropriately?
-2. Completeness: Is the response comprehensive and detailed?
-3. Accuracy: Is the information correct compared to the reference?
-4. Clarity: Is the response well-structured and clear?
-5. Helpfulness: Would this response be useful to the user?
+Evaluate each metric independently with a 1–5 score (integers only):
+1 = Very Poor, 2 = Poor, 3 = Fair, 4 = Good, 5 = Excellent.
 
-Please rate the response quality on the following scale:
-1 = Very Poor (irrelevant, incorrect, or unhelpful)
-2 = Poor (partially relevant but with major issues)
-3 = Fair (somewhat relevant but missing key information)
-4 = Good (relevant and mostly correct with minor issues)
-5 = Excellent (highly relevant, accurate, and comprehensive)
+Metrics:
+ - relevance: Addresses the question/task directly
+ - completeness: Covers necessary points/details
+ - accuracy: Information correctness vs expected answer
+ - clarity: Organization and readability
+ - helpfulness: Utility for a typical user
 
-Provide your score in the following format:
-<score>
-[Insert a single number between 1 and 5]
-</score>
+Output format STRICTLY:
+<metrics>
+relevance: [1-5]
+completeness: [1-5]
+accuracy: [1-5]
+clarity: [1-5]
+helpfulness: [1-5]
+</metrics>
+<overall_score>
+Single 1-5 integer summarizing overall quality
+</overall_score>
+Optional brief justification:
+<scratchpad>
+(concise notes per metric; ≤120 words)
+</scratchpad>

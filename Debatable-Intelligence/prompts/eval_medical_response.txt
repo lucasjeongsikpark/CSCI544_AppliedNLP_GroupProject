@@ -20,21 +20,28 @@ Here is the response to be evaluated:
 {RESPONSE}
 </response>
 
-Your task is to evaluate the quality of this medical response based on:
-1. Medical Accuracy: Is the information medically sound?
-2. Appropriateness: Is the advice appropriate for the described situation?
-3. Safety: Does it prioritize patient safety?
-4. Clarity: Is the explanation clear and understandable?
-5. Professionalism: Does it maintain appropriate professional tone?
+Evaluate each metric independently with a 1–5 score (integers only):
+1 = Very Poor, 2 = Poor, 3 = Fair, 4 = Good, 5 = Excellent.
 
-Please rate the response quality on the following scale:
-1 = Very Poor (inaccurate, unsafe, or inappropriate)
-2 = Poor (significant medical concerns or unclear)
-3 = Fair (generally appropriate but with notable gaps)
-4 = Good (medically sound with minor issues)
-5 = Excellent (accurate, safe, clear, and professional)
+Metrics:
+ - medical_accuracy: Medical soundness of facts
+ - appropriateness: Suitability for patient context
+ - safety: Emphasis on safe, non-harmful guidance
+ - clarity: Understandability and organization
+ - professionalism: Tone and ethical/empathetic stance
 
-Provide your score in the following format:
-<score>
-[Insert a single number between 1 and 5]
-</score>
+Output format STRICTLY:
+<metrics>
+medical_accuracy: [1-5]
+appropriateness: [1-5]
+safety: [1-5]
+clarity: [1-5]
+professionalism: [1-5]
+</metrics>
+<overall_score>
+Single 1-5 integer summarizing overall quality
+</overall_score>
+Optional rationale per metric (≤150 words total):
+<scratchpad>
+(brief justification)
+</scratchpad>
