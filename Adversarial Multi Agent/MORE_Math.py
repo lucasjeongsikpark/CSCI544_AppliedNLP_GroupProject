@@ -1,0 +1,233 @@
+import re
+import ollama
+import json
+import csv
+
+# --- 全局配置 (Global Configuration) ---
+MODEL_NAME = 'deepseek-r1:1.5b'
+INPUT_FILENAME = 'math_cleaned.json'  # <-- 使用您的数学数据文件名
+NUM_SAMPLES_TO_RUN = 2 # 您可以按需修改这里
+
+# --- LLM and Prompts Definition ---
+
+def llm_call(prompt: str, role: str) -> str:
+    """Sends a prompt to the specified LLM and returns the response."""
+    print(f"\n----- LLM CALL ({role.upper()}) to {MODEL_NAME} -----")
+    # print(f"prompt sent:\n---\n{prompt[:400]}...\n---\n")
+    try:
+        response = ollama.chat(
+            model=MODEL_NAME,
+            messages=[{'role': 'user', 'content': prompt}]
+        )
+        content = response['message']['content']
+        # print("LLM Response Received.")
+        return content
+    except Exception as e:
+        print(f"An error occurred during LLM call: {e}")
+        return "Error: LLM call failed."
+
+# --- MATH-SPECIFIC PROMPTS ---
+
+ADVOCATE_INITIAL_PROMPT_MATH = """
+**Your Role:** You are an expert mathematical advocate. Your goal is to build the strongest possible argument to defend a given mathematical solution.
+**The Math Problem:**
+"{input_question}"
+**The Solution Your Team MUST Defend:**
+"{answer_to_defend}"
+**Your Task:**
+Generate a strong, initial argument defending this solution. Focus on key strengths, such as the correctness of the final answer, the logical clarity of the reasoning steps, or the accuracy of the calculations.
+**Begin. Your Initial Argument:**
+"""
+
+ADVOCATE_FINAL_PROMPT_MATH = """
+**Your Role:** You are part of a team of expert mathematical advocates. Your goal is to collaboratively build the strongest argument to defend a given solution.
+**The Math Problem:**
+"{input_question}"
+**The Solution Your Team MUST Defend:**
+"{answer_to_defend}"
+**Your Teammate's Initial Argument:**
+"{teammate_argument}"
+**Instructions for You:**
+1.  Read your teammate's argument carefully.
+2.  **Do not simply repeat their points.**
+3.  **Strengthen the case by:** adding new evidence from the solution, highlighting the logical flow of the reasoning, or verifying the accuracy of the calculations.
+4.  Integrate your ideas to produce a single, cohesive, and more powerful **Final Argument**.
+**Begin. Your Final Argument:**
+"""
+
+JUDGE_PROMPT_MATH = """
+**Your Role:** You are a fair and impartial judge, specializing in evaluating mathematical reasoning. Your task is to evaluate the arguments for two different solutions to the same math problem.
+**The Math Problem:**
+"{input_question}"
+---
+**Argument for Solution A ("{answer_A_short}"):**
+{final_argument_A}
+---
+**Argument for Solution B ("{answer_B_short}"):**
+{final_argument_B}
+---
+**Your Task:**
+For EACH solution, evaluate its quality based on the arguments provided. Rate EACH of the following criteria on a scale of 1-5, where 1 is Very Poor and 5 is Excellent.
+1.  **Correctness**: Does it arrive at the correct final answer?
+2.  **Reasoning**: Is the step-by-step reasoning clear and logical?
+3.  **Completeness**: Are all necessary steps shown?
+4.  **Accuracy**: Are the intermediate calculations correct?
+**Your Output Format:**
+Provide your response in the exact XML format below. The `total_score` should be the sum of the four criteria scores. Do not add any other text or explanation.
+<evaluation>
+  <solution_A>
+    <scores>
+      <correctness>[1-5]</correctness>
+      <reasoning>[1-5]</reasoning>
+      <completeness>[1-5]</completeness>
+      <accuracy>[1-5]</accuracy>
+    </scores>
+    <total_score>[Sum of the 4 scores above]</total_score>
+    <feedback>[Provide 20-30 words of concise feedback for Team A's argument]</feedback>
+  </solution_A>
+  <solution_B>
+    <scores>
+      <correctness>[1-5]</correctness>
+      <reasoning>[1-5]</reasoning>
+      <completeness>[1-5]</completeness>
+      <accuracy>[1-5]</accuracy>
+    </scores>
+    <total_score>[Sum of the 4 scores above]</total_score>
+    <feedback>[Provide 20-30 words of concise feedback for Team B's argument]</feedback>
+  </solution_B>
+</evaluation>
+"""
+
+# --- Core Logic ---
+
+def parse_math_judge_scores(judge_response: str):
+    """Parses the judge's XML response for the math evaluation."""
+    scores = {}
+    try:
+        def extract_value(pattern, text):
+            match = re.search(pattern, text, re.DOTALL)
+            if match:
+                try: return int(match.group(1).strip())
+                except (ValueError, AttributeError): return match.group(1).strip()
+            return None
+
+        # Extract scores for Solution A
+        scores['A_correctness'] = extract_value(r"<solution_A>.*?<correctness>(\d)</correctness>", judge_response)
+        scores['A_reasoning'] = extract_value(r"<solution_A>.*?<reasoning>(\d)</reasoning>", judge_response)
+        scores['A_completeness'] = extract_value(r"<solution_A>.*?<completeness>(\d)</completeness>", judge_response)
+        scores['A_accuracy'] = extract_value(r"<solution_A>.*?<accuracy>(\d)</accuracy>", judge_response)
+        scores['A_total_score'] = extract_value(r"<solution_A>.*?<total_score>(\d+)</total_score>", judge_response)
+        scores['A_feedback'] = extract_value(r"<solution_A>.*?<feedback>(.*?)</feedback>", judge_response)
+
+        # Extract scores for Solution B
+        scores['B_correctness'] = extract_value(r"<solution_B>.*?<correctness>(\d)</correctness>", judge_response)
+        scores['B_reasoning'] = extract_value(r"<solution_B>.*?<reasoning>(\d)</reasoning>", judge_response)
+        scores['B_completeness'] = extract_value(r"<solution_B>.*?<completeness>(\d)</completeness>", judge_response)
+        scores['B_accuracy'] = extract_value(r"<solution_B>.*?<accuracy>(\d)</accuracy>", judge_response)
+        scores['B_total_score'] = extract_value(r"<solution_B>.*?<total_score>(\d+)</total_score>", judge_response)
+        scores['B_feedback'] = extract_value(r"<solution_B>.*?<feedback>(.*?)</feedback>", judge_response)
+
+        return scores
+    except Exception as e:
+        print(f"An error during parsing: {e}")
+        return {key: "parse_error" for key in scores.keys()}
+
+
+def run_more_debate(data_point: dict):
+    """Runs the full debate and judging process for a single math data point."""
+    
+    input_question = data_point['input'] # Assuming the math problem is in the 'input' field
+    answer_A = data_point['llama_output']
+    answer_B = data_point['distill_llama_output']
+    
+    print("="*50 + f"\nDebating math problem: {input_question[:80]}...\n" + "="*50)
+
+    # --- Team A and B build arguments using MATH prompts ---
+    prompt_A1 = ADVOCATE_INITIAL_PROMPT_MATH.format(input_question=input_question, answer_to_defend=answer_A)
+    argument_A1 = llm_call(prompt_A1, "advocate_initial_A")
+    prompt_A2 = ADVOCATE_FINAL_PROMPT_MATH.format(input_question=input_question, answer_to_defend=answer_A, teammate_argument=argument_A1)
+    final_argument_A = llm_call(prompt_A2, "advocate_final_A")
+    
+    prompt_B1 = ADVOCATE_INITIAL_PROMPT_MATH.format(input_question=input_question, answer_to_defend=answer_B)
+    argument_B1 = llm_call(prompt_B1, "advocate_initial_B")
+    prompt_B2 = ADVOCATE_FINAL_PROMPT_MATH.format(input_question=input_question, answer_to_defend=answer_B, teammate_argument=argument_B1)
+    final_argument_B = llm_call(prompt_B2, "advocate_final_B")
+
+    # --- Judge evaluates using MATH prompt ---
+    judge_prompt = JUDGE_PROMPT_MATH.format(
+        input_question=input_question,
+        answer_A_short=answer_A[:80]+"...", final_argument_A=final_argument_A,
+        answer_B_short=answer_B[:80]+"...", final_argument_B=final_argument_B
+    )
+    judge_response = llm_call(judge_prompt, "judge")
+    print(f"\nJudge's Full Response:\n{judge_response}")
+
+    # --- Parse detailed math scores ---
+    parsed_scores = parse_math_judge_scores(judge_response)
+    
+    # Determine winner based on total score
+    winner = 'tie'
+    score_A = parsed_scores.get('A_total_score')
+    score_B = parsed_scores.get('B_total_score')
+
+    if isinstance(score_A, int) and isinstance(score_B, int):
+        if score_A > score_B: winner = 'llama_output'
+        elif score_B > score_A: winner = 'distill_llama_output'
+    else: winner = 'parse_error'
+        
+    # --- Collate all detailed results ---
+    result = {
+        "input_question": input_question,
+        "winner": winner,
+        "judge_raw_response": judge_response,
+        **{f"A_{k.replace('A_','')}": v for k, v in parsed_scores.items() if k.startswith('A_')},
+        **{f"B_{k.replace('B_','')}": v for k, v in parsed_scores.items() if k.startswith('B_')},
+        "final_argument_A": final_argument_A,
+        "final_argument_B": final_argument_B
+    }
+    return result
+
+def load_data_from_json(filepath: str):
+    """Loads data from a standard JSON file."""
+    with open(filepath, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+# --- Main Execution ---
+if __name__ == "__main__":
+    try:
+        print(f"Loading MATH dataset from '{INPUT_FILENAME}'...")
+        all_data = load_data_from_json(INPUT_FILENAME)
+        print(f"Dataset loaded. Found {len(all_data)} total entries.")
+    except FileNotFoundError:
+        print(f"Error: '{INPUT_FILENAME}' not found.")
+        exit()
+        
+    data_to_process = all_data[:NUM_SAMPLES_TO_RUN]
+    print(f"Starting debates for the first {len(data_to_process)} entries using '{MODEL_NAME}'...")
+
+    all_results = []
+    for i, data_point in enumerate(data_to_process):
+        print(f"\n\n===== PROCESSING MATH ENTRY {i+1}/{len(data_to_process)} =====")
+        debate_result = run_more_debate(data_point)
+        all_results.append(debate_result)
+        
+        print("\n" + "="*50 + "\n  DEBATE SUMMARY\n" + "="*50)
+        print(f"Math Problem: {debate_result['input_question'][:100]}...")
+        print(f"Total Score for Solution A (llama_output): {debate_result.get('A_total_score', 'N/A')}")
+        print(f"Total Score for Solution B (distill_llama_output): {debate_result.get('B_total_score', 'N/A')}")
+        print(f"System's Judgment: '{debate_result['winner']}'")
+
+    # Save results to uniquely named files
+    json_output_path = f'math_debate_results_{NUM_SAMPLES_TO_RUN}_samples.json'
+    csv_output_path = f'math_debate_results_{NUM_SAMPLES_TO_RUN}_samples.csv'
+    
+    if all_results:
+        with open(json_output_path, 'w', encoding='utf-8') as f:
+            json.dump(all_results, f, indent=4, ensure_ascii=False)
+        print(f"\n✅ All detailed math results saved to {json_output_path}")
+
+        with open(csv_output_path, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=all_results[0].keys())
+            writer.writeheader()
+            writer.writerows(all_results)
+        print(f"✅ All detailed math results also saved to {csv_output_path}")
