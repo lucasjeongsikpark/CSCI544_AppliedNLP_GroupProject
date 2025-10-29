@@ -44,17 +44,17 @@ if "faireval" in args_data_path:
     for num, ins in enumerate(data[:80]):
 
         print(f"================================instance {num}====================================")
-
+        # print(ins)
         # reassign the text to agents, and set final_prompt to null for debate at first round
         for agent_id in range(len(agentverse.agents)):
-            agentverse.agents[agent_id].source_text = ins["question"]
+            agentverse.agents[agent_id].input_text = ins["input"]
+            agentverse.agents[agent_id].output_text = ins["output"]
 
-            if args.reverse_input:
-                agentverse.agents[agent_id].compared_text_one = ins["response"]["vicuna"]
-                agentverse.agents[agent_id].compared_text_two = ins["response"]["gpt35"]
-            else:
-                agentverse.agents[agent_id].compared_text_one = ins["response"]["gpt35"]
-                agentverse.agents[agent_id].compared_text_two = ins["response"]["vicuna"]
+            agentverse.agents[agent_id].llama_text = ins["llama_output"]
+            agentverse.agents[agent_id].distill_llama_text = ins["distill_llama_output"]
+
+            if "document" in ins and ins["document"]:
+                agentverse.agents[agent_id].document = ins["document"]
 
             agentverse.agents[agent_id].final_prompt = ""
 
@@ -62,9 +62,18 @@ if "faireval" in args_data_path:
 
         evaluation = get_evaluation(setting="every_agent", messages=agentverse.agents[0].memory.messages, agent_nums=len(agentverse.agents))
 
-        pair_comparison_output.append({"question": ins["question"],
-                                       "response": {"gpt35": ins["response"]["gpt35"],
-                                                    "vicuna": ins["response"]["vicuna"]},
+        if "document" in ins and ins["document"]:
+            pair_comparison_output.append({"input": ins["input"],
+                                            "output": ins["output"],
+                                            "document": ins["document"],
+                                        "response": {"llama": ins["llama_output"],
+                                                        "distill_llama": ins["distill_llama_output"]},
+                                        "evaluation": evaluation})
+        else:
+            pair_comparison_output.append({"input": ins["input"],
+                                        "output": ins["output"],
+                                       "response": {"llama": ins["llama_output"],
+                                                    "distill_llama": ins["distill_llama_output"]},
                                        "evaluation": evaluation})
 
         os.makedirs(args_output_dir, exist_ok=True)
@@ -103,7 +112,7 @@ elif "adversarial" in args_data_path:
                                        "response": {"output_1": ins["response"]["output_1"],
                                                     "output_2": ins["response"]["output_2"]},
                                        "evaluation": evaluation})
-
+ 
         os.makedirs(args_output_dir, exist_ok=True)
         with open(os.path.join(args_output_dir, "pair_comparison_results.json"), "w") as f:
             json.dump(pair_comparison_output, f, indent=4)

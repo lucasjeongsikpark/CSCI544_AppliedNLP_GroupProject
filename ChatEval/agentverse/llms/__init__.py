@@ -7,3 +7,5 @@ from .openai import OpenAIChat, OpenAICompletion
 from .local_api import LocalAPIChat  # local_api.py의 클래스를 임포트하여 등록
 from .Mistral import MistralAPIChat
 from .Qwen import QwenAPIChat 
+from .OllamaGemma2 import OllamaGemma2APIChat
+from .OllamaDeepSeek import OllamaDeepSeekAPIChat

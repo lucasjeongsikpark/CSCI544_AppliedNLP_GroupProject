@@ -1,5 +1,6 @@
 from typing import List, Union
 
+from agentverse.llms.OllamaGemma2 import OllamaGemma2APIChat
 from pydantic import Field
 
 from agentverse.message import Message
@@ -36,7 +37,8 @@ class VectorStoreMemory(BaseMemory):
     messages: List[Message] = Field(default=[])
     embedding2memory: dict = {}
     memory2embedding: dict = {}
-    llm: BaseLLM = OpenAIChat(model="gpt-4")
+    # llm: BaseLLM = OpenAIChat(model="gpt-4")
+    llm: BaseLLM = OllamaGemma2APIChat()
 
     def add_message(self, messages: List[Message]) -> None:
         for message in messages:

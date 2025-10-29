@@ -32,6 +32,12 @@ class LLMEvalAgent(BaseAgent):
 
     final_prompt: str = ""
     final_prompt_to_use: str = ""
+    
+    input_text: str = ""
+    output_text: str = ""
+    llama_text: str = ""
+    distill_llama_text: str = ""
+    document: str = ""
 
 
     def step(self, env_description: str = "") -> Message:
@@ -142,6 +148,11 @@ class LLMEvalAgent(BaseAgent):
             "compared_text_one": self.compared_text_one,
             "compared_text_two": self.compared_text_two,
             "final_prompt": self.final_prompt,
+            "input_text": self.input_text,
+            "output_text": self.output_text,
+            "llama_text": self.llama_text,
+            "distill_llama_text": self.distill_llama_text,
+            "document": self.document,
             # "chat_history": self.memory.to_string(add_sender_prefix=True),
         }
         return Template(self.prompt_template).safe_substitute(input_arguments)

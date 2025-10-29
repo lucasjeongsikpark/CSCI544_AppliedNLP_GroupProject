@@ -64,15 +64,15 @@ def load_agent(agent_config: Dict) -> langchainAgent:
 def prepare_task_config(taskwithyaml):
     """Read the yaml config of the given task in `tasks` directory."""
 
-    if not str(taskwithyaml).endswith("config.yaml"):
-        raise ValueError(
-            "You should include config.yaml in your task config path"
-        )
+    # if not str(taskwithyaml).endswith("config.yaml"):
+    #     raise ValueError(
+    #         "You should include config.yaml in your task config path"
+    #     )
 
-    if not os.path.exists(taskwithyaml):
-        raise ValueError(
-            "You should include the config.yaml file in the task directory"
-        )
+    # if not os.path.exists(taskwithyaml):
+    #     raise ValueError(
+    #         "You should include the config.yaml file in the task directory"
+    #     )
     task_config = yaml.safe_load(open(taskwithyaml))
     task = task_config["task"]
     # Build the output parser
