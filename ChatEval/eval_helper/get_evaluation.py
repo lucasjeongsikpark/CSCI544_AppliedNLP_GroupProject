@@ -3,7 +3,6 @@ import json
 from typing import List
 from agentverse.message import Message
 
-
 def get_evaluation(setting: str = None, messages: List[Message] = None, agent_nums: int = None) -> List[dict]:
 
     results = []

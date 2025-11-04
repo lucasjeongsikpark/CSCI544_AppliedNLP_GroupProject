@@ -1,1 +1,1 @@
-Namespace(config='agentverse/tasks/llm_eval/med_config.yaml', reverse_input=False)
+Namespace(config='agentverse/tasks/llm_eval/gemma/gemma_med_config.yaml', reverse_input=False)

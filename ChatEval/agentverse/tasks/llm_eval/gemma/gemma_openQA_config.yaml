@@ -1,6 +1,6 @@
 task: llmeval
 data_path: ./agentverse/tasks/llm_eval/data/faireval/preprocessed_data/openQA_test.json
-output_dir: ./outputs/llm_eval/multi_role/only_static_assign/faireval/two_turns_sequential/two_different_role/calc_score_comparison_reverse/gemma_openQA
+output_dir: ./outputs/llm_eval/multi_role/only_static_assign/faireval/two_turns_sequential/two_different_role/calc_score_comparison_reverse/gemma2_openQA
 prompts:
   prompt: &prompt |-
     [Question]
@@ -69,13 +69,13 @@ agents:
       Remember that you are not required to output the same value as other referees !
       Output with the following format strictly:
       Evaluation evidence: [your explanation here]
-      The score of Assistant 1: 
+      ## The score of Assistant 1: 
       Relevance: [Insert a single number between 1 and 5]
       Completeness: [Insert a single number between 1 and 5]
       Accuracy: [Insert a single number between 1 and 5]
       Clarity: [Insert a single number between 1 and 5]
       Helpfulness: [Insert a single number between 1 and 5]
-      The score of Assistant 2: 
+      ## The score of Assistant 2: 
       Relevance: [Insert a single number between 1 and 5]
       Completeness: [Insert a single number between 1 and 5]
       Accuracy: [Insert a single number between 1 and 5]
@@ -102,13 +102,13 @@ agents:
       Remember that you are not required to output the same value as other referees !
       Output with the following format strictly:
       Evaluation evidence: [your explanation here]
-      The score of Assistant 1: 
+      ## The score of Assistant 1: 
       Relevance: [Insert a single number between 1 and 5]
       Completeness: [Insert a single number between 1 and 5]
       Accuracy: [Insert a single number between 1 and 5]
       Clarity: [Insert a single number between 1 and 5]
       Helpfulness: [Insert a single number between 1 and 5]
-      The score of Assistant 2: 
+      ## The score of Assistant 2: 
       Relevance: [Insert a single number between 1 and 5]
       Completeness: [Insert a single number between 1 and 5]
       Accuracy: [Insert a single number between 1 and 5]
