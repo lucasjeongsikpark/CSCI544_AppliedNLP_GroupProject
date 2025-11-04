@@ -16,7 +16,6 @@ class DataOutput:
             "score1": self.score1,
             "score2": self.score2,
             "attempts": self.attempts,
-            "elapsed_time": self.elapsed_time,
         }
 
 

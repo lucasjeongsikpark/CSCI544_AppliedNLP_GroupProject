@@ -1,5 +1,4 @@
 from CSCI544_AppliedNLP_GroupProject.DEBATE.debate import create_debate_evaluator
-from CSCI544_AppliedNLP_GroupProject.DEBATE.usage import DataFormat
 from CSCI544_AppliedNLP_GroupProject.framework_runner.base import Framework, DataOutput
 
 
@@ -15,12 +14,10 @@ class DebateFramework(Framework):
         chat_logs = {}
         for key in ["llama_output", "distill_llama_output"]:
             chat_logs[key] = {}
-            formatted = DataFormat(
-                context=data.get("document", "") + data.get("system_prompt", "") + data["input"],
-                output_str=data.get(key))
+
             result = self.evaluator.evaluate_dialogue(
-                context=formatted.context,
-                response=formatted.output_str,
+                context=data.get("document", "") + data.get("system_prompt", "") + data["input"],
+                response=data.get(key),
                 aspects=aspects
             )
 
