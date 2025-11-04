@@ -14,6 +14,8 @@ from eval_helper.get_evaluation import get_evaluation
 from agentverse.agentverse import AgentVerse
 from argparse import ArgumentParser
 
+import time
+
 parser = ArgumentParser()
 
 parser.add_argument("--config", type=str, default="config.yaml")
@@ -35,32 +37,7 @@ with open(os.path.join(args_output_dir, "args.txt"), "w") as f:
 #
 #     raise ValueError("the output_dir is not empty, check if is expected.")
 
-with open(args_data_path) as f:
-    data = json.load(f)
-
-if "faireval" in args_data_path:
-    # pair_comparison_output = []
-
-    for num, ins in enumerate(data[:10]):
-        pair_comparison_output = []
-        print(f"================================instance {num}====================================")
-        # print(ins)
-        # reassign the text to agents, and set final_prompt to null for debate at first round
-        for agent_id in range(len(agentverse.agents)):
-            agentverse.agents[agent_id].input_text = ins["input"]
-            agentverse.agents[agent_id].output_text = ins["output"]
-
-            agentverse.agents[agent_id].llama_text = ins["llama_output"]
-            agentverse.agents[agent_id].distill_llama_text = ins["distill_llama_output"]
-
-            if "document" in ins and ins["document"]:
-                agentverse.agents[agent_id].document = ins["document"]
-
-            agentverse.agents[agent_id].final_prompt = ""
-
-        agentverse.run()
-        
-        def _parsing_evaluation_response_to_score(evaluation_response: list):
+def _parsing_evaluation_response_to_score(evaluation_response: list):
             flag = False
             # score1 example:
             # score1 = {"Correctness": 4, "Reasoning": 4, "Completeness": 5, "Accuracy": 4}
@@ -91,7 +68,15 @@ if "faireval" in args_data_path:
                 return None, None
                     
             return score1, score2
-                
+
+with open(args_data_path) as f:
+    data = json.load(f)
+
+if "faireval" in args_data_path:
+    # pair_comparison_output = []
+
+    for num, ins in enumerate(data[:]):
+        start_time = time.time()
         attempt = 0
         max_attempts = 50
         while True:
@@ -100,12 +85,33 @@ if "faireval" in args_data_path:
                 print("Max attempts reached. Skipping this instance.")
                 score1, score2 = None, None
                 break
+            pair_comparison_output = []
+            print(f"================================instance {num}====================================")
+            # print(ins)
+            # reassign the text to agents, and set final_prompt to null for debate at first round
+            for agent_id in range(len(agentverse.agents)):
+                agentverse.agents[agent_id].input_text = ins["input"]
+                agentverse.agents[agent_id].output_text = ins["output"]
+
+                agentverse.agents[agent_id].llama_text = ins["llama_output"]
+                agentverse.agents[agent_id].distill_llama_text = ins["distill_llama_output"]
+
+                if "document" in ins and ins["document"]:
+                    agentverse.agents[agent_id].document = ins["document"]
+
+                agentverse.agents[agent_id].final_prompt = ""
+
+            agentverse.run()
+            
             evaluation = get_evaluation(setting="every_agent", messages=agentverse.agents[0].memory.messages, agent_nums=len(agentverse.agents))
             score1, score2 = _parsing_evaluation_response_to_score(evaluation)
             if score1 is not None and score2 is not None:
                 break
             else:
                 print("Re-evaluating due to parsing error...")
+        
+        end_time = time.time()
+        elapsed_time = end_time - start_time
                 
         if "document" in ins and ins["document"]:
             pair_comparison_output.append({"input": ins["input"],
@@ -116,7 +122,8 @@ if "faireval" in args_data_path:
                                         "evaluation": evaluation,
                                         "score1": score1,
                                         "score2": score2,
-                                        "attempt": attempt
+                                        "attempt": attempt,
+                                        "elapsed_time": elapsed_time
                                         })
         elif "system_prompt" in ins and ins["system_prompt"]:
             pair_comparison_output.append({"input": ins["input"],
@@ -127,7 +134,8 @@ if "faireval" in args_data_path:
                                        "evaluation": evaluation,
                                        "score1": score1,
                                        "score2": score2,
-                                       "attempt": attempt
+                                       "attempt": attempt,
+                                        "elapsed_time": elapsed_time
                                        })
         else:
             pair_comparison_output.append({"input": ins["input"],
@@ -137,9 +145,10 @@ if "faireval" in args_data_path:
                                        "evaluation": evaluation,
                                        "score1": score1,
                                        "score2": score2,
-                                       "attempt": attempt
+                                       "attempt": attempt,
+                                        "elapsed_time": elapsed_time
                                        })
-
+        
         os.makedirs(args_output_dir, exist_ok=True)
         with open(os.path.join(args_output_dir, "pair_comparison_results.jsonl"), "a") as f:
             json.dump(pair_comparison_output, f, indent=4)
