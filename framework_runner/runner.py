@@ -34,7 +34,7 @@ class FrameworkRunner:
             start = datetime.now()
             result = self.framework.run(data=data)
             elapsed_time = datetime.now() - start
-            results.append(LoggedOutput.new(elapsed_time=elapsed_time, data_output=result).to_dict())
+            results.append(LoggedOutput.new(elapsed_time=elapsed_time, data_output=result))
 
             if ind % 10 == 0:
                 self.save_results(results=results)
@@ -44,7 +44,7 @@ class FrameworkRunner:
         self.save_results(results=results)
         print("FrameworkRunner: saved results for index %s", ind)
 
-    def save_results(self, results: list[dict]):
+    def save_results(self, results: list[LoggedOutput]):
         with open(self.output_file, "a", encoding="utf-8") as f:
             for record in results:
-                f.write(json.dumps(record, ensure_ascii=False) + "\n")
+                f.write(json.dumps(record.to_dict(), ensure_ascii=False) + "\n")
