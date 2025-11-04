@@ -1,0 +1,42 @@
+from CSCI544_AppliedNLP_GroupProject.DEBATE.debate import create_debate_evaluator
+from CSCI544_AppliedNLP_GroupProject.DEBATE.usage import DataFormat
+from CSCI544_AppliedNLP_GroupProject.framework_runner.base import Framework, DataOutput
+
+
+class DebateFramework(Framework):
+    name = "DEBATE"
+
+    @property
+    def evaluator(self):
+        return create_debate_evaluator(max_iterations=3)
+
+    def run(self, data: dict, aspects: list[str]) -> DataOutput:
+        data_output = {}
+        chat_logs = {}
+        for key in ["llama_output", "distill_llama_output"]:
+            chat_logs[key] = {}
+            formatted = DataFormat(
+                context=data.get("document", "") + data.get("system_prompt", "") + data["input"],
+                output_str=data.get(key))
+            result = self.evaluator.evaluate_dialogue(
+                context=formatted.context,
+                response=formatted.output_str,
+                aspects=aspects
+            )
+
+            scores = {}
+            for aspect, res in result.items():
+                scores[aspect] = res["final_score"]
+                chat_logs[key][aspect] = result["debate_history"]
+
+            if key == "llama_output":
+                data_output["score1"] = scores
+            else:
+                data_output["score2"] = scores
+
+        data_output["chat_logs"] = chat_logs
+        data_output["attempts"] = 2 * len(aspects)  # fixed number of runs for my framework
+        return DataOutput(**data_output)
+
+
+debate_framework = DebateFramework()
