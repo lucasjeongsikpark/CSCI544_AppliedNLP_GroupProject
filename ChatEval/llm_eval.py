@@ -74,8 +74,8 @@ with open(args_data_path) as f:
 
 if "faireval" in args_data_path:
     # pair_comparison_output = []
-
-    for num, ins in enumerate(data[:]):
+    
+    for num, ins in enumerate(data[176:]):
         start_time = time.time()
         attempt = 0
         max_attempts = 50
