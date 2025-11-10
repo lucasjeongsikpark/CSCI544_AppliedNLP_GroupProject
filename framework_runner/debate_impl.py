@@ -3,8 +3,6 @@ from CSCI544_AppliedNLP_GroupProject.framework_runner.base import Framework, Dat
 
 
 class DebateFramework(Framework):
-    name = "DEBATE"
-
     @property
     def evaluator(self):
         return create_debate_evaluator(max_iterations=3)
@@ -24,7 +22,7 @@ class DebateFramework(Framework):
             scores = {}
             for aspect, res in result.items():
                 scores[aspect] = res["final_score"]
-                chat_logs[key][aspect] = result["debate_history"]
+                chat_logs[key][aspect] = result[aspect]["debate_history"]
 
             if key == "llama_output":
                 data_output["score1"] = scores
@@ -36,4 +34,4 @@ class DebateFramework(Framework):
         return DataOutput(**data_output)
 
 
-debate_framework = DebateFramework()
+debate_framework = DebateFramework(name="DEBATE")

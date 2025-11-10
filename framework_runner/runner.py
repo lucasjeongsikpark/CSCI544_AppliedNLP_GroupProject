@@ -20,29 +20,25 @@ class FrameworkRunner:
         self.start_from = start_from
         self.aspects = aspects
 
-        # use ndjson so we can append results periodically
-        assert output_file.split(".", 1)[1] == "ndjson"
-        self.output_file = self.output_file
+        # use ndjson or jsonl so we can append results periodically
+        assert output_file.split(".", 1)[1] == "ndjson" or output_file.split(".", 1)[1] == "jsonl"
+        self.output_file = output_file
 
-    def evaluate_dataset(self):
-        results = []
+    def evaluate_dataset(self, start_from: int = 0):
+        start_from = max(self.start_from, start_from)
         for ind, row in self.dataset.iterrows():
-            if ind < self.start_from:
+            if ind < start_from:
                 continue
 
             data = row.to_dict()
+            print("FrameworkRunner: starting index", ind)
             start = datetime.now()
-            result = self.framework.run(data=data)
-            elapsed_time = datetime.now() - start
-            results.append(LoggedOutput.new(elapsed_time=elapsed_time, data_output=result))
+            result = self.framework.run(data=data, aspects=self.aspects)
+            elapsed_time = (datetime.now() - start).total_seconds()
 
-            if ind % 10 == 0:
-                self.save_results(results=results)
-                results = []
-                print("FrameworkRunner: saved results for index %s", ind)
-
-        self.save_results(results=results)
-        print("FrameworkRunner: saved results for index %s", ind)
+            self.save_results(results=[LoggedOutput.new(elapsed_time=elapsed_time, data_output=result)])
+            print("FrameworkRunner: saved results for index", ind)
+            self.last_saved_ind = ind
 
     def save_results(self, results: list[LoggedOutput]):
         with open(self.output_file, "a", encoding="utf-8") as f:

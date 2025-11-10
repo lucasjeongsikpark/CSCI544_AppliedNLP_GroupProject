@@ -21,10 +21,6 @@ class LLMCall:
         # TODO(brendan): make this write to txt file or something
         response_generate = ollama.generate(model=self._model, prompt=prompt)
         result = response_generate['response']
-        
-        print(f"\n{self.role.name}")
-        print(result)
-
         return result
 
 
