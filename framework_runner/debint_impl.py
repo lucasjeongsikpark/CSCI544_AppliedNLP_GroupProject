@@ -58,24 +58,42 @@ def get_reasoning(response: str) -> str:
         return response[reasoning_start:reasoning_end].strip()
     return ''
 
-# Helper to load config (searches for config_math.json or config.json in cwd or parent)
+
+# Helper to load config with CLI/file/dataset_type logic
+_CONFIG_CLI_FILE = None
+_CONFIG_CLI_DATASET_TYPE = None
+def set_config_cli_args(config_file=None, dataset_type=None):
+    global _CONFIG_CLI_FILE, _CONFIG_CLI_DATASET_TYPE
+    _CONFIG_CLI_FILE = config_file or ''
+    _CONFIG_CLI_DATASET_TYPE = dataset_type or ''
+
 def _find_config():
-    # Try to find the most specific config for the dataset type
-    config_priority = [
-        "config_med.json",
-        "config_openqa.json",
-        "config_math.json",
-        "config.json",
-    ]
-    for fname in config_priority:
+    # 1. If CLI --config_file is set, use it
+    if _CONFIG_CLI_FILE:
+        if os.path.exists(_CONFIG_CLI_FILE):
+            with open(_CONFIG_CLI_FILE) as f:
+                return json.load(f)
+        raise FileNotFoundError(f"Config file specified but not found: {_CONFIG_CLI_FILE}")
+    # 2. If dataset_type is set, use config_<dataset_type>.json if present
+    if _CONFIG_CLI_DATASET_TYPE:
+        fname = f"config_{_CONFIG_CLI_DATASET_TYPE.lower()}.json"
         for d in [os.getcwd(), os.path.dirname(os.getcwd())]:
             fpath = os.path.join(d, fname)
             if os.path.exists(fpath):
                 with open(fpath) as f:
                     return json.load(f)
-    raise FileNotFoundError("No config_med.json, config_openqa.json, config_math.json, or config.json found in cwd or parent.")
+    # 3. Fallback to config.json
+    for d in [os.getcwd(), os.path.dirname(os.getcwd())]:
+        fpath = os.path.join(d, "config.json")
+        if os.path.exists(fpath):
+            with open(fpath) as f:
+                return json.load(f)
+    raise FileNotFoundError("No config file found. Searched CLI, dataset_type, and config.json in cwd or parent.")
 
 class DebIntFramework(Framework):
+    @staticmethod
+    def set_config_cli_args(config_file=None, dataset_type=None):
+        set_config_cli_args(config_file, dataset_type)
     def __init__(self, name="DEBINT"):
         super().__init__(name)
         self._config = None

@@ -1,15 +1,15 @@
+
 import argparse
 import re
 from typing import List
-
-from .debate_impl import debate_framework
-from .debint_impl import debint_framework
+import importlib
 from .runner import FrameworkRunner
 
 
-FRAMEWORKS = {
-    debate_framework.name.lower(): debate_framework,
-    debint_framework.name.lower(): debint_framework,
+# Map framework name to (module, attribute)
+FRAMEWORK_MODULES = {
+    'debate': ('.debate_impl', 'debate_framework'),
+    'debint': ('.debint_impl', 'debint_framework'),
 }
 
 DEFAULT_ASPECTS = {
@@ -39,6 +39,7 @@ def parse_aspects_file(path: str) -> List[str]:
     return aspects
 
 
+
 def main():
     parser = argparse.ArgumentParser(description="Run a scoring framework over a dataset and produce JSONL output.")
     parser.add_argument('--framework', type=str, required=True, help='Framework name (debate or debint)')
@@ -47,15 +48,23 @@ def main():
     parser.add_argument('--aspects', type=str, default='', help='Comma separated aspects override')
     parser.add_argument('--aspects_file', type=str, default='', help='Prompt file to parse aspects from')
     parser.add_argument('--dataset_type', type=str, default='', help='Hint for default aspects (math|openqa|medical) if none provided')
+    parser.add_argument('--config_file', type=str, default='', help='Explicit config file to use (overrides dataset_type)')
     parser.add_argument('--start_from', type=int, default=0, help='Row index to start from (resume)')
     parser.add_argument('--no_auto_resume', action='store_true', help='Disable auto resume based on existing output')
     parser.add_argument('--limit', type=int, default=None, help='Process only this many rows (for debugging)')
     args = parser.parse_args()
 
     fw_key = args.framework.lower()
-    if fw_key not in FRAMEWORKS:
-        raise ValueError(f'Unknown framework {args.framework}. Available: {list(FRAMEWORKS.keys())}')
-    framework = FRAMEWORKS[fw_key]
+    if fw_key not in FRAMEWORK_MODULES:
+        raise ValueError(f'Unknown framework {args.framework}. Available: {list(FRAMEWORK_MODULES.keys())}')
+    module_name, attr_name = FRAMEWORK_MODULES[fw_key]
+    # Dynamically import only the requested framework
+    module = importlib.import_module(module_name, package=__package__)
+    # Pass config_file and dataset_type to framework if supported
+    framework = getattr(module, attr_name)
+    # If the framework supports config override, set it
+    if hasattr(framework, 'set_config_cli_args'):
+        framework.set_config_cli_args(config_file=args.config_file, dataset_type=args.dataset_type)
 
     # Determine aspects priority: explicit list > aspects_file > dataset_type defaults
     if args.aspects:
