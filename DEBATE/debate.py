@@ -3,6 +3,9 @@ import json
 from typing import Dict, List, Optional
 import re
 import ollama
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+import os
 
 
 class Role(enum.Enum):
@@ -12,6 +15,30 @@ class Role(enum.Enum):
 _MODEL = "gemma2:2b"
 
 
+
+class HuggingFaceLLM:
+    def __init__(self, model_id="google/gemma-2-2b", max_new_tokens=256):
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, local_files_only=True)
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_id,
+            local_files_only=True,
+            torch_dtype=torch.bfloat16 if torch.cuda.is_available() else "auto",
+            device_map="auto"
+        )
+        self.max_new_tokens = max_new_tokens
+
+    def generate(self, prompt: str):
+        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
+        out = self.model.generate(
+            **inputs,
+            max_new_tokens=self.max_new_tokens,
+            do_sample=True,
+            temperature=0.2,
+            top_p=0.5,
+            pad_token_id=self.tokenizer.eos_token_id,
+        )
+        return self.tokenizer.decode(out[0], skip_special_tokens=True)
+
 class LLMCall:
     def __init__(self, role: Role):
         self._model = _MODEL
@@ -19,7 +46,12 @@ class LLMCall:
         
     def generate(self, prompt: str):
         # TODO(brendan): make this write to txt file or something
-        response_generate = ollama.generate(model=self._model, prompt=prompt)
+        options = {
+            "temperature": 0.2,
+            "top_k": 3,
+            "top_p": 0.5
+        }
+        response_generate = ollama.generate(model=self._model, prompt=prompt, options=options)
         result = response_generate['response']
         return result
 
@@ -29,8 +61,8 @@ class DEBATEFramework:
         self,
         max_iterations: int = 3
     ):
-        self.scorer = LLMCall(role=Role.SCORER)
-        self.critic = LLMCall(role=Role.CRITIC)
+        self.scorer = HuggingFaceLLM()
+        self.critic = HuggingFaceLLM()
         self.max_iterations = max_iterations
         
     def _get_devil_advocate_prompt(self) -> str:

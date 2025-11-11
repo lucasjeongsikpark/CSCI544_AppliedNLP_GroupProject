@@ -3,7 +3,7 @@ from datetime import datetime
 
 import pandas as pd
 
-from CSCI544_AppliedNLP_GroupProject.framework_runner.base import Framework, LoggedOutput
+from framework_runner.base import Framework, LoggedOutput
 
 
 class FrameworkRunner:
@@ -19,6 +19,7 @@ class FrameworkRunner:
         self.dataset = pd.read_json(dataset_path)
         self.start_from = start_from
         self.aspects = aspects
+        self.last_saved_ind = start_from
 
         # use ndjson or jsonl so we can append results periodically
         assert output_file.split(".", 1)[1] == "ndjson" or output_file.split(".", 1)[1] == "jsonl"
@@ -38,7 +39,7 @@ class FrameworkRunner:
 
             self.save_results(results=[LoggedOutput.new(elapsed_time=elapsed_time, data_output=result)])
             print("FrameworkRunner: saved results for index", ind)
-            self.last_saved_ind = ind
+            self.last_saved_ind = ind + 1
 
     def save_results(self, results: list[LoggedOutput]):
         with open(self.output_file, "a", encoding="utf-8") as f:

@@ -1,5 +1,5 @@
-from CSCI544_AppliedNLP_GroupProject.DEBATE.debate import create_debate_evaluator
-from CSCI544_AppliedNLP_GroupProject.framework_runner.base import Framework, DataOutput
+from DEBATE.debate import create_debate_evaluator
+from framework_runner.base import Framework, DataOutput
 
 
 class DebateFramework(Framework):

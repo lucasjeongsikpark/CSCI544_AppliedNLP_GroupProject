@@ -1,7 +1,7 @@
 import enum
 
-from CSCI544_AppliedNLP_GroupProject.framework_runner.debate_impl import debate_framework
-from CSCI544_AppliedNLP_GroupProject.framework_runner.runner import FrameworkRunner
+from framework_runner.debate_impl import debate_framework
+from framework_runner.runner import FrameworkRunner
 
 MED_ASPECTS = [
     "1. Medical Accuracy: Is the information medically sound?",
@@ -29,19 +29,19 @@ OPEN_QA_ASPECTS = [
 
 
 class DatasetTypes(enum.Enum):
-    MATH = "math"
     OPEN_QA = "open_qa"
     MED = "med"
+    MATH = "math"
 
-    def get_dataset_path(self) -> str:
+    def get_dataset_path(self) -> str | None:
         if self == self.MED:
-            return "CSCI544_AppliedNLP_GroupProject/datasets/data/med_cleaned.json"
+            return "datasets/data/med_cleaned.json"
         elif self == self.MATH:
-            return "CSCI544_AppliedNLP_GroupProject/datasets/data/math_cleaned_250.json"
+            return "datasets/data/math_cleaned_250.json"
         elif self == self.OPEN_QA:
-            return "CSCI544_AppliedNLP_GroupProject/datasets/data/openQA_cleaned_250.json"
+            return "datasets/data/openQA_cleaned_250.json"
 
-    def get_aspects(self) -> list[str]:
+    def get_aspects(self) -> list[str] | None:
         if self == self.MED:
             return MED_ASPECTS
         elif self == self.MATH:
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     for dataset_type in DatasetTypes:
         framework_runner = FrameworkRunner(
             framework=debate_framework,  # specify your framework here
-            output_file=f"CSCI544_AppliedNLP_GroupProject/results/{debate_framework.name}_{dataset_type.value}.jsonl",
+            output_file=f"results/{debate_framework.name}_{dataset_type.value}.jsonl",
             dataset_path=dataset_type.get_dataset_path(),
             aspects=dataset_type.get_aspects(),
         )
@@ -68,3 +68,6 @@ if __name__ == "__main__":
                     break
                 print(f"Retrying on dataset {dataset_type.name} from index {framework_runner.last_saved_ind}")
                 start_from = framework_runner.last_saved_ind
+            else:
+                print(f"Completed {dataset_type.name} dataset")
+                break
