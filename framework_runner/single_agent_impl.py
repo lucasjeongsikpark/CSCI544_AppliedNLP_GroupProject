@@ -49,23 +49,38 @@ class SingleAgentFramework(Framework):
     def run(self, data: dict, aspects: list[str]) -> DataOutput:
         results = {}
         scores = {}
-        attempts = 0
+        attempt_counts = {}
+        # Always evaluate in this order for consistency
         for field in ["llama_output", "distill_llama_output"]:
             prompt = self._fill_prompt(data, field)
-            start = time.time()
-            response = self.evaluator.generate(prompt, self.max_tokens, self.temperature)
-            elapsed = time.time() - start
-            metrics, overall_score, scratchpad = self._parse_metrics(response, aspects)
+            retries = 0
+            max_retries = 3
+            while True:
+                start = time.time()
+                response = self.evaluator.generate(prompt, self.max_tokens, self.temperature)
+                elapsed = time.time() - start
+                metrics, overall_score, scratchpad = self._parse_metrics(response, aspects)
+                retries += 1
+                # Check for perfectly structured output: all metrics present, overall_score present, scratchpad present
+                metrics_ok = all(v is not None for v in metrics.values())
+                overall_ok = overall_score is not None
+                scratchpad_ok = bool(scratchpad)
+                if metrics_ok and overall_ok and scratchpad_ok:
+                    break
+                if retries >= max_retries:
+                    break
             results[field] = {
                 "llm_response": response,
-                "metrics": metrics,
                 "overall_score": overall_score,
                 "scratchpad": scratchpad,
                 "elapsed_time": elapsed
             }
             scores[field] = metrics
-            attempts += 1
-        # Store both evaluations in chat_logs, and both scores in score1/score2 for compatibility
-        return DataOutput(chat_logs=results, score1=scores.get("llama_output", {}), score2=scores.get("distill_llama_output", {}), attempts=attempts)
+            attempt_counts[field] = retries
+        # Ensure score1 is always llama_output and score2 is always distill_llama_output
+        score1 = scores.get("llama_output", {})
+        score2 = scores.get("distill_llama_output", {})
+        attempts = max(attempt_counts.values()) if attempt_counts else 0
+        return DataOutput(chat_logs=results, score1=score1, score2=score2, attempts=attempts)
 
 # For dynamic instantiation from main.py
