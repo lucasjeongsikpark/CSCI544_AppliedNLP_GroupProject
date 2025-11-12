@@ -4,7 +4,7 @@ A lightweight orchestration layer to evaluate datasets row-by-row using pluggabl
 
 ## Key Concepts
 
-- **Framework**: Implements a `run(data: dict, aspects: list[str]) -> DataOutput` method. Encapsulates how a single example is evaluated.
+- **Framework**: Implements a `run(data: dict, aspects: list[str]) -> DataOutput` method. Encapsulates how a single example is evaluated. Some frameworks (e.g. DEBINT) now support multi-model evaluation per row.
 - **DataOutput**: Standard result schema with `chat_logs`, `score1`, `score2`, `attempts`. A `LoggedOutput` wrapper adds `elapsed_time`.
 - **Runner**: Streams a dataset (JSON or CSV) and invokes the chosen framework for each row. Outputs results as NDJSON/JSONL allowing incremental progress & resume.
 
@@ -15,7 +15,7 @@ A lightweight orchestration layer to evaluate datasets row-by-row using pluggabl
 - Auto-resume by inspecting existing output or `<output>.progress` file.
 - Manual resume via `--start_from`.
 - Flexible aspect sourcing: command line list, prompt file parsing (extracts metric names), or dataset-type defaults.
-- Pluggable frameworks: current examples are `DEBATE` (`debate_impl.py`) and `DEBINT` (`debint_impl.py`).
+- Pluggable frameworks: current examples are `DEBATE` (`debate_impl.py`), `DEBINT` (`debint_impl.py`), and `SINGLE_AGENT` (`single_agent_impl.py`).
 
 ## Directory Structure
 ```
@@ -28,7 +28,7 @@ framework_runner/
   README.md        # This file
 ```
 
-## Output Schema (Each JSONL line)
+## Output Schema (Single-Model Frameworks)
 ```json
 {
   "chat_log": {
@@ -41,10 +41,51 @@ framework_runner/
   "elapsed_time": 27.43
 }
 ```
-Notes:
+Notes (single-model):
 - `score1` always corresponds to `llama_output`, `score2` to `distill_llama_output`.
 - `attempts` counts total per-answer evaluation attempts (for frameworks with retry logic).
 - `elapsed_time` is the duration in seconds for that single row evaluation.
+
+## Output Schema (Multi-Model DEBINT)
+When multiple Ollama models are listed in the config (e.g. `"models": {"ollama": ["gemma2:2b", "deepseek-r1:1.5b"]}`) DEBINT evaluates every model for both answer fields. Structure per JSONL line:
+
+```json
+{
+  "chat_log": {
+    "gemma2:2b": {
+      "llama_output": {
+        "response": "...",
+        "reasoning": "...",
+        "attempts": 1,
+        "metrics": {"correctness": 4, "reasoning": 5, "completeness": 4, "accuracy": 3}
+      },
+      "distill_llama_output": {
+        "response": "...",
+        "reasoning": "...",
+        "attempts": 1,
+        "metrics": {"correctness": 5, "reasoning": 4, "completeness": 3, "accuracy": 4}
+      }
+    },
+    "deepseek-r1:1.5b": {
+      "llama_output": {"response": "...", "reasoning": "...", "attempts": 2, "metrics": {"correctness": 3, "reasoning": 5, "completeness": 4, "accuracy": 4}},
+      "distill_llama_output": {"response": "...", "reasoning": "...", "attempts": 1, "metrics": {"correctness": 4, "reasoning": 4, "completeness": 3, "accuracy": 5}}
+    }
+  },
+  "score1": {"correctness": 4, "reasoning": 5, "completeness": 4, "accuracy": 4},
+  "score2": {"correctness": 5, "reasoning": 4, "completeness": 3, "accuracy": 5},
+  "attempts": 2,
+  "elapsed_time": 31.9
+}
+```
+
+Notes (multi-model DEBINT):
+- `chat_log` nests per-model dictionaries containing both answer keys.
+- Individual per-model metrics remain lowercase; aggregated `score1`/`score2` are aspect-wise averages (rounded) across models for the respective answer field.
+- `attempts` is the max attempts used among all model/answer evaluations.
+- Use per-model entries in `chat_log` if you need raw, un-averaged scores.
+
+### Why Aggregation?
+Storing aggregated scores in `score1`/`score2` preserves compatibility with downstream consumers expecting a single metrics object per answer field, while still exposing full granularity under `chat_log`.
 
 ## Installing Dependencies
 Ensure the project dependencies (e.g. pandas) are available:

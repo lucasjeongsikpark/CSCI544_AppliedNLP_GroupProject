@@ -10,6 +10,7 @@ from .runner import FrameworkRunner
 FRAMEWORK_MODULES = {
     'debate': ('.debate_impl', 'debate_framework'),
     'debint': ('.debint_impl', 'debint_framework'),
+    'single_agent': ('.single_agent_impl', 'single_agent_framework'),
 }
 
 DEFAULT_ASPECTS = {
@@ -42,7 +43,7 @@ def parse_aspects_file(path: str) -> List[str]:
 
 def main():
     parser = argparse.ArgumentParser(description="Run a scoring framework over a dataset and produce JSONL output.")
-    parser.add_argument('--framework', type=str, required=True, help='Framework name (debate or debint)')
+    parser.add_argument('--framework', type=str, required=True, help='Framework name (debate, debint, or single_agent)')
     parser.add_argument('--dataset_path', type=str, required=True, help='Path to dataset (.json or .csv)')
     parser.add_argument('--output_file', type=str, required=True, help='NDJSON/JSONL output path')
     parser.add_argument('--aspects', type=str, default='', help='Comma separated aspects override')
@@ -52,6 +53,13 @@ def main():
     parser.add_argument('--start_from', type=int, default=0, help='Row index to start from (resume)')
     parser.add_argument('--no_auto_resume', action='store_true', help='Disable auto resume based on existing output')
     parser.add_argument('--limit', type=int, default=None, help='Process only this many rows (for debugging)')
+    # Single agent specific
+    parser.add_argument('--model_name', type=str, default='llama2', help='Ollama model name to use (for single_agent framework)')
+    parser.add_argument('--ollama_base_url', type=str, default='http://localhost:11434', help='Ollama base URL (for single_agent framework)')
+    parser.add_argument('--prompt_template_path', type=str, default='prompts/eval_medical_response.txt', help='Prompt template path (for single_agent framework)')
+    parser.add_argument('--response_field', type=str, default='llama_output', help='Field in dataset to evaluate (for single_agent framework)')
+    parser.add_argument('--max_tokens', type=int, default=512, help='Max tokens for LLM response (for single_agent framework)')
+    parser.add_argument('--temperature', type=float, default=0.2, help='Temperature for LLM response (for single_agent framework)')
     args = parser.parse_args()
 
     fw_key = args.framework.lower()
@@ -60,11 +68,22 @@ def main():
     module_name, attr_name = FRAMEWORK_MODULES[fw_key]
     # Dynamically import only the requested framework
     module = importlib.import_module(module_name, package=__package__)
-    # Pass config_file and dataset_type to framework if supported
-    framework = getattr(module, attr_name)
-    # If the framework supports config override, set it
-    if hasattr(framework, 'set_config_cli_args'):
-        framework.set_config_cli_args(config_file=args.config_file, dataset_type=args.dataset_type)
+    # For single_agent, instantiate with CLI args
+    if fw_key == 'single_agent':
+        framework_class = getattr(module, 'SingleAgentFramework')
+        framework = framework_class(
+            name='SINGLE_AGENT',
+            model_name=args.model_name,
+            prompt_template_path=args.prompt_template_path,
+            response_field=args.response_field,
+            max_tokens=args.max_tokens,
+            temperature=args.temperature,
+            base_url=args.ollama_base_url
+        )
+    else:
+        framework = getattr(module, attr_name)
+        if hasattr(framework, 'set_config_cli_args'):
+            framework.set_config_cli_args(config_file=args.config_file, dataset_type=args.dataset_type)
 
     # Determine aspects priority: explicit list > aspects_file > dataset_type defaults
     if args.aspects:
