@@ -16,6 +16,7 @@ A lightweight orchestration layer to evaluate datasets row-by-row using pluggabl
 - Manual resume via `--start_from`.
 - Flexible aspect sourcing: command line list, prompt file parsing (extracts metric names), or dataset-type defaults.
 - Pluggable frameworks: current examples are `DEBATE` (`debate_impl.py`), `DEBINT` (`debint_impl.py`), and `SINGLE_AGENT` (`single_agent_impl.py`).
+- Remote HuggingFace (CARC) model support via SSH tunnel (see below) alongside local Ollama.
 
 ## Directory Structure
 ```
@@ -47,7 +48,16 @@ Notes (single-model):
 - `elapsed_time` is the duration in seconds for that single row evaluation.
 
 ## Output Schema (Multi-Model DEBINT)
-When multiple Ollama models are listed in the config (e.g. `"models": {"ollama": ["gemma2:2b", "deepseek-r1:1.5b"]}`) DEBINT evaluates every model for both answer fields. Structure per JSONL line:
+When multiple models (Ollama and/or remote HF) are listed in the config (e.g.:
+```json
+"models": {
+  "ollama": ["gemma2:2b", "deepseek-r1:1.5b"],
+  "huggingface_remote": [
+    {"name": "meta-llama/Meta-Llama-3-8B-Instruct", "endpoint": "http://localhost:8000/generate"}
+  ]
+}
+```
+DEBINT evaluates every model for both answer fields. Structure per JSONL line (example below shows only Ollama entries for brevity):
 
 ```json
 {
@@ -83,6 +93,7 @@ Notes (multi-model DEBINT):
 - Individual per-model metrics remain lowercase; aggregated `score1`/`score2` are aspect-wise averages (rounded) across models for the respective answer field.
 - `attempts` is the max attempts used among all model/answer evaluations.
 - Use per-model entries in `chat_log` if you need raw, un-averaged scores.
+- Remote HF models appear under their full model identifiers.
 
 ### Why Aggregation?
 Storing aggregated scores in `score1`/`score2` preserves compatibility with downstream consumers expecting a single metrics object per answer field, while still exposing full granularity under `chat_log`.
@@ -152,10 +163,43 @@ python -m framework_runner.main ... --no_auto_resume
 - Runner avoids loading entire outputs into memory (streaming writes).
 - Progress tracking uses both `<output>.progress` and output line count fallback.
 - Aspect names are normalized to lowercase when parsed; output capitalizes first letter for readability.
-- `debint_impl.py` dynamically imports parsing helpers, isolating scoring from generation logic.
+- `debint_impl.py` dynamically loads evaluators (Ollama + remote HF) based on the config; if none are provided a clear error is raised.
 
 ## Troubleshooting
 - Import errors for local modules: ensure you invoke with `python -m framework_runner.main` from project root.
+- Remote HF endpoint returns empty: check that it uses one of accepted keys (`completion`, `generated_text`, `text`, `response`).
+- Timeouts: verify SSH tunnel and remote server health; consider increasing `hf_remote_default_endpoint` or server timeout.
+- Auth failures: supply `hf_remote_auth_header` or per-model `auth_header`.
+
+### Remote HuggingFace (CARC) Usage
+1. Start an inference server on the GPU node exposing either:
+  - Simple generate endpoint: `/generate` returning `{ "completion": "..." }` (or `generated_text/text/response`).
+  - OpenAI-style chat endpoint: `/v1/chat/completions` returning `{ "choices": [{ "message": { "content": "..."}}]}`.
+2. Create SSH tunnel locally:
+  ```bash
+  ssh -L 8000:localhost:8000 <user>@<cluster-host>
+  ```
+3. Add to config (example simple + chat mix):
+  ```json
+  "models": {
+    "ollama": ["gemma2:2b"],
+    "huggingface_remote": [
+       {"name": "meta-llama/Meta-Llama-3-8B-Instruct", "endpoint": "http://localhost:8000/generate"},
+       {"name": "Qwen/Qwen3-8B", "endpoint": "http://localhost:8082/v1/chat/completions"}
+    ]
+  },
+  "hf_remote_default_endpoint": "http://localhost:8000/generate"
+  ```
+4. Run: `python -m framework_runner.main --framework debint ...` — aggregated scores include all models (local Ollama + remote chat + remote generate).
+5. Optional global auth header:
+  ```json
+  "hf_remote_auth_header": "Bearer YOUR_TOKEN"
+  ```
+6. Per-model auth override:
+  ```json
+  {"name": "mistralai/Mistral-7B-Instruct-v0.2", "auth_header": "Bearer OTHER"}
+  ```
+
 - If output lines seem truncated, verify no concurrent process is writing to the same file.
 - To re-run from scratch, delete both the output `.jsonl` and `.progress` files.
 

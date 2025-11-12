@@ -10,6 +10,7 @@ import os
 import json
 from .base import Framework, DataOutput
 from .ollama_eval import OllamaEvaluator
+from .huggingface_eval import RemoteHFEvaluator
 
 # Inline helpers (extracted from dataset_experiment.py) to avoid heavy imports.
 def parse_response(response: str):
@@ -114,12 +115,31 @@ class DebIntFramework(Framework):
             with open(prompt_path, "r") as f:
                 self._prompt_template = f.read()
         if not self._evaluators:
-            base_url = self._config.get("ollama_base_url", "http://localhost:11434")
-            model_list = self._config.get("models", {}).get("ollama", [])
-            if not model_list:
-                raise ValueError("No models specified under models.ollama in config.")
-            for m in model_list:
-                self._evaluators.append((m, OllamaEvaluator(m, base_url)))
+            models_cfg = self._config.get("models", {}) or {}
+            # Ollama models
+            ollama_base_url = self._config.get("ollama_base_url", "http://localhost:11434")
+            for m in models_cfg.get("ollama", []):
+                self._evaluators.append((m, OllamaEvaluator(m, ollama_base_url)))
+            # Remote HuggingFace models
+            hf_items = models_cfg.get("huggingface_remote", [])
+            default_endpoint = self._config.get("hf_remote_default_endpoint", "http://localhost:8000/generate")
+            default_auth = self._config.get("hf_remote_auth_header")
+            for item in hf_items:
+                if isinstance(item, str):
+                    name = item
+                    endpoint = default_endpoint
+                    auth = default_auth
+                elif isinstance(item, dict):
+                    name = item.get("name") or item.get("model")
+                    if not name:
+                        raise ValueError("huggingface_remote entry missing 'name' or 'model'")
+                    endpoint = item.get("endpoint", default_endpoint)
+                    auth = item.get("auth_header", default_auth)
+                else:
+                    continue
+                self._evaluators.append((name, RemoteHFEvaluator(name, endpoint, auth)))
+            if not self._evaluators:
+                raise ValueError("No evaluators configured. Provide models.ollama or models.huggingface_remote in config.")
         self._max_tokens = int(self._config.get("max_tokens", 2048))
         self._temperature = float(self._config.get("temperature", 0.01))
 
