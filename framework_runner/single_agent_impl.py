@@ -4,7 +4,7 @@ from .base import Framework, DataOutput
 from .ollama_eval import OllamaEvaluator
 
 class SingleAgentFramework(Framework):
-    def __init__(self, name, model_name, prompt_template_path, max_tokens=512, temperature=0.2, base_url="http://localhost:11434"):
+    def __init__(self, name, model_name, prompt_template_path, response_field="llama_output", max_tokens=512, temperature=0.2, base_url="http://localhost:11434"):
         super().__init__(name)
         self.model_name = model_name
         self.max_tokens = max_tokens
@@ -12,18 +12,32 @@ class SingleAgentFramework(Framework):
         self.base_url = base_url
         self.prompt_template = self._load_prompt(prompt_template_path)
         self.evaluator = OllamaEvaluator(model_name, base_url)
+        self.response_field = response_field
 
     def _load_prompt(self, path):
         with open(path, "r", encoding="utf-8") as f:
             return f.read()
 
     def _fill_prompt(self, data, response_field):
-        return self.prompt_template.format(
-            DOCUMENT=data.get("document", ""),
-            INPUT=data.get("input", ""),
-            OUTPUT=data.get("output", ""),
-            RESPONSE=data.get(response_field, "")
-        )
+        # Collect placeholders present in template so we only compute what's needed
+        placeholders = set(re.findall(r'{([A-Za-z0-9_]+)}', self.prompt_template))
+        # Base mapping for commonly used fields
+        mapping = {
+            'DOCUMENT': data.get('document', ''),
+            'INPUT': data.get('input', ''),
+            'OUTPUT': data.get('output', ''),
+            'RESPONSE': data.get(response_field, ''),
+            'SYSTEM_PROMPT': data.get('system_prompt', ''),
+        }
+        # Provide empty defaults for any other placeholders to avoid KeyError
+        for key in placeholders:
+            mapping.setdefault(key, '')
+
+        class _SafeDict(dict):
+            def __missing__(self, k):  # type: ignore
+                return ''
+
+        return self.prompt_template.format_map(_SafeDict(mapping))
 
     def _parse_metrics(self, text, aspects):
         # Extract metrics block
@@ -50,8 +64,8 @@ class SingleAgentFramework(Framework):
         results = {}
         scores = {}
         attempt_counts = {}
-        # Always evaluate in this order for consistency
-        for field in ["llama_output", "distill_llama_output"]:
+        fields = ["llama_output", "distill_llama_output"]
+        for field in fields:
             prompt = self._fill_prompt(data, field)
             retries = 0
             max_retries = 3
@@ -79,6 +93,7 @@ class SingleAgentFramework(Framework):
             attempt_counts[field] = retries
         # Ensure score1 is always llama_output and score2 is always distill_llama_output
         score1 = scores.get("llama_output", {})
+        score2 = scores.get("distill_llama_output", {})
         score2 = scores.get("distill_llama_output", {})
         attempts = max(attempt_counts.values()) if attempt_counts else 0
         return DataOutput(chat_logs=results, score1=score1, score2=score2, attempts=attempts)
