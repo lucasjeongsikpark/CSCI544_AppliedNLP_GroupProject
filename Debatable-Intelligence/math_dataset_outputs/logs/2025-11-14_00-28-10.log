@@ -1,0 +1,62 @@
+[[32mINFO[0m] [util.py:150 - setup_default_logger() ] Writing logs to math_dataset_outputs/logs/2025-11-14_00-28-10.log
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 0 topic snippet=[Janet’s ducks lay 16 eggs per day. She eats three for breakfast every morning an] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [correctness:3, reasoning:4, completeness:5, accuracy:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 1 topic snippet=[A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bol] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 2 topic snippet=[There are 6 trees in Chris's yard.  Ferdinand has half the number of trees that ] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 3 topic snippet=[An airport has only 2 planes that fly multiple times a day. Each day, the first ] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [correctness:3, reasoning:4, completeness:4, accuracy:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 4 topic snippet=[How much does it cost you for lunch today at Subway if you pay $40 for a foot-lo] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 3 [correctness:4, reasoning:3, completeness:4, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 5 topic snippet=[Tom's ship can travel at 10 miles per hour.  He is sailing from 1 to 4 PM.  He t] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 6 topic snippet=[While working at the restaurant, each of the forty customers who came into the r] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 7 topic snippet=[Patricia has 30 roses. She gave 24 roses to her mother. She bought 15 more roses] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 8 topic snippet=[Caroline has 4 children.  The first child is 6 feet tall.  The second child is t] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 9 topic snippet=[A pet shop had 6 cages of rodents. 3 of the cages have 10 hamsters and the other] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [correctness:5, reasoning:4, completeness:4, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 10 topic snippet=[Two girls each got 1/6 of the 24 liters of water. Then a boy got 6 liters of wat] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [correctness:5, reasoning:5, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 11 topic snippet=[George needs to pay for dental work. He needs 2 implants. Each implant has a bas] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:4, reasoning:3, completeness:4, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 12 topic snippet=[Gabriel and Luri each own a portable media player that can store up to 100 songs] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [correctness:3, reasoning:4, completeness:5, accuracy:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 13 topic snippet=[There are forty apples in one box. Uncle Franky ordered two boxes of apples. He ] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:259 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 14 topic snippet=[A glass of milk is 8 ounces of milk.  John drinks 2 glasses of milk.  If milk ha] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: math

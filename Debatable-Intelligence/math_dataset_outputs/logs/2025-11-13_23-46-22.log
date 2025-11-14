@@ -1,0 +1,17 @@
+[[32mINFO[0m] [util.py:150 - setup_default_logger() ] Writing logs to math_dataset_outputs/logs/2025-11-13_23-46-22.log
+[[32mINFO[0m] [orchestrator.py:51 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:169 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:169 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [correctness:3, reasoning:4, completeness:4, accuracy:4]
+[[32mINFO[0m] [orchestrator.py:137 - _determine_debate_winner() ] Debate Winner: N/A
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 0 topic snippet=[Janet’s ducks lay 16 eggs per day. She eats three for breakfast every morning an] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:51 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:169 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:169 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [correctness:3, reasoning:4, completeness:5, accuracy:4]
+[[32mINFO[0m] [orchestrator.py:137 - _determine_debate_winner() ] Debate Winner: N/A
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 1 topic snippet=[A robe takes 2 bolts of blue fiber and half that much white fiber.  How many bol] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:51 -             __init__() ] Loaded domain-specific evaluation prompt for: math
+[[32mINFO[0m] [orchestrator.py:169 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [correctness:5, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:169 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [correctness:3, reasoning:4, completeness:5, accuracy:5]
+[[32mINFO[0m] [orchestrator.py:137 - _determine_debate_winner() ] Debate Winner: N/A
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 2 topic snippet=[There are 6 trees in Chris's yard.  Ferdinand has half the number of trees that ] - saved to math_dataset_outputs/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:51 -             __init__() ] Loaded domain-specific evaluation prompt for: math
