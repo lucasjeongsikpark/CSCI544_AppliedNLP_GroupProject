@@ -1,0 +1,651 @@
+[[32mINFO[0m] [util.py:150 - setup_default_logger() ] Writing logs to debate_outputs_medical/logs/2025-11-15_00-37-42.log
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 0 topic snippet=[-	29
+-	Male
+-	USA
+
+I’m very confused why different labs have different ranges. F] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 1 topic snippet=[If you’re reading this, thank you. It’s been a long, 15 year  journey with my sk] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 2 topic snippet=[Female/45/Caucasian/Australian. History of depression, type 2 bipolar, anorexia ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:3, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 3 topic snippet=[23 Female 5’2
+
+Went to planned parenthood to get my nexplanon rod changed at the] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:5, appropriateness:4, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 4 topic snippet=[I am 30, 6"2, 215, white male, I have a hiatal hernia, barrett's esophagus, a PF] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:2, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 5 topic snippet=[I am 30, 6"2, 215, white male, I have a hiatal hernia, barrett's esophagus, a PF] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:4, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:5, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 6 topic snippet=[**This is a weekly general discussion and general questions thread for the AskDo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:3, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 7 topic snippet=[The ascending aorta has a transverse dimension of 3.7 cm at the level 
+
+of the m] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 8 topic snippet=[40 year old male, 68kg, Canada. Was on Ciprofloxacin and Metronidazole up until ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 9 topic snippet=[Age:22
+
+Sex: female
+
+Race/Ethnicity: White/Hispanic
+
+Height/Weight: 5'4", 144lbs] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 10 topic snippet=[A little bit of health hx: my husband has had problems with alcohol for several ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 11 topic snippet=[1 year old / female / 20lbs / 30”
+No meds
+
+My otherwise healthy 12 month old had] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:5, appropriateness:4, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 12 topic snippet=[**This is a weekly general discussion and general questions thread for the AskDo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:3, clarity:5, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 13 topic snippet=[**This is a weekly general discussion and general questions thread for the AskDo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 14 topic snippet=[Hello, I’m a 25 year old male, 200 lbs, 6 ft, exercise multiple times a week, ea] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 15 topic snippet=[Age: 41, Weight 12 stone 5 pounds.  Duration:  Approx 10 years.  Location: My be] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 16 topic snippet=[What could be wrong here;
+
+I’m 35m overweight. 
+
+Started noticing it 2 years ago] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:5, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 17 topic snippet=[**This is a weekly general discussion and general questions thread for the AskDo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 18 topic snippet=[UPDATE: Hepatosplenic T cell lymphoma diagnosis 
+
+21F, 5'5 130 lbs. East Asian. ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 19 topic snippet=[Hello guys,
+
+&#x200B;
+
+I'm a 24 year old guy that lives in Mauritius. As title s] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 20 topic snippet=[I'm an (non smoker) asthmatic 27 year old Male ( 5'6 - 157 lbs). I have an inhal] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 3 [medical_accuracy:4, appropriateness:3, safety:4, clarity:2, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 21 topic snippet=[Male, 30, Ontario Canada.
+
+I have a small oddly round rash on the top of my wris] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 3 [medical_accuracy:2, appropriateness:4, safety:3, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 22 topic snippet=[Age: 24 
+
+Sex: Male
+
+Height: 5'11
+
+Weight: ~240 lbs
+
+Duration: On and off for we] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 3 [medical_accuracy:2, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 23 topic snippet=[Age: 24 
+
+Sex: Male
+
+Height: 5'11
+
+Weight: ~240 lbs
+
+Duration: On and off for we] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 24 topic snippet=[Age: 24 
+
+Sex: Male
+
+Height: 5'11
+
+Weight: ~240 lbs
+
+Duration: On and off for we] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 3 [medical_accuracy:2, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 25 topic snippet=[Age: 24 
+
+Sex: Male
+
+Height: 5'11
+
+Weight: ~240 lbs
+
+Duration: On and off for we] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 26 topic snippet=[Age: 24 
+
+Sex: Male
+
+Height: 5'11
+
+Weight: ~240 lbs
+
+Duration: On and off for we] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 27 topic snippet=[Age: 24 
+
+Sex: Male
+
+Height: 5'11
+
+Weight: ~240 lbs
+
+Duration: On and off for we] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:3, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 28 topic snippet=[In relation to a hormone problem, doctor asked me if I have experienced any memo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:3, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 29 topic snippet=[Hey everyone! I’m kind of concerned for my friend. Shes about 5’7”, 180-190lbs.,] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 30 topic snippet=[Hey everyone! I’m kind of concerned for my friend. Shes about 5’7”, 180-190lbs.,] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 31 topic snippet=[I posted this the other day but didn't get much traction. 
+
+
+
+What is this disco] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 32 topic snippet=[To whom it may concern,
+
+I walked into my Internal medicine Doctor on Friday bec] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 33 topic snippet=[Several months ago my wife went to the coast near Corpus Christi with her family] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:3, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 34 topic snippet=[I am 27 year old male.  I am actually a medical student, so feel free to give a ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:2, appropriateness:3, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 35 topic snippet=[I am 27 year old male.  I am actually a medical student, so feel free to give a ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:3, appropriateness:4, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 36 topic snippet=[I'm a 28 year old man, tall-ish, skinnyfat. usually my nipples are just there, n] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 37 topic snippet=[I'm a 28 year old man, tall-ish, skinnyfat. usually my nipples are just there, n] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 38 topic snippet=[Hello! I’m a 22F, height is 5’1, weight is 155. History is I had three pregnanci] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 39 topic snippet=[I was prescribed Penicillin VK on Saturday and have been taking them as prescrib] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 40 topic snippet=[Edit to title: I am 19yrs old
+
+Medications I take: GUANFacine.
+
+Drugs: Cigarette] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 41 topic snippet=[I am 33 male, 135 lbs, 1.8m tall, caucatian,  my problem area are the eyes, i ha] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 42 topic snippet=[Hi,  I have painful spasms in my right and left side (more commonly on the right] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 43 topic snippet=[Hello, I am a female and got the Gardasil vaccine in middle school but I also de] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 44 topic snippet=[**Age:** 85
+
+**Sex:** Female
+
+**Height:** 4'9"
+
+**Weight:** 100 lbs
+
+**Race:** A] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [medical_accuracy:5, appropriateness:4, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:5, appropriateness:4, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 45 topic snippet=[38M, got an MRI of my wrist due to pain from rock climbing that was not healing ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 46 topic snippet=[Age: 25
+Gender: Male
+Height: 6’0”
+Weight: 215
+Race: Caucasian
+Duration of compla] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:2, appropriateness:5, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 47 topic snippet=[**This is a weekly general discussion and general questions thread for the AskDo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 48 topic snippet=[Hello.  I'm 26f, 1,65m from Germany (85kg, white, vulvar skin issue, the current] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 49 topic snippet=[In recent years I have noticed that my wound healing seems to have slowed down, ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 50 topic snippet=[29F, 5'5" 255lbs Caucasian USA 
+
+Hi everyone.
+
+This has been happening at random] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:3, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:3, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 51 topic snippet=[I am male 17, I am 182 cm and I have 75kg. I wanna party once a week and not cau] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 52 topic snippet=[27 AFAB nonbinary
+
+Height 4'9"
+
+Weight 96kg
+
+Duration of complaint 3.5 days
+
+Loc] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:4, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 53 topic snippet=[27 AFAB nonbinary
+
+Height 4'9"
+
+Weight 96kg
+
+Duration of complaint 3.5 days
+
+Loc] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 54 topic snippet=[I’ve been wondering what effects staying indoors and not exercising can have on ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 55 topic snippet=[I’ve been wondering what effects staying indoors and not exercising can have on ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 56 topic snippet=[I’ve been wondering what effects staying indoors and not exercising can have on ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 57 topic snippet=[I’ve been wondering what effects staying indoors and not exercising can have on ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:5, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 58 topic snippet=[Age: 30  
+Gender: male
+
+Location, London England
+
+Medication: None
+
+Height: 6 fo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 59 topic snippet=[Female 
+AGE 32
+117lbs/5'4
+
+For the last five years or so I've had various sympto] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 60 topic snippet=[I’m 25F, 120 lb, 5’6”
+
+White, living in the US (SC)
+
+I’ve been dealing with pain] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:2, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 61 topic snippet=[It's March and this issue started in October (I didn't shower for over a week, n] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 62 topic snippet=[32m Caucasian 145 pounds Canada, light skin My dermatologist says its probably d] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:3, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 63 topic snippet=[* Age - 5 yo
+* Sex - female
+* Height - 40"
+* Weight - 35 lbs
+* Race - Caucasian
+] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:4, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:5, appropriateness:4, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:5, appropriateness:4, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 64 topic snippet=[My mom has it at age 63, and she refused to undergo surgery because of cost and ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 65 topic snippet=[Hello you wonderful people of reddit.
+
+Mandatory warning, English is not my firs] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 66 topic snippet=[Is there a correlation between being a vegetarian and hair loss? 
+
+I’m experienc] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 67 topic snippet=[I’m 23 years old and Im feeling like I have the body of a 60 year old. Last Apri] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:3, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 68 topic snippet=[32M, 6 ft, 175 lbs.
+
+If I'm on an SSRI (specifically sertraline), is there any r] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 69 topic snippet=[In Feb this year i ate leftover spaghetti bolognaise that wasn't piping hot all ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 3 [medical_accuracy:2, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 70 topic snippet=[Hi! So I recently started training in contortion (5 months ago). I've practiced ] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 71 topic snippet=[I (29F) have a 2 month old daughter in the United states who is just going throu] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:4, safety:5, clarity:5, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 72 topic snippet=[I'm a male, 34, and I've contracted chickenpox. I've had a higher temperature fo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:4, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 73 topic snippet=[Not being a doctor, I'm curious of the differences between these procedures. I u] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:5, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 74 topic snippet=[Not being a doctor, I'm curious of the differences between these procedures. I u] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:4, appropriateness:5, safety:5, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:4, clarity:5, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 75 topic snippet=[Not being a doctor, I'm curious of the differences between these procedures. I u] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 3 [medical_accuracy:4, appropriateness:3, safety:3, clarity:2, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 76 topic snippet=[Not being a doctor, I'm curious of the differences between these procedures. I u] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 77 topic snippet=[Not being a doctor, I'm curious of the differences between these procedures. I u] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:3, clarity:2, professionalism:3]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 78 topic snippet=[Is long term use of antihistamines bad for my health? If so what are possible lo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:3, clarity:4, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 79 topic snippet=[Is long term use of antihistamines bad for my health? If so what are possible lo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 5 [medical_accuracy:5, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:5, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 80 topic snippet=[I have heard through the news the coronavirus attaches to receptors in the pulmo] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:3, appropriateness:4, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 81 topic snippet=[Seems like an old person issue, right? 
+
+Over the past 10 months I have had 6 re] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [orchestrator.py:53 -             __init__() ] Loaded domain-specific evaluation prompt for: medical
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 1 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:3, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 1 Turn 2 Role NEGATIVE Score 3 [medical_accuracy:3, appropriateness:2, safety:4, clarity:3, professionalism:4]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 3 Role AFFIRMATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:3, professionalism:5]
+[[32mINFO[0m] [orchestrator.py:255 -                  run() ] Round 2 Turn 4 Role NEGATIVE Score 4 [medical_accuracy:4, appropriateness:5, safety:4, clarity:4, professionalism:5]
+[[32mINFO[0m] [runner_debate_dataset.py:122 -                 main() ] Completed debate 82 topic snippet=[Hello everyone.
+
+I am female, 28 years old, 165cm height, 58kg weight (sorry I o] - saved to debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [runner_debate_dataset.py:124 -                 main() ] All debates completed. Total results: 83 in debate_outputs_medical/debates_consolidated.json
+[[32mINFO[0m] [runner_debate_dataset.py:126 -                 main() ] All debates completed.
