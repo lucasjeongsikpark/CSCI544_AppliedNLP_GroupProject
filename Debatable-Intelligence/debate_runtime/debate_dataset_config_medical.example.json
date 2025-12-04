@@ -1,0 +1,22 @@
+{
+  "dataset_path": "../datasets/data/med_cleaned.json",
+  "topic_field": "distill_llama_output",
+  "context_field": "llama_output",
+  "ground_truth_field": "output",
+  "domain": "medical",
+  "max_items": 3,
+  "debate": {
+    "max_rounds": 2,
+    "roles_order": ["AFFIRMATIVE", "NEGATIVE"],
+    "judge_role": "JUDGE",
+    "temperature": 0.7,
+    "max_tokens_generation": 400,
+    "max_tokens_judge": 512
+  },
+  "generation_models": {
+    "AFFIRMATIVE": {"provider": "ollama", "engine": "llama3.1"},
+    "NEGATIVE": {"provider": "ollama", "engine": "llama3.1"}
+  },
+  "judge_model": {"provider": "ollama", "engine": "llama3.1"},
+  "output_dir": "debate_outputs_medical"
+}

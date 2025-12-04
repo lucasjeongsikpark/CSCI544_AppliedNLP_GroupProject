@@ -1,7 +1,7 @@
 import argparse
 import os
 import time
-from typing import Dict, Tuple, Any
+from typing import Dict, Tuple, Any, List
 from model import LanguageModel, OpenAIModel, HuggingFaceModel, AnthropicModel, OpenAIReasoningModel, OllamaModel
 from util import setup_default_logger, create_out_dir
 import json
@@ -157,6 +157,16 @@ def setup_models() -> Dict[str, LanguageModel]:
     return models
 
 
+REQUIRED_METRICS = {
+    'math': ['correctness', 'reasoning', 'completeness', 'accuracy'],
+    'openqa': ['relevance', 'completeness', 'accuracy', 'clarity', 'helpfulness'],  # example; adjust if needed
+    'medical': ['relevance', 'completeness', 'accuracy', 'clarity', 'helpfulness']  # example; adjust if needed
+}
+
+def has_required_metrics(dataset_type: str, metrics: Dict[str, Any]) -> bool:
+    req = REQUIRED_METRICS.get(dataset_type, [])
+    return all(m in metrics and isinstance(metrics[m], int) for m in req)
+
 def dataset_experiment():
     dataset_type = config.get('dataset_type', 'unknown')
     logger.info(f'Running experiment for dataset type: {dataset_type}')
@@ -215,103 +225,116 @@ def dataset_experiment():
             experiment_results[model_name] = {}
             experiment_name = experiment["name"]
 
-            # Collect results for both answer types
-            results = []
-            for k, v in prompts_dict.items():
-                row_id = v['id']
-                answer_type = v['answer_type']
-                prompt_text = v['prompt']
-                # Robust response extraction and logging, with retry for empty completions
-                max_retries = 2
-                response = ''
-                for attempt in range(max_retries + 1):
-                    if k not in responses:
-                        if attempt == max_retries:
-                            logger.error(f"No response found for prompt key: {k} | model: {model_name} | experiment: {experiment_name} | answer_type: {answer_type} | row_id: {row_id}")
-                        response = ''
-                    else:
-                        response = responses[k].get('completion', '')
-                        if response == '' or response is None:
-                            logger.error(f"Empty response for prompt key: {k} | model: {model_name} | experiment: {experiment_name} | answer_type: {answer_type} | row_id: {row_id} | responses[k]: {responses[k]} | prompt: {prompt_text}")
-                            if attempt < max_retries:
-                                # Try to re-query the model for this prompt
-                                logger.info(f"Retrying model completion for prompt key: {k} (attempt {attempt+1})")
-                                try:
-                                    # Re-run the model for this single prompt
-                                    single_prompt = {k: prompt_text}
-                                    single_response = model.request_batch_completions(single_prompt, max_tokens, temperature, 9999, model_output_dir)
-                                    # Read the new completion
-                                    import json
-                                    with open(single_response, 'r') as f:
-                                        new_completions = json.load(f)
-                                    if k in new_completions and new_completions[k].get('completion', ''):
-                                        responses[k] = new_completions[k]
-                                        response = new_completions[k]['completion']
-                                        logger.info(f"Successfully retried and got completion for prompt key: {k}")
-                                        break
-                                except Exception as e:
-                                    logger.error(f"Retry failed for prompt key: {k} | error: {e}")
-                        else:
-                            break
+            # Aggregate per original row id combining both answer types into single JSON entry
+            grouped_ids = {}
+            for key, meta in prompts_dict.items():
+                grouped_ids.setdefault(meta['id'], []).append(key)
 
-                try:
-                    overall_score, metric_scores = parse_response(response)
-                except Exception as e:
-                    logger.error(f"Exception in parse_response for key: {k} | model: {model_name} | error: {e} | response: {response}")
-                    overall_score, metric_scores = -1, {}
-                try:
-                    reasoning = get_reasoning(response)
-                except Exception as e:
-                    logger.error(f"Exception in get_reasoning for key: {k} | model: {model_name} | error: {e} | response: {response}")
-                    reasoning = ''
+            json_entries: List[Dict[str, Any]] = []
+            csv_rows: List[Dict[str, Any]] = []
+            max_attempts = int(experiment.get('max_attempts', config.get('max_attempts', 3)))
 
-                # Find the original row for context
+            for row_id, keys in grouped_ids.items():
+                start_time = time.time()
+                # Find original row
                 try:
                     orig_row = exp_data[exp_data['id'] == row_id].iloc[0]
-                except Exception as e:
-                    logger.error(f"Could not find original row for row_id: {row_id} | error: {e}")
+                except Exception:
                     orig_row = {}
 
-                row_obj = {
+                entry = {
                     'id': row_id,
-                    'answer_type': answer_type,
                     'input': orig_row.get('input', '') if isinstance(orig_row, dict) else orig_row.get('input', ''),
                     'output': orig_row.get('output', '') if isinstance(orig_row, dict) else orig_row.get('output', ''),
                     'model': model_name,
                     'experiment': experiment_name,
-                    'overall_score': overall_score,
-                    'response': response,
-                    'reasoning': reasoning
+                    'score1': {},
+                    'score2': {},
+                    'chat_log': {},
+                    'attempts': 0,
                 }
-                for mk, mv in metric_scores.items():
-                    row_obj[f'metric_{mk}'] = mv
-                results.append(row_obj)
+                total_attempts = 0
 
-                # Logging
-                log_string = '\n==================================\n'
-                if dataset_type == 'math':
-                    log_string += f'----------PROBLEM----------\n{orig_row.get("input", "") if isinstance(orig_row, dict) else orig_row.get("input", "")}'
-                    log_string += f'\n----------EXPECTED----------\n{orig_row.get("output", "") if isinstance(orig_row, dict) else orig_row.get("output", "")}'
-                elif dataset_type == 'openqa':
-                    log_string += f'----------QUESTION----------\n{orig_row.get("input", "") if isinstance(orig_row, dict) else orig_row.get("input", "")}'
-                    log_string += f'\n----------EXPECTED----------\n{orig_row.get("output", "") if isinstance(orig_row, dict) else orig_row.get("output", "")}'
-                elif dataset_type == 'medical':
-                    log_string += f'----------PATIENT QUESTION----------\n{orig_row.get("input", "") if isinstance(orig_row, dict) else orig_row.get("input", "")}'
-                    log_string += f'\n----------REFERENCE RESPONSE----------\n{orig_row.get("output", "") if isinstance(orig_row, dict) else orig_row.get("output", "")}'
-                log_string += f'\n----------ANSWER TYPE----------\n{answer_type}'
-                log_string += '\n---------------------------------\n'
-                log_string += f'MODEL-[{model_name}] OVERALL_SCORE: {overall_score}'
-                if metric_scores:
-                    log_string += '\nMETRICS: ' + ', '.join(f'{mk}={mv}' for mk,mv in metric_scores.items())
-                if reasoning:
-                    log_string += f'\n----------REASONING----------\n{reasoning}'
-                logger.info(log_string)
+                for answer_key in keys:
+                    answer_type = prompts_dict[answer_key]['answer_type']
+                    prompt_text = prompts_dict[answer_key]['prompt']
+                    attempt_count = 0
+                    response_text = ''
+                    metrics_ok = False
+                    response_obj = responses.get(answer_key, {})
+                    # Attempt loop: re-query if structure invalid
+                    while attempt_count < max_attempts:
+                        attempt_count += 1
+                        if not response_obj:
+                            logger.error(f'Missing response object for key={answer_key} row_id={row_id} attempt={attempt_count}')
+                            response_text = ''
+                        else:
+                            response_text = response_obj.get('completion', '') or ''
+                        overall_score, metric_scores = parse_response(response_text)
+                        reasoning = get_reasoning(response_text)
+                        metrics_ok = (overall_score != -1) and has_required_metrics(dataset_type, metric_scores)
+                        if metrics_ok:
+                            break
+                        # If not ok and attempts remain, re-query
+                        if attempt_count < max_attempts:
+                            logger.info(f'Re-attempting key={answer_key} (attempt {attempt_count+1}) due to missing/invalid structure metrics_ok={metrics_ok}')
+                            try:
+                                single_prompt = {answer_key: prompt_text}
+                                single_response_path = model.request_batch_completions(single_prompt, max_tokens, temperature, 9999, model_output_dir)
+                                with open(single_response_path, 'r') as f:
+                                    new_completions = json.load(f)
+                                if answer_key in new_completions:
+                                    response_obj = new_completions[answer_key]
+                            except Exception as e:
+                                logger.error(f'Retry failed for key={answer_key} error={e}')
 
-            # Save results to DataFrame and CSV in the model subdirectory
-            results_df = pd.DataFrame(results)
-            output_path = os.path.join(model_output_dir, f'{experiment["name"]}_{model_name}_results.csv')
-            results_df.to_csv(output_path, index=False)
-            logger.info(f'Saved predictions to {output_path}')
+                    total_attempts += attempt_count
+                    # Record scores
+                    scores_dict = {}
+                    for mk in REQUIRED_METRICS.get(dataset_type, metric_scores.keys()):
+                        if mk in metric_scores:
+                            scores_dict[mk.capitalize()] = metric_scores[mk]
+                    # Fallback overall if metrics missing
+                    if not scores_dict and overall_score != -1:
+                        scores_dict['Overall'] = overall_score
+                    # Store
+                    if answer_type == 'llama_output':
+                        entry['score1'] = scores_dict
+                    else:
+                        entry['score2'] = scores_dict
+                    entry['chat_log'][answer_type] = {
+                        'prompt': prompt_text,
+                        'response': response_text,
+                        'reasoning': get_reasoning(response_text)
+                    }
+
+                elapsed_time = time.time() - start_time
+                entry['attempts'] = total_attempts
+                entry['elapsed_time'] = elapsed_time
+                json_entries.append(entry)
+
+                # CSV row (flatten)
+                flat_row = {
+                    'id': entry['id'],
+                    'model': entry['model'],
+                    'experiment': entry['experiment'],
+                    'attempts': entry['attempts'],
+                    'elapsed_time': entry['elapsed_time']
+                }
+                for side, scores in [('score1', entry['score1']), ('score2', entry['score2'])]:
+                    for mk, mv in scores.items():
+                        flat_row[f'{side}_{mk.lower()}'] = mv
+                csv_rows.append(flat_row)
+
+            # Persist outputs
+            results_df = pd.DataFrame(csv_rows)
+            csv_output_path = os.path.join(model_output_dir, f'{experiment["name"]}_{model_name}_results.csv')
+            results_df.to_csv(csv_output_path, index=False)
+            logger.info(f'Saved aggregated CSV predictions to {csv_output_path}')
+            json_output_path = os.path.join(model_output_dir, f'{experiment["name"]}_{model_name}_results.json')
+            with open(json_output_path, 'w') as jf:
+                json.dump(json_entries, jf, indent=2, ensure_ascii=False)
+            logger.info(f'Saved JSON predictions to {json_output_path}')
 
 
 if __name__ == '__main__':
