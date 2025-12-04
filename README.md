@@ -45,6 +45,7 @@ CSCI544_AppliedNLP_Group/
 │   ├── proposal.pdf              # Group project proposal
 │   ├── project_status_report.pdf # Mid-term progress report
 │   └── final_report.pdf          # Final submission
+├── results/
 └── README.md
 ```
 
