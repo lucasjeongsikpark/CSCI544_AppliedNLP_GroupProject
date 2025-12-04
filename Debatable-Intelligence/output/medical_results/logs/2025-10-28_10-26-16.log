@@ -1,7 +1,0 @@
-[[32mINFO[0m] [util.py:150 - setup_default_logger() ] Writing logs to output/medical_results/logs/2025-10-28_10-26-16.log
-[[32mINFO[0m] [dataset_experiment.py:214 -             <module>() ] Starting experiment with config: src/config_med.json
-[[32mINFO[0m] [dataset_experiment.py:129 -   dataset_experiment() ] Running experiment for dataset type: medical
-[[32mINFO[0m] [dataset_experiment.py:133 -   dataset_experiment() ] Loaded 83 rows from ../datasets/data/med_cleaned.csv
-[[32mINFO[0m] [dataset_experiment.py:121 -         setup_models() ] Setting up Ollama model with name: gemma2:2b (base_url=http://localhost:11434)
-[[32mINFO[0m] [dataset_experiment.py:148 -   dataset_experiment() ] Running experiment: medical-eval
-[[32mINFO[0m] [dataset_experiment.py:154 -   dataset_experiment() ] Running experiment for model: ollama_gemma2:2b
