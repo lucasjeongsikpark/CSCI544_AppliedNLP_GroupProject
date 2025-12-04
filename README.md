@@ -19,6 +19,11 @@ This repository contains all group deliverables, experiment results, and referen
 ](https://arxiv.org/abs/2506.05062)
 - **Codebase:** [Debatable-Intelligence](https://github.com/noy-sternlicht/Debatable-Intelligence)
 
+### **Dengheng Shi**
+
+#### Project: Adversarial Multi Agent: MORE
+- **Paper:**[Adversarial Multi-Agent Evaluation of Large Language Models through Iterative Debates](https://arxiv.org/html/2410.04663v2)
+- **Codebase:** None.
 
 
 ## Repository Structure
@@ -32,7 +37,7 @@ CSCI544_AppliedNLP_Group/
 │   ├── MMATH-Data
 ├── ChatEval/
 ├── {Debatable-Intelligence}/
-├── {add yours2}/
+├── Adversarial Multi Agent/
 ├── {add yours3}/
 ├── {add yours4}/
 ├── {add yours5}/
