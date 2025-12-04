@@ -7,25 +7,20 @@ MODEL_NAME = 'gemma2:2b'
 INPUT_FILENAME = 'math_cleaned_250.json' 
 NUM_SAMPLES_TO_RUN = None 
 
-# --- LLM and Prompts Definition ---
 
 def llm_call(prompt: str, role: str) -> str:
-    """Sends a prompt to the specified LLM and returns the response."""
     print(f"\n----- LLM CALL ({role.upper()}) to {MODEL_NAME} -----")
-    # print(f"prompt sent:\n---\n{prompt[:400]}...\n---\n")
     try:
         response = ollama.generate(
             model=MODEL_NAME,
             prompt=prompt
         )
         content = response['response']
-        # print("LLM Response Received.")
         return content
     except Exception as e:
         print(f"An error occurred during LLM call: {e}")
         return "Error: LLM call failed."
 
-# --- MATH-SPECIFIC PROMPTS ---
 
 ADVOCATE_INITIAL_PROMPT_MATH = """
 **Your Role:** You are an expert mathematical advocate. Your goal is to build the strongest possible argument to defend a given mathematical solution.
@@ -95,17 +90,12 @@ Provide your response in the exact XML format below. The `total_score` should be
 </evaluation>
 """
 
-# --- Core Logic ---
 
 def parse_math_judge_scores(judge_response: str):
-    """Parses the judge's XML response for the math evaluation."""
     scores = {}
     try:
         def extract_value(pattern, text, is_numeric=False):
-            """
-            Helper function to extract a value.
-            [NEW] Regex now optionally matches brackets around the digit.
-            """
+
             match = re.search(pattern, text, re.DOTALL)
             if not match: return None
             
@@ -142,7 +132,6 @@ MATH_CRITERIA_KEYS = [
 ]
 
 def is_parsing_successful(parsed_scores):
-    """Checks if all expected math keys were parsed correctly."""
     if not parsed_scores: 
         return False
     for key in MATH_CRITERIA_KEYS:
@@ -152,7 +141,6 @@ def is_parsing_successful(parsed_scores):
     return True
 
 def run_more_debate(data_point: dict):
-    """Runs the full debate and judging process for a single math data point."""
     
     input_question = data_point.get('input', 'N/A')
     reference_output = data_point.get('output', 'N/A') 
@@ -162,7 +150,6 @@ def run_more_debate(data_point: dict):
     
     print("="*50 + f"\nDebating math problem: {input_question[:80]}...\n" + "="*50)
 
-    # --- 2. 运行辩论 (Advocates) ---
     prompt_A1 = ADVOCATE_INITIAL_PROMPT_MATH.format(input_question=input_question, answer_to_defend=answer_A)
     argument_A1 = llm_call(prompt_A1, "advocate_initial_A")
     prompt_A2 = ADVOCATE_FINAL_PROMPT_MATH.format(input_question=input_question, answer_to_defend=answer_A, teammate_argument=argument_A1)
@@ -173,7 +160,6 @@ def run_more_debate(data_point: dict):
     prompt_B2 = ADVOCATE_FINAL_PROMPT_MATH.format(input_question=input_question, answer_to_defend=answer_B, teammate_argument=argument_B1)
     final_argument_B = llm_call(prompt_B2, "advocate_final_B")
 
-    # --- 3. 运行评判 & 解析循环 ---
     print("--- Running Judge & Parsing Loop ---")
     MAX_ATTEMPTS = 3
     attempts = 0
@@ -205,7 +191,6 @@ def run_more_debate(data_point: dict):
     if not parsing_success:
         print("Failed to parse judge output perfectly after max attempts.")
     
-    # --- 4. 在Python中计算总分 ---
     score_A_total = None
     score_B_total = None
 
@@ -230,7 +215,6 @@ def run_more_debate(data_point: dict):
         
     print(f"Calculated Score A: {score_A_total}, Calculated Score B: {score_B_total}")
         
-    # --- 5. 判定获胜者 ---
     winner = 'tie'
     if isinstance(score_A_total, int) and isinstance(score_B_total, int):
         if score_A_total > score_B_total: 
@@ -240,7 +224,6 @@ def run_more_debate(data_point: dict):
     else:
         winner = 'parse_error'
         
-    # --- 6. 结构化最终输出 ---
     score1 = {
         "Correctness": parsed_scores.get('A_correctness'),
         "Reasoning": parsed_scores.get('A_reasoning'),
@@ -282,11 +265,9 @@ def run_more_debate(data_point: dict):
     return result
 
 def load_data_from_json(filepath: str):
-    """Loads data from a standard JSON file."""
     with open(filepath, 'r', encoding='utf-8') as f:
         return json.load(f)
 
-# --- Main Execution ---
 if __name__ == "__main__":
     try:
         print(f"Loading MATH dataset from '{INPUT_FILENAME}'...")
@@ -318,7 +299,6 @@ if __name__ == "__main__":
         print(f"Parsing Attempts: {debate_result['attempt']}")
         print(f"Elapsed Time: {debate_result['elapsed_time']:.2f}s")
 
-    # 保存结果
     json_output_path = f'math_debate_results_{NUM_SAMPLES_TO_RUN}_samples.json'
     jsonl_output_path = f'math_debate_results_{NUM_SAMPLES_TO_RUN}_samples.jsonl'
     
@@ -334,4 +314,5 @@ if __name__ == "__main__":
                 f.write(json.dumps(entry, ensure_ascii=False) + '\n')
         print(f"✅ All detailed math results also saved to {jsonl_output_path} (JSONL format)")
     except Exception as e:
+
         print(f"Could not save to JSONL: {e}")
