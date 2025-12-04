@@ -1,0 +1,22 @@
+{
+  "dataset_path": "../datasets/data/math_cleaned_250.json",
+  "topic_field": "input",
+  "context_field": "llama_output",
+  "secondary_context_field": "distill_llama_output",
+  "ground_truth_field": "output",
+  "domain": "math",
+  "debate": {
+    "max_rounds": 2,
+    "roles_order": ["AFFIRMATIVE", "NEGATIVE"],
+    "judge_role": "JUDGE",
+    "temperature": 0.7,
+    "max_tokens_generation": 400,
+    "max_tokens_judge": 256
+  },
+  "generation_models": {
+    "AFFIRMATIVE": {"provider": "ollama", "engine": "gemma2:2b"},
+    "NEGATIVE": {"provider": "ollama", "engine": "gemma2:2b"}
+  },
+  "judge_model": {"provider": "ollama", "engine": "gemma2:2b"},
+  "output_dir": "math_dataset_outputs"
+}
