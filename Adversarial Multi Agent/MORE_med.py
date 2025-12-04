@@ -2,10 +2,11 @@ import re
 import ollama
 import json
 import csv
+import time
 
 MODEL_NAME = 'gemma2:2b'
 INPUT_FILENAME = 'med_cleaned.json'  
-NUM_SAMPLES_TO_RUN = 2
+NUM_SAMPLES_TO_RUN = None
 
 # --- LLM and Prompts Definition ---
 
@@ -86,7 +87,6 @@ Provide your response in the exact XML format below. The `total_score` should be
       <clarity>[1-5]</clarity>
       <professionalism>[1-5]</professionalism>
     </scores>
-    <total_score>[Sum of the 5 scores above]</total_score>
     <feedback>[Provide 20-30 words of concise feedback for Team A's argument]</feedback>
   </response_A>
   <response_B>
@@ -97,7 +97,6 @@ Provide your response in the exact XML format below. The `total_score` should be
       <clarity>[1-5]</clarity>
       <professionalism>[1-5]</professionalism>
     </scores>
-    <total_score>[Sum of the 5 scores above]</total_score>
     <feedback>[Provide 20-30 words of concise feedback for Team B's argument]</feedback>
   </response_B>
 </evaluation>
@@ -122,7 +121,7 @@ def parse_medical_judge_scores(judge_response: str):
         scores['A_safety'] = extract_value(r"<response_A>.*?<safety>(\d)</safety>", judge_response)
         scores['A_clarity'] = extract_value(r"<response_A>.*?<clarity>(\d)</clarity>", judge_response)
         scores['A_professionalism'] = extract_value(r"<response_A>.*?<professionalism>(\d)</professionalism>", judge_response)
-        scores['A_total_score'] = extract_value(r"<response_A>.*?<total_score>(\d+)</total_score>", judge_response)
+        # scores['A_total_score'] = extract_value(r"<response_A>.*?<total_score>(\d+)</total_score>", judge_response)
         scores['A_feedback'] = extract_value(r"<response_A>.*?<feedback>(.*?)</feedback>", judge_response)
 
         # Extract scores for Response B
@@ -131,7 +130,7 @@ def parse_medical_judge_scores(judge_response: str):
         scores['B_safety'] = extract_value(r"<response_B>.*?<safety>(\d)</safety>", judge_response)
         scores['B_clarity'] = extract_value(r"<response_B>.*?<clarity>(\d)</clarity>", judge_response)
         scores['B_professionalism'] = extract_value(r"<response_B>.*?<professionalism>(\d)</professionalism>", judge_response)
-        scores['B_total_score'] = extract_value(r"<response_B>.*?<total_score>(\d+)</total_score>", judge_response)
+        # scores['B_total_score'] = extract_value(r"<response_B>.*?<total_score>(\d+)</total_score>", judge_response)
         scores['B_feedback'] = extract_value(r"<response_B>.*?<feedback>(.*?)</feedback>", judge_response)
 
         return scores
@@ -139,18 +138,36 @@ def parse_medical_judge_scores(judge_response: str):
         print(f"An error during parsing: {e}")
         return {key: "parse_error" for key in scores.keys()}
 
+MEDICAL_CRITERIA_KEYS = [
+    'A_medical_accuracy', 'A_appropriateness', 'A_safety', 'A_clarity', 'A_professionalism', 'A_feedback',
+    'B_medical_accuracy', 'B_appropriateness', 'B_safety', 'B_clarity', 'B_professionalism', 'B_feedback'
+]
+
+def is_parsing_successful(parsed_scores):
+    """
+    Checks if all expected keys were parsed correctly (are not None).
+    """
+    if not parsed_scores: 
+        return False
+    for key in MEDICAL_CRITERIA_KEYS:
+        if parsed_scores.get(key) is None:
+            print(f"Parsing check failed: Missing or invalid key '{key}'")
+            return False
+    return True
+
 def run_more_debate(data_point: dict):
     """Runs the full debate and judging process for a single medical data point."""
     
     # Use .get() to safely access keys that might not exist in all data points
     document = data_point.get('document', 'N/A')
+    reference_output = data_point.get('output', 'N/A')
     input_question = data_point.get('input', 'N/A')
     answer_A = data_point.get('llama_output', '')
     answer_B = data_point.get('distill_llama_output', '')
     
     print("="*50 + f"\nDebating medical question: {input_question[:70]}...\n" + "="*50)
 
-    # --- Teams build arguments using MEDICAL prompts ---
+    print("--- Running Advocate Debates ---")
     prompt_A1 = ADVOCATE_INITIAL_PROMPT_MEDICAL.format(document=document, input_question=input_question, answer_to_defend=answer_A)
     argument_A1 = llm_call(prompt_A1, "advocate_initial_A")
     prompt_A2 = ADVOCATE_FINAL_PROMPT_MEDICAL.format(document=document, input_question=input_question, answer_to_defend=answer_A, teammate_argument=argument_A1)
@@ -161,35 +178,115 @@ def run_more_debate(data_point: dict):
     prompt_B2 = ADVOCATE_FINAL_PROMPT_MEDICAL.format(document=document, input_question=input_question, answer_to_defend=answer_B, teammate_argument=argument_B1)
     final_argument_B = llm_call(prompt_B2, "advocate_final_B")
 
-    # --- Judge evaluates using MEDICAL prompt ---
-    judge_prompt = JUDGE_PROMPT_MEDICAL.format(
-        document=document, input_question=input_question,
-        answer_A_short=answer_A[:80]+"...", final_argument_A=final_argument_A,
-        answer_B_short=answer_B[:80]+"...", final_argument_B=final_argument_B
-    )
-    judge_response = llm_call(judge_prompt, "judge")
-    print(f"\nJudge's Full Response:\n{judge_response}")
+    # --- 3. 运行评判 & 解析循环 ---
+    print("--- Running Judge & Parsing Loop ---")
+    MAX_ATTEMPTS = 3 
+    attempts = 0
+    parsed_scores = {}
+    judge_response = ""
+    parsing_success = False
 
-    # --- Parse detailed medical scores ---
-    parsed_scores = parse_medical_judge_scores(judge_response)
+    while attempts < MAX_ATTEMPTS:
+        attempts += 1
+        print(f"Judge attempt {attempts}/{MAX_ATTEMPTS}...")
+        
+        judge_prompt = JUDGE_PROMPT_MEDICAL.format(
+            document=document, input_question=input_question,
+            answer_A_short=answer_A[:80]+"...", final_argument_A=final_argument_A,
+            answer_B_short=answer_B[:80]+"...", final_argument_B=final_argument_B
+        )
+        judge_response = llm_call(judge_prompt, "judge")
+        print(f"\nJudge's Raw Response (Attempt {attempts}):\n{judge_response}")
+
+        parsed_scores = parse_medical_judge_scores(judge_response)
+        parsing_success = is_parsing_successful(parsed_scores)
+
+        if parsing_success:
+            print(f"Parsing successful on attempt {attempts}.")
+            break
+        else:
+            print(f"Parsing failed on attempt {attempts}. Retrying...")
     
+    if not parsing_success:
+        print("Failed to parse judge output after max attempts.")
+        # 我们仍然继续，但 score1/score2 中将包含 None 值
+
+    a_scores = [
+        parsed_scores.get('A_medical_accuracy'),
+        parsed_scores.get('A_appropriateness'),
+        parsed_scores.get('A_safety'),
+        parsed_scores.get('A_clarity'),
+        parsed_scores.get('A_professionalism')
+    ]
+    
+    # 获取B的各项分数
+    b_scores = [
+        parsed_scores.get('B_medical_accuracy'),
+        parsed_scores.get('B_appropriateness'),
+        parsed_scores.get('B_safety'),
+        parsed_scores.get('B_clarity'),
+        parsed_scores.get('B_professionalism')
+    ]
+
+    if all(isinstance(s, int) for s in a_scores):
+        score_A_total = sum(a_scores)
+    
+    if all(isinstance(s, int) for s in b_scores):
+        score_B_total = sum(b_scores)
+    
+    # --- 4. 判定获胜者 ---
     winner = 'tie'
-    score_A = parsed_scores.get('A_total_score')
-    score_B = parsed_scores.get('B_total_score')
-    if isinstance(score_A, int) and isinstance(score_B, int):
-        if score_A > score_B: winner = 'llama_output'
-        elif score_B > score_A: winner = 'distill_llama_output'
-    else: winner = 'parse_error'
+    
+    if isinstance(score_A_total, int) and isinstance(score_B_total, int):
+        if score_A_total > score_B_total: winner = 'llama_output'
+        elif score_B_total > score_A_total: winner = 'distill_llama_output'
+    elif not parsing_success:
+        winner = 'parse_error'
+        
+    # --- 5. 结构化最终输出 ---
+    
+    # 创建 score1 (Answer A / llama) 字典
+    score1 = {
+        "Medical Accuracy": parsed_scores.get('A_medical_accuracy'),
+        "Appropriateness": parsed_scores.get('A_appropriateness'),
+        "Safety": parsed_scores.get('A_safety'),
+        "Clarity": parsed_scores.get('A_clarity'),
+        "Professionalism": parsed_scores.get('A_professionalism'),
+        "Feedback": parsed_scores.get('A_feedback')
+    }
+    # 创建 score2 (Answer B / distill_llama) 字典
+    score2 = {
+        "Medical Accuracy": parsed_scores.get('B_medical_accuracy'),
+        "Appropriateness": parsed_scores.get('B_appropriateness'),
+        "Safety": parsed_scores.get('B_safety'),
+        "Clarity": parsed_scores.get('B_clarity'),
+        "Professionalism": parsed_scores.get('B_professionalism'),
+        "Feedback": parsed_scores.get('B_feedback')
+        
+    }
         
     # --- Collate all detailed results ---
     result = {
-        "input_question": input_question,
-        "winner": winner,
-        "judge_raw_response": judge_response,
-        **{f"A_{k.replace('A_','')}": v for k, v in parsed_scores.items() if k.startswith('A_')},
-        **{f"B_{k.replace('B_','')}": v for k, v in parsed_scores.items() if k.startswith('B_')},
-        "final_argument_A": final_argument_A,
-        "final_argument_B": final_argument_B
+        "input": input_question,
+        "output": reference_output,
+        "document": document,
+        "response": {
+            "llama": answer_A,
+            "distill_llama": answer_B
+        },
+        "evaluation": [
+            {
+                "role": "Debate Judge",
+                "evaluation_raw": judge_response, # 评判的原始输出
+                "final_argument_A": final_argument_A, # A队的最终论点
+                "final_argument_B": final_argument_B  # B队的最终论点
+            }
+        ],
+        "score1": score1,
+        "score2": score2,
+        "attempt": attempts,
+        "winner": winner
+        # "elapsed_time" 将在主循环中添加
     }
     return result
 
@@ -201,39 +298,58 @@ def load_data_from_json(filepath: str):
 # --- Main Execution ---
 if __name__ == "__main__":
     try:
-        print(f"Loading MEDICAL dataset from '{INPUT_FILENAME}'...")
+        # print(f"Loading MEDICAL dataset from '{INPUT_FILENAME}'...")
         all_data = load_data_from_json(INPUT_FILENAME)
-        print(f"Dataset loaded. Found {len(all_data)} total entries.")
+        # print(f"Dataset loaded. Found {len(all_data)} total entries.")
     except FileNotFoundError:
         print(f"Error: '{INPUT_FILENAME}' not found.")
         exit()
         
-    data_to_process = all_data[:NUM_SAMPLES_TO_RUN]
+    data_to_process = all_data
     print(f"Starting debates for the first {len(data_to_process)} entries using '{MODEL_NAME}'...")
 
     all_results = []
     for i, data_point in enumerate(data_to_process):
         print(f"\n\n===== PROCESSING MEDICAL ENTRY {i+1}/{len(data_to_process)} =====")
+        
+        # 记录开始时间
+        start_time = time.time()
+        
         debate_result = run_more_debate(data_point)
+        
+        # 记录结束时间并计算
+        end_time = time.time()
+        debate_result["elapsed_time"] = end_time - start_time
+        
         all_results.append(debate_result)
         
+        # 更新打印的总结信息，以匹配新的数据结构
         print("\n" + "="*50 + "\n  DEBATE SUMMARY\n" + "="*50)
-        print(f"Patient Question: {debate_result['input_question'][:100]}...")
-        print(f"Total Score for Response A (llama_output): {debate_result.get('A_total_score', 'N/A')}")
-        print(f"Total Score for Response B (distill_llama_output): {debate_result.get('B_total_score', 'N/A')}")
+        print(f"Patient Question: {debate_result['input'][:100]}...")
+        # print(f"Total Score for Response A: {debate_result['score1'].get('total_score', 'N/A')}")
+        # print(f"Total Score for Response B: {debate_result['score2'].get('total_score', 'N/A')}")
         print(f"System's Judgment: '{debate_result['winner']}'")
+        print(f"Parsing Attempts: {debate_result['attempt']}")
+        print(f"Elapsed Time: {debate_result['elapsed_time']:.2f}s") # 格式化时间输出
 
     # Save results to uniquely named files
     json_output_path = f'medical_debate_results_{NUM_SAMPLES_TO_RUN}_samples.json'
-    csv_output_path = f'medical_debate_results_{NUM_SAMPLES_TO_RUN}_samples.csv'
     
-    if all_results:
-        with open(json_output_path, 'w', encoding='utf-8') as f:
-            json.dump(all_results, f, indent=4, ensure_ascii=False)
-        print(f"\n✅ All detailed medical results saved to {json_output_path}")
+    # 保存为 JSONL 格式可能更适合
+    jsonl_output_path = f'medical_debate_results_{NUM_SAMPLES_TO_RUN}_samples.jsonl'
+    
+    print(f"\n--- Saving {len(all_results)} results ---")
 
-        with open(csv_output_path, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.DictWriter(f, fieldnames=all_results[0].keys())
-            writer.writeheader()
-            writer.writerows(all_results)
-        print(f"✅ All detailed medical results also saved to {csv_output_path}")
+    # 保存为标准 JSON (一个大列表)
+    with open(json_output_path, 'w', encoding='utf-8') as f:
+        json.dump(all_results, f, indent=4, ensure_ascii=False)
+    print(f"✅ All detailed results saved to {json_output_path}")
+
+    # (推荐) 保存为 JSONL (每行一个 JSON 对象)
+    try:
+        with open(jsonl_output_path, 'w', encoding='utf-8') as f:
+            for entry in all_results:
+                f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+        print(f"✅ All detailed results also saved to {jsonl_output_path} (JSONL format)")
+    except Exception as e:
+        print(f"Could not save to JSONL: {e}")

@@ -1,16 +1,15 @@
 import re
 import ollama
 import json
-import csv
+import time
 
 # --- LLM and Prompts Definition ---
-NUM_SAMPLES = 2
+NUM_SAMPLES = None
 MODEL = 'gemma2:2b'
+
 def llm_call(prompt: str, role: str) -> str:
     """Sends a prompt to the local LLM and returns the response."""
     print(f"\n----- LLM CALL ({role.upper()}) to {MODEL} -----")
-    # Print a snippet of the prompt for logging
-    # print(f"prompt sent:\n---\n{prompt[:350]}...\n---\n")
     try:
         response = ollama.generate(
             model=MODEL,
@@ -99,7 +98,6 @@ Provide your response in the exact XML format below. Calculate the `total_score`
       <clarity>[1-5]</clarity>
       <helpfulness>[1-5]</helpfulness>
     </scores>
-    <total_score>[Sum of the 5 scores above]</total_score>
     <feedback>[Provide 20-30 words of concise feedback for Team A's argument]</feedback>
   </answer_A>
   <answer_B>
@@ -110,7 +108,6 @@ Provide your response in the exact XML format below. Calculate the `total_score`
       <clarity>[1-5]</clarity>
       <helpfulness>[1-5]</helpfulness>
     </scores>
-    <total_score>[Sum of the 5 scores above]</total_score>
     <feedback>[Provide 20-30 words of concise feedback for Team B's argument]</feedback>
   </answer_B>
 </evaluation>
@@ -124,107 +121,188 @@ def parse_judge_scores(judge_response: str):
     """
     scores = {}
     try:
-        # Helper function to extract a value
-        def extract_value(pattern, text):
+        def extract_value(pattern, text, is_numeric=False):
+            """
+            Helper function to extract a value.
+            [NEW] Regex now optionally matches brackets around the digit.
+            """
             match = re.search(pattern, text, re.DOTALL)
-            if match:
-                # Try to convert to int, otherwise return the string
+            if not match: return None
+            
+            val_str = match.group(1).strip()
+            
+            if is_numeric:
                 try:
-                    return int(match.group(1).strip())
-                except (ValueError, AttributeError):
-                    return match.group(1).strip()
-            return None # Return None if no match
+                    return int(val_str)
+                except ValueError:
+                    return None
+            else:
+                return val_str if val_str else None
 
-        # Extract scores for Answer A
-        scores['A_relevance'] = extract_value(r"<answer_A>.*?<relevance>(\d)</relevance>", judge_response)
-        scores['A_completeness'] = extract_value(r"<answer_A>.*?<completeness>(\d)</completeness>", judge_response)
-        scores['A_accuracy'] = extract_value(r"<answer_A>.*?<accuracy>(\d)</accuracy>", judge_response)
-        scores['A_clarity'] = extract_value(r"<answer_A>.*?<clarity>(\d)</clarity>", judge_response)
-        scores['A_helpfulness'] = extract_value(r"<answer_A>.*?<helpfulness>(\d)</helpfulness>", judge_response)
-        scores['A_total_score'] = extract_value(r"<answer_A>.*?<total_score>(\d+)</total_score>", judge_response)
-        scores['A_feedback'] = extract_value(r"<answer_A>.*?<feedback>(.*?)</feedback>", judge_response)
+        scores['A_relevance'] = extract_value(r"<answer_A>.*?<relevance>\[?(\d+)\]?</relevance>", judge_response, is_numeric=True)
+        scores['A_completeness'] = extract_value(r"<answer_A>.*?<completeness>\[?(\d+)\]?</completeness>", judge_response, is_numeric=True)
+        scores['A_accuracy'] = extract_value(r"<answer_A>.*?<accuracy>\[?(\d+)\]?</accuracy>", judge_response, is_numeric=True)
+        scores['A_clarity'] = extract_value(r"<answer_A>.*?<clarity>\[?(\d+)\]?</clarity>", judge_response, is_numeric=True)
+        scores['A_helpfulness'] = extract_value(r"<answer_A>.*?<helpfulness>\[?(\d+)\]?</helpfulness>", judge_response, is_numeric=True)
+        scores['A_feedback'] = extract_value(r"<answer_A>.*?<feedback>(.*?)</feedback>", judge_response, is_numeric=False)
 
-        # Extract scores for Answer B
-        scores['B_relevance'] = extract_value(r"<answer_B>.*?<relevance>(\d)</relevance>", judge_response)
-        scores['B_completeness'] = extract_value(r"<answer_B>.*?<completeness>(\d)</completeness>", judge_response)
-        scores['B_accuracy'] = extract_value(r"<answer_B>.*?<accuracy>(\d)</accuracy>", judge_response)
-        scores['B_clarity'] = extract_value(r"<answer_B>.*?<clarity>(\d)</clarity>", judge_response)
-        scores['B_helpfulness'] = extract_value(r"<answer_B>.*?<helpfulness>(\d)</helpfulness>", judge_response)
-        scores['B_total_score'] = extract_value(r"<answer_B>.*?<total_score>(\d+)</total_score>", judge_response)
-        scores['B_feedback'] = extract_value(r"<answer_B>.*?<feedback>(.*?)</feedback>", judge_response)
+        scores['B_relevance'] = extract_value(r"<answer_B>.*?<relevance>\[?(\d+)\]?</relevance>", judge_response, is_numeric=True)
+        scores['B_completeness'] = extract_value(r"<answer_B>.*?<completeness>\[?(\d+)\]?</completeness>", judge_response, is_numeric=True)
+        scores['B_accuracy'] = extract_value(r"<answer_B>.*?<accuracy>\[?(\d+)\]?</accuracy>", judge_response, is_numeric=True)
+        scores['B_clarity'] = extract_value(r"<answer_B>.*?<clarity>\[?(\d+)\]?</clarity>", judge_response, is_numeric=True)
+        scores['B_helpfulness'] = extract_value(r"<answer_B>.*?<helpfulness>\[?(\d+)\]?</helpfulness>", judge_response, is_numeric=True)
+        scores['B_feedback'] = extract_value(r"<answer_B>.*?<feedback>(.*?)</feedback>", judge_response, is_numeric=False)
 
         return scores
-
     except Exception as e:
         print(f"An error occurred during parsing: {e}")
-        return {key: "parse_error" for key in scores.keys()}
+        return {}
+    
+OPENQA_CRITERIA_KEYS = [
+    'A_relevance', 'A_completeness', 'A_accuracy', 'A_clarity', 'A_helpfulness', 'A_feedback',
+    'B_relevance', 'B_completeness', 'B_accuracy', 'B_clarity', 'B_helpfulness', 'B_feedback'
+]
+
+def is_parsing_successful(parsed_scores):
+    """Checks if all expected openQA keys were parsed correctly."""
+    if not parsed_scores: 
+        return False
+    for key in OPENQA_CRITERIA_KEYS:
+        if parsed_scores.get(key) is None:
+            print(f"Parsing check failed: Missing or invalid key '{key}'")
+            return False
+    return True
 
 def run_more_debate(data_point: dict):
     """Runs the full debate and judging process for a single OpenQA data point."""
     
-    system_prompt = data_point['system_prompt']
-    input_question = data_point['input']
-    answer_A = data_point['llama_output'] # Team A defends llama_output
-    answer_B = data_point['distill_llama_output'] # Team B defends distill_llama_output
+    system_prompt = data_point.get('system_prompt', 'N/A')
+    input_question = data_point.get('input', 'N/A')
+    reference_output = data_point.get('output', 'N/A')
+    answer_A = data_point.get('llama_output', '')
+    answer_B = data_point.get('distill_llama_output', '')
     
-    print("="*50 + f"\nDebating question: {input_question[:80]}...\n" + "="*50)
-    # --- Team A builds its argument for `llama_output` ---
-    # print("\n--- Team A is building its argument... ---")
+    print("="*50 + f"\nDebating OpenQA question: {input_question[:80]}...\n" + "="*50)
+
     prompt_A1 = ADVOCATE_INITIAL_PROMPT.format(system_prompt=system_prompt, input_question=input_question, answer_to_defend=answer_A)
-    argument_A1 = llm_call(prompt_A1, role="advocate_initial_A")
-    
+    argument_A1 = llm_call(prompt_A1, "advocate_initial_A")
     prompt_A2 = ADVOCATE_FINAL_PROMPT.format(system_prompt=system_prompt, input_question=input_question, answer_to_defend=answer_A, teammate_argument=argument_A1)
-    final_argument_A = llm_call(prompt_A2, role="advocate_final_A")
-    print(f"\nTeam A's Final Argument:\n{final_argument_A[:400]}...")
-
-    # --- Team B builds its argument for `distill_llama_output` ---
-    # print("\n--- Team B is building its argument... ---")
+    final_argument_A = llm_call(prompt_A2, "advocate_final_A")
+    
     prompt_B1 = ADVOCATE_INITIAL_PROMPT.format(system_prompt=system_prompt, input_question=input_question, answer_to_defend=answer_B)
-    argument_B1 = llm_call(prompt_B1, role="advocate_initial_B")
-    
+    argument_B1 = llm_call(prompt_B1, "advocate_initial_B")
     prompt_B2 = ADVOCATE_FINAL_PROMPT.format(system_prompt=system_prompt, input_question=input_question, answer_to_defend=answer_B, teammate_argument=argument_B1)
-    final_argument_B = llm_call(prompt_B2, role="advocate_final_B")
-    print(f"\nTeam B's Final Argument:\n{final_argument_B[:400]}...")
+    final_argument_B = llm_call(prompt_B2, "advocate_final_B")
 
-    # --- The Judge evaluates the arguments ---
-    # print("\n--- The Judge is evaluating the arguments... ---")
-    judge_prompt = JUDGE_PROMPT.format(
-        system_prompt=system_prompt,
-        input_question=input_question,
-        answer_A_short=answer_A[:80] + "...",
-        final_argument_A=final_argument_A,
-        answer_B_short=answer_B[:80] + "...",
-        final_argument_B=final_argument_B
-    )
-    judge_response = llm_call(judge_prompt, role="judge")
-    print("\nJudge's Full Response:")
-    print(judge_response)
+    print("--- Running Judge & Parsing Loop ---")
+    MAX_ATTEMPTS = 3
+    attempts = 0
+    parsed_scores = {}
+    judge_response = ""
+    parsing_success = False
 
-    # --- Parse results and determine winner ---
-    parsed_scores = parse_judge_scores(judge_response)    
-    winner = 'tie'
-    score_A = parsed_scores.get('A_total_score')
-    score_B = parsed_scores.get('B_total_score')
+    while attempts < MAX_ATTEMPTS:
+        attempts += 1
+        print(f"Judge attempt {attempts}/{MAX_ATTEMPTS}...")
+        
+        judge_prompt = JUDGE_PROMPT.format(
+            system_prompt=system_prompt, input_question=input_question,
+            answer_A_short=answer_A[:80]+"...", final_argument_A=final_argument_A,
+            answer_B_short=answer_B[:80]+"...", final_argument_B=final_argument_B
+        )
+        judge_response = llm_call(judge_prompt, "judge")
+        print(f"\nJudge's Raw Response (Attempt {attempts}):\n{judge_response}")
+
+        parsed_scores = parse_judge_scores(judge_response)
+        parsing_success = is_parsing_successful(parsed_scores)
+
+        if parsing_success:
+            print(f"Parsing successful on attempt {attempts}.")
+            break
+        else:
+            print(f"Parsing failed on attempt {attempts}. Retrying...")
     
-    if score_A is not None and score_B is not None:
-        if score_A > score_B:
+    if not parsing_success:
+        print("Failed to parse judge output perfectly after max attempts.")
+    
+    # --- 4. 在Python中计算总分 ---
+    score_A_total = None
+    score_B_total = None
+
+    a_scores = [
+        parsed_scores.get('A_relevance'),
+        parsed_scores.get('A_completeness'),
+        parsed_scores.get('A_accuracy'),
+        parsed_scores.get('A_clarity'),
+        parsed_scores.get('A_helpfulness')
+    ]
+    b_scores = [
+        parsed_scores.get('B_relevance'),
+        parsed_scores.get('B_completeness'),
+        parsed_scores.get('B_accuracy'),
+        parsed_scores.get('B_clarity'),
+        parsed_scores.get('B_helpfulness')
+    ]
+
+    if all(isinstance(s, int) for s in a_scores):
+        score_A_total = sum(a_scores)
+    
+    if all(isinstance(s, int) for s in b_scores):
+        score_B_total = sum(b_scores)
+        
+    print(f"Calculated Score A: {score_A_total}, Calculated Score B: {score_B_total}")
+        
+    # --- 5. 判定获胜者 ---
+    winner = 'tie'
+    if isinstance(score_A_total, int) and isinstance(score_B_total, int):
+        if score_A_total > score_B_total: 
             winner = 'llama_output'
-        elif score_B > score_A:
+        elif score_B_total > score_A_total: 
             winner = 'distill_llama_output'
     else:
         winner = 'parse_error'
         
-    # --- Collate all results into a dictionary ---
-    result = {
-        "input_question": input_question,
-        "winner": winner,
-        "judge_raw_response": judge_response,
-        **{f"A_{k}": v for k, v in parsed_scores.items() if k.startswith('A_')}, # Add all A scores
-        **{f"B_{k}": v for k, v in parsed_scores.items() if k.startswith('B_')}, # Add all B scores
-        "final_argument_A": final_argument_A,
-        "final_argument_B": final_argument_B
+    # --- 6. 结构化最终输出 ---
+    score1 = {
+        "Relevance": parsed_scores.get('A_relevance'),
+        "Completeness": parsed_scores.get('A_completeness'),
+        "Accuracy": parsed_scores.get('A_accuracy'),
+        "Clarity": parsed_scores.get('A_clarity'),
+        "Helpfulness": parsed_scores.get('A_helpfulness'),
+        "total_score": score_A_total,
+        "feedback": parsed_scores.get('A_feedback')
     }
-    result = {k.replace('A_A_', 'A_').replace('B_B_', 'B_'): v for k, v in result.items()}
+    score2 = {
+        "Relevance": parsed_scores.get('B_relevance'),
+        "Completeness": parsed_scores.get('B_completeness'),
+        "Accuracy": parsed_scores.get('B_accuracy'),
+        "Clarity": parsed_scores.get('B_clarity'),
+        "Helpfulness": parsed_scores.get('B_helpfulness'),
+        "total_score": score_B_total,
+        "feedback": parsed_scores.get('B_feedback')
+    }
+
+    result = {
+        "input": input_question,
+        "output": reference_output,
+        "system_prompt": system_prompt,
+        "response": {
+            "llama": answer_A,
+            "distill_llama": answer_B
+        },
+        "evaluation": [
+            {
+                "role": "Debate Judge",
+                "evaluation_raw": judge_response, 
+                "final_argument_A": final_argument_A,
+                "final_argument_B": final_argument_B
+            }
+        ],
+        "score1": score1,
+        "score2": score2,
+        "attempt": attempts,
+        "winner": winner
+    }
     
     return result
 
@@ -234,48 +312,50 @@ def load_data_from_json(filepath: str):
         data = json.load(f)
     return data
 
-# --- Main Execution ---
 
 if __name__ == "__main__":
     
-    # Load the OpenQA dataset from a local file
     try:
-        print("Loading openQA dataset from 'openQA_cleaned.json'...")
-        all_data = load_data_from_json('openQA_cleaned.json')
+        print("Loading openQA dataset from 'openQA_cleaned_250.json'...")
+        all_data = load_data_from_json('openQA_cleaned_250.json')
         print(f"Dataset loaded. Found {len(all_data)} entries.")
     except FileNotFoundError:
-        print("Error: 'openQA_cleaned.json' not found. Please create this file and add your data.")
+        print("Error: 'openQA_cleaned_250.json' not found. Please create this file and add your data.")
         exit()
         
     all_results = []
-    if NUM_SAMPLES > len(all_data):
-        print(f"Warning: You asked for {NUM_SAMPLES} samples, but the file only contains {len(all_data)}. Running on all available data.")
-        data_to_process = all_data
-    else:
-        data_to_process = all_data[:NUM_SAMPLES]
-    # Process each entry in the dataset
+    
+    data_to_process = all_data[:NUM_SAMPLES]
     for i, data_point in enumerate(data_to_process):
-        print(f"\n\n===== PROCESSING ENTRY {i+1}/{len(data_to_process)} =====")
+        print(f"\n\n===== PROCESSING OpenQA ENTRY  {i+1}/{len(data_to_process)} =====")
+        
+        start_time = time.time()
         debate_result = run_more_debate(data_point)
+        end_time = time.time()
+        debate_result["elapsed_time"] = end_time - start_time
+        
         all_results.append(debate_result)
         
         print("\n" + "="*50 + "\n  DEBATE SUMMARY\n" + "="*50)
-        print(f"Question: {debate_result['input_question'][:100]}...")
-        print(f"Total Score for Team A (llama_output): {debate_result.get('A_total_score', 'N/A')}")
-        print(f"Total Score for Team B (distill_llama_output): {debate_result.get('B_total_score', 'N/A')}")
-        print(f"System's Judgment: '{debate_result['winner']}'")
+        print(f"Question: {debate_result['input'][:100]}...")
+        # print(f"Total Score for Response A: {debate_result['score1'].get('total_score', 'N/A')}")
+        # print(f"Total Score for Response B: {debate_result['score2'].get('total_score', 'N/A')}")
+        print(f"Parsing Attempts: {debate_result['attempt']}")
+        print(f"Elapsed Time: {debate_result['elapsed_time']:.2f}s") 
 
-    # Save results to JSON file
-    json_output_path = 'QA_debate_results1.json'
+    json_output_path = f'openqa_debate_results_{NUM_SAMPLES}_samples.json'
+    jsonl_output_path = f'openqa_debate_results_{NUM_SAMPLES}_samples.jsonl'
+    
+    print(f"\n--- Saving {len(all_results)} results ---")
+
     with open(json_output_path, 'w', encoding='utf-8') as f:
         json.dump(all_results, f, indent=4, ensure_ascii=False)
-    print(f"\n✅ All results saved to {json_output_path}")
+    print(f"✅ All detailed OpenQA results saved to {json_output_path}")
 
-    # Save results to CSV file
-    csv_output_path = 'QA_debate_results1.csv'
-    if all_results:
-        with open(csv_output_path, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.DictWriter(f, fieldnames=all_results[0].keys())
-            writer.writeheader()
-            writer.writerows(all_results)
-        print(f"✅ All results also saved to {csv_output_path}")
+    try:
+        with open(jsonl_output_path, 'w', encoding='utf-8') as f:
+            for entry in all_results:
+                f.write(json.dumps(entry, ensure_ascii=False) + '\n')
+        print(f"✅ All detailed OpenQA results also saved to {jsonl_output_path} (JSONL format)")
+    except Exception as e:
+        print(f"Could not save to JSONL: {e}")
