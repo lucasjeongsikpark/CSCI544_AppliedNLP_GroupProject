@@ -1,0 +1,47 @@
+You are evaluating the quality of an AI assistant's response to a question-answering task.
+
+Here is the system prompt that was given to the assistant:
+<system_prompt>
+{SYSTEM_PROMPT}
+</system_prompt>
+
+Here is the question or task:
+<question>
+{INPUT}
+</question>
+
+Here is the expected/reference answer:
+<expected_answer>
+{OUTPUT}
+</expected_answer>
+
+Here is the response to be evaluated:
+<response>
+{RESPONSE}
+</response>
+
+Evaluate each metric independently with a 1–5 score (integers only):
+1 = Very Poor, 2 = Poor, 3 = Fair, 4 = Good, 5 = Excellent.
+
+Metrics:
+ - relevance: Addresses the question/task directly
+ - completeness: Covers necessary points/details
+ - accuracy: Information correctness vs expected answer
+ - clarity: Organization and readability
+ - helpfulness: Utility for a typical user
+
+Output format STRICTLY:
+<metrics>
+relevance: [1-5]
+completeness: [1-5]
+accuracy: [1-5]
+clarity: [1-5]
+helpfulness: [1-5]
+</metrics>
+<overall_score>
+Single 1-5 integer summarizing overall quality
+</overall_score>
+Optional brief justification:
+<scratchpad>
+(concise notes per metric; ≤120 words)
+</scratchpad>
