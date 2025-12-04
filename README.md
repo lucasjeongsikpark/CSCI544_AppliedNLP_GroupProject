@@ -23,7 +23,7 @@ This repository contains all group deliverables, experiment results, and referen
 
 #### Project: Adversarial Multi Agent: MORE
 - **Paper:**[Adversarial Multi-Agent Evaluation of Large Language Models through Iterative Debates](https://arxiv.org/html/2410.04663v2)
-- **Codebase:** None.
+- **Codebase:** None.Implemented through the paper's algorithm.
 
 
 ## Repository Structure
