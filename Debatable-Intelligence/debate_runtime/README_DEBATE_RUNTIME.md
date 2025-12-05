@@ -229,6 +229,246 @@ To introduce multi-dimensional evaluation (e.g. keypoint coverage, rebuttal prec
    - Rebuttal precision via claim extraction & matching.
    - Calibration curves correlating judge score vs agent self-estimated confidence.
 
+## Integration with `framework_runner`
+
+The debate runtime can be executed through the unified `framework_runner` system, which provides a standardized CLI interface for running debates alongside other evaluation frameworks (single_agent, debint, etc.). This allows you to evaluate multiple datasets and domains using the same command structure.
+
+### How It Works with framework_runner
+
+When you run debates via `framework_runner`, the system:
+1. Routes to the `debate` framework implementation (`framework_runner/debate_impl.py`)
+2. Automatically selects the appropriate debate config based on `--dataset_type`
+3. Processes the dataset and outputs results in standardized JSONL format
+4. Integrates with the framework's aspect definition and result aggregation system
+
+### Running Debates via framework_runner
+
+**Basic syntax:**
+```bash
+python3 -m framework_runner.main \
+  --framework debate \
+  --dataset_path <path_to_dataset> \
+  --output_file <output_path> \
+  --dataset_type <domain> \
+  [--config_file <config_path>]
+```
+
+**Example: Running Math Dataset Debate**
+```bash
+python3 -m framework_runner.main \
+  --framework debate \
+  --dataset_path datasets/data/math_cleaned_250.json \
+  --output_file results/debate_math_250.jsonl \
+  --dataset_type math
+```
+
+This command automatically:
+- Searches for `debate_dataset_math_config.json` (or `config_math.json`) in the current/parent directory
+- Loads the math evaluation prompt from the framework's prompts directory
+- Runs debates for each entry in the dataset
+- Outputs results in JSONL format compatible with result analysis tools
+
+**Example: Running Medical Dataset with Explicit Config**
+```bash
+python3 -m framework_runner.main \
+  --framework debate \
+  --dataset_path datasets/data/med_cleaned.json \
+  --output_file results/debate_medical.jsonl \
+  --dataset_type medical \
+  --config_file debate_runtime/debate_dataset_config_medical.json
+```
+
+**Example: Running OpenQA Dataset**
+```bash
+python3 -m framework_runner.main \
+  --framework debate \
+  --dataset_path datasets/data/openQA_cleaned_250.json \
+  --output_file results/debate_openqa.jsonl \
+  --dataset_type openqa
+```
+
+### Config File Auto-Discovery
+
+The framework uses a priority-based search to locate debate configs:
+
+1. **Explicit `--config_file`** (highest priority)
+   - Uses the file path you specify directly
+   - Override everything else
+
+2. **Auto-discovery via `--dataset_type`**
+   - Searches for `debate_dataset_<domain>_config.json` or `config_<domain>.json`
+   - Looks in current working directory, then parent directory
+   - Example: `--dataset_type math` searches for `debate_dataset_math_config.json` or `config_math.json`
+
+3. **Fallback to default**
+   - If no domain-specific config found, uses `config.json` or `debate_config.json`
+
+### Adding a New Domain/Dataset Configuration
+
+Let's walk through adding support for a new domain, e.g., **Code Generation**.
+
+#### Step 1: Create Your Domain Config File
+
+Create `debate_runtime/debate_dataset_code_generation_config.json`. Ensure the file name follows the pattern `debate_dataset_<domain>_config.json` for auto-discovery:
+```json
+{
+  "dataset_path": "datasets/data/code_generation_250.json",
+  "topic_field": "problem_statement",
+  "context_field": "distill_llama_output",
+  "secondary_context_field": "llama_output",
+  "ground_truth_field": "expected_output",
+  "domain": "code_generation",
+  "max_items": 250,
+  "debate": {
+    "max_rounds": 2,
+    "roles_order": ["AFFIRMATIVE", "NEGATIVE"],
+    "judge_role": "JUDGE",
+    "temperature": 0.7,
+    "max_tokens_generation": 512,
+    "max_tokens_judge": 512
+  },
+  "generation_models": {
+    "AFFIRMATIVE": {"provider": "ollama", "engine": "gemma2:2b"},
+    "NEGATIVE": {"provider": "ollama", "engine": "gemma2:2b"}
+  },
+  "judge_model": {"provider": "ollama", "engine": "gemma2:2b"},
+  "output_dir": "code_generation_dataset_outputs"
+}
+```
+
+**Key fields for your dataset:**
+- `dataset_path`: Path to your JSON dataset file
+- `topic_field`: Field containing the question/problem (e.g., `problem_statement`)
+- `context_field`: First response to compare (usually `distill_llama_output`)
+- `secondary_context_field`: Second response to compare (usually `llama_output`)
+- `ground_truth_field`: Reference/expected output for evaluation
+- `domain`: Name of your domain (used for routing and prompt selection)
+- `max_items`: Number of items to process (or omit to process all)
+
+#### Step 2: Create Domain-Specific Evaluation Prompt
+
+Create `Debatable-Intelligence/prompts/eval_code_generation_response.txt`:
+```
+You are an expert code reviewer evaluating two code solutions.
+
+TASK: Compare the following code solutions for correctness, efficiency, and code quality.
+
+INPUT:
+{INPUT}
+
+EXPECTED OUTPUT:
+{OUTPUT}
+
+SOLUTION A:
+{RESPONSE}
+
+Please provide a detailed evaluation with the following structure:
+
+<scratchpad>
+- Analyze correctness: Does the code produce the expected output?
+- Evaluate efficiency: Time and space complexity
+- Review code quality: Readability, maintainability, proper error handling
+- Compare both solutions' strengths and weaknesses
+</scratchpad>
+
+<metrics>
+- correctness: 1-5 (does it solve the problem correctly?)
+- efficiency: 1-5 (is the algorithm optimized?)
+- code_quality: 1-5 (is it clean and maintainable?)
+- completeness: 1-5 (does it handle edge cases?)
+</metrics>
+
+<overall_score>4</overall_score>
+```
+
+**Metrics should match your domain requirements.** The framework will parse these metric names from the prompt and use them for scoring.
+
+#### Step 3: Register Your Domain (Optional Auto-Discovery)
+
+For automatic aspect discovery, update `framework_runner/main.py` to include your domain in `DEFAULT_ASPECTS`:
+
+```python
+DEFAULT_ASPECTS = {
+    'math': ['correctness', 'reasoning', 'completeness', 'accuracy'],
+    'openqa': ['relevance', 'completeness', 'accuracy', 'clarity', 'helpfulness'],
+    'medical': ['medical_accuracy', 'appropriateness', 'safety', 'clarity', 'professionalism'],
+    'code_generation': ['correctness', 'efficiency', 'code_quality', 'completeness'],  # Add this
+}
+```
+
+#### Step 4: Run Your Domain Debate
+
+```bash
+# Option A: Using explicit config file
+python3 -m framework_runner.main \
+  --framework debate \
+  --dataset_path datasets/data/code_generation_250.json \
+  --output_file results/debate_code_generation.jsonl \
+  --dataset_type code_generation \
+  --config_file debate_runtime/debate_dataset_code_generation_config.json
+
+# Option B: Using auto-discovery (if config file in repo root or parent dir)
+python3 -m framework_runner.main \
+  --framework debate \
+  --dataset_path datasets/data/code_generation_250.json \
+  --output_file results/debate_code_generation.jsonl \
+  --dataset_type code_generation
+```
+
+#### Step 5: Verify Output Format
+
+Results will be saved to JSONL, with each line containing:
+```json
+{
+  "chat_log": {
+    "llama_output": {
+      "response": "<solution text>",
+      "reasoning": "<judge reasoning>"
+    },
+    "distill_llama_output": {
+      "response": "<solution text>",
+      "reasoning": "<judge reasoning>"
+    },
+    "debate_speeches": [
+      {
+        "turn": 1,
+        "role": "AFFIRMATIVE",
+        "content": "...",
+        "scores": {
+          "overall": 4,
+          "metrics": {
+            "correctness": 4,
+            "efficiency": 5,
+            "code_quality": 4,
+            "completeness": 3
+          }
+        }
+      },
+      ...
+    ]
+  },
+  "score1": {"correctness": 4, "efficiency": 5, "code_quality": 4, "completeness": 3},
+  "score2": {"correctness": 4, "efficiency": 4, "code_quality": 5, "completeness": 4},
+  "attempts": 1,
+  "elapsed_time": 45.2
+}
+```
+
+### Comparing Results Across Frameworks
+
+The framework_runner outputs standardized JSONL that allows you to compare debate, debint, and single_agent evaluations:
+
+```bash
+# Run all three frameworks on the same dataset
+python3 -m framework_runner.main --framework debate --dataset_path datasets/data/code_generation_250.json --output_file results/debate_code.jsonl --dataset_type code_generation
+
+python3 -m framework_runner.main --framework debint --dataset_path datasets/data/code_generation_250.json --output_file results/debint_code.jsonl --dataset_type code_generation
+
+python3 -m framework_runner.main --framework single_agent --dataset_path datasets/data/code_generation_250.json --output_file results/single_agent_code.jsonl --dataset_type code_generation --model_name gemma2:2b --prompt_template_path prompts/eval_code_generation_response.txt
+```
+
+Then analyze correlations between evaluation methods using standard analysis tools.
+
 ## Design Choices
 - **Immediate Judging**: Judge called after each speech (supports real-time feedback loops later).
 - **Context Windowing**: `DebateState.history_text()` returns last N speeches to reduce prompt length.

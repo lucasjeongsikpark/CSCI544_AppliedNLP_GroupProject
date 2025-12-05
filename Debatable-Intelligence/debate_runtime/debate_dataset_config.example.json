@@ -1,10 +1,10 @@
 {
-  "dataset_path": "../datasets/data/math_cleaned_250.json",
+  "dataset_path": "path/to/your/dataset.(json|csv)",
   "topic_field": "input",
   "context_field": "distill_llama_output",
   "secondary_context_field": "llama_output",
   "ground_truth_field": "output",
-  "domain": "math",
+  "domain": "(math|medical|openqa|{CUSTOM})",
   "max_items": 3,
   "debate": {
     "max_rounds": 2,
@@ -19,5 +19,5 @@
     "NEGATIVE": {"provider": "ollama", "engine": "llama3.1"}
   },
   "judge_model": {"provider": "ollama", "engine": "llama3.1"},
-  "output_dir": "debate_outputs_dataset"
+  "output_dir": "debint_outputs_dataset"
 }
