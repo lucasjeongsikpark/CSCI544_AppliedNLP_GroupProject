@@ -17,8 +17,6 @@
 
 **ChatEval** provides a framework to evaluate and compare generated text using multiple LLM-based agents that debate and score candidate responses. Roles (agents) with different personas discuss, provide evidentiary explanations, and then output final judgments. ChatEval supports both scripted evaluation runs (batch experiments) and an arena-style demo built on top of FastChat.
 
-![better_compare](./imgs/better_compare.png)
-
 ## Entry Point
 
 - **Script:** `run.sh`
@@ -89,12 +87,14 @@ Clone this repository and install Python dependencies:
 git clone https://github.com/chanchimin/ChatEval.git
 cd ChatEval
 pip install -r requirements.txt
+# or create conda env and run pip install -r requirements_conda.txt
 ```
 
 You will typically need access to LLM APIs (OpenAI or others). Export your API key:
 
 ```bash
 export OPENAI_API_KEY="your_api_key_here"
+# not needed in this case (when you run the model locally)
 ```
 
 ### Prepare Dataset
