@@ -11,12 +11,14 @@ This repository contains all group deliverables, experiment results, and referen
 - **Paper:** [ChatEval: Towards Better Evaluation for Multi-turn Dialogue Models](https://arxiv.org/abs/2308.07201)
 - **Codebase:** [thunlp/ChatEval (GitHub)](https://github.com/thunlp/ChatEval)
 
+Additional details can be found [here](ChatEval/README.md).
+
 ### **Ketan Joshi**
 
 #### Project: Debateable-Intelligence
 
 - **Paper:** [Debatable Intelligence: Benchmarking LLM Judges via Debate Speech Evaluation
-](https://arxiv.org/abs/2506.05062)
+  ](https://arxiv.org/abs/2506.05062)
 - **Codebase:** [Debatable-Intelligence](https://github.com/noy-sternlicht/Debatable-Intelligence)
 
 This framework has been extended to create debates in the style of traditional competitive debates, with two LLM agents, an Affirmative arguing for and a Negative side against the response quality, and a judge LLM making the final decision. The implementation can be found in the `Debatable-Intelligence/debate_runtime/` folder.
@@ -26,16 +28,15 @@ Additional details on how this works and is implemented can be found in the [her
 ### **Dengheng Shi**
 
 #### Project: Adversarial Multi Agent: MORE
+
 - **Paper:**[Adversarial Multi-Agent Evaluation of Large Language Models through Iterative Debates](https://arxiv.org/html/2410.04663v2)
 - **Codebase:** None.Implemented through the paper's algorithm.
-
 
 ### Single Agent Evaluator Framework
 
 The single agent evaluator framework allows you to evaluate responses from a single LLM (e.g., any model available in your local Ollama instance) on a dataset, using a configurable evaluation prompt and outputting results in a standardized JSONL format.
 
 Details on the the single agent evaluator framework can be found [here](framework_runner/SINGLE_AGENT_README.md).
-
 
 ## Framework Runner for Multi-Domain LLM Evaluation
 
@@ -100,24 +101,32 @@ cd CSCI544_AppliedNLP_GroupProject
 Ensure you have Python 3.8+ installed. It is recommended to use a virtual environment.
 
 ### Ollama Setup
+
 Follow the instructions at [Ollama](https://ollama.com) to install Ollama on your local machine.
 
 ### Debatable-Intelligence Setup
+
 Set up a virtual environment:
+
 ```bash
 python -m venv {NAME_OF_YOUR_VENV}
-source {NAME_OF_YOUR_VENV}/bin/activate 
+source {NAME_OF_YOUR_VENV}/bin/activate
 ```
+
 For windows, use:
+
 ```bash
 {NAME_OF_YOUR_VENV}\Scripts\activate
 ```
 
 Install dependencies:
+
 ```bash
 pip install -r Debatable-Intelligence/requirements.txt
 ```
+
 On macOS, use:
+
 ```bash
 pip install -r Debatable-Intelligence/requirements_arm64.txt
 ```
