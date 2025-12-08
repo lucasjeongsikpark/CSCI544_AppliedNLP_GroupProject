@@ -32,6 +32,13 @@ Additional details on how this works and is implemented can be found in the [her
 - **Paper:**[Adversarial Multi-Agent Evaluation of Large Language Models through Iterative Debates](https://arxiv.org/html/2410.04663v2)
 - **Codebase:** None.Implemented through the paper's algorithm.
 
+### **Brendan Hy**
+
+### Project: DEBATE
+
+- **Paper:**[DEBATE: Devil’s Advocate-Based Assessment and Text Evaluation](https://arxiv.org/abs/2405.09935)
+- **Codebase:** None.Implemented through the paper's algorithm.
+
 ### Single Agent Evaluator Framework
 
 The single agent evaluator framework allows you to evaluate responses from a single LLM (e.g., any model available in your local Ollama instance) on a dataset, using a configurable evaluation prompt and outputting results in a standardized JSONL format.
