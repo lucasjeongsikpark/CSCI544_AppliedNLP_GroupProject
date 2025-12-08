@@ -74,8 +74,7 @@ CSCI544_AppliedNLP_Group/
     ├── README.md
     ├── runner.py
     ├── single_agent_impl.py
-├── {add yours4}/
-├── {add yours5}/
+├── {Brendan}/
 ├── reports/
 │   ├── proposal.pdf              # Group project proposal
 │   ├── project_status_report.pdf # Mid-term progress report
