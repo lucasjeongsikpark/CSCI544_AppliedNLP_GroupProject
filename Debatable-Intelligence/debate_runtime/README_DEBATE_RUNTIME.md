@@ -205,7 +205,7 @@ AFFIRMATIVE can defend one answer or synthesize best reasoning; NEGATIVE can cri
 
 Run:
 ```bash
-python -m debate_runtime.runner_debate_dataset --config debate_runtime/debate_dataset_config.example.json
+python -m debate_runtime.runner_debint_dataset --config debate_runtime/debate_dataset_config.example.json
 ```
 
 Each entry produces `debate_{index}.json` with both contexts included, enabling evaluation of how agents evaluate competing solutions.
@@ -246,7 +246,7 @@ When you run debates via `framework_runner`, the system:
 **Basic syntax:**
 ```bash
 python3 -m framework_runner.main \
-  --framework debate \
+  --framework debint \
   --dataset_path <path_to_dataset> \
   --output_file <output_path> \
   --dataset_type <domain> \
@@ -256,9 +256,9 @@ python3 -m framework_runner.main \
 **Example: Running Math Dataset Debate**
 ```bash
 python3 -m framework_runner.main \
-  --framework debate \
+  --framework debint \
   --dataset_path datasets/data/math_cleaned_250.json \
-  --output_file results/debate_math_250.jsonl \
+  --output_file results/debint_math_250.jsonl \
   --dataset_type math
 ```
 
@@ -271,7 +271,7 @@ This command automatically:
 **Example: Running Medical Dataset with Explicit Config**
 ```bash
 python3 -m framework_runner.main \
-  --framework debate \
+  --framework debint \
   --dataset_path datasets/data/med_cleaned.json \
   --output_file results/debate_medical.jsonl \
   --dataset_type medical \
@@ -281,7 +281,7 @@ python3 -m framework_runner.main \
 **Example: Running OpenQA Dataset**
 ```bash
 python3 -m framework_runner.main \
-  --framework debate \
+  --framework debint \
   --dataset_path datasets/data/openQA_cleaned_250.json \
   --output_file results/debate_openqa.jsonl \
   --dataset_type openqa
@@ -401,7 +401,7 @@ DEFAULT_ASPECTS = {
 ```bash
 # Option A: Using explicit config file
 python3 -m framework_runner.main \
-  --framework debate \
+  --framework debint \
   --dataset_path datasets/data/code_generation_250.json \
   --output_file results/debate_code_generation.jsonl \
   --dataset_type code_generation \
@@ -409,7 +409,7 @@ python3 -m framework_runner.main \
 
 # Option B: Using auto-discovery (if config file in repo root or parent dir)
 python3 -m framework_runner.main \
-  --framework debate \
+  --framework debint \
   --dataset_path datasets/data/code_generation_250.json \
   --output_file results/debate_code_generation.jsonl \
   --dataset_type code_generation
@@ -452,19 +452,6 @@ Results will be saved to JSONL, with each line containing:
   "attempts": 1,
   "elapsed_time": 45.2
 }
-```
-
-### Comparing Results Across Frameworks
-
-The framework_runner outputs standardized JSONL that allows you to compare debate, debint, and single_agent evaluations:
-
-```bash
-# Run all three frameworks on the same dataset
-python3 -m framework_runner.main --framework debate --dataset_path datasets/data/code_generation_250.json --output_file results/debate_code.jsonl --dataset_type code_generation
-
-python3 -m framework_runner.main --framework debint --dataset_path datasets/data/code_generation_250.json --output_file results/debint_code.jsonl --dataset_type code_generation
-
-python3 -m framework_runner.main --framework single_agent --dataset_path datasets/data/code_generation_250.json --output_file results/single_agent_code.jsonl --dataset_type code_generation --model_name gemma2:2b --prompt_template_path prompts/eval_code_generation_response.txt
 ```
 
 Then analyze correlations between evaluation methods using standard analysis tools.
